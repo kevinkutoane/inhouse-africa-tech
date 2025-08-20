@@ -4,496 +4,498 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Inhouse Africa Technologies</title>
+  
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Typed.js for typing effect -->
+  
+  <!-- Tailwind config (CDN) -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            inter: ['Inter', 'ui-sans-serif', 'system-ui']
+          },
+          keyframes: {
+            'gradient-x': {
+              '0%, 100%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' }
+            },
+            float: {
+              '0%,100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' }
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' }
+            },
+            pulseSoft: {
+              '0%,100%': { transform: 'scale(1)' },
+              '50%': { transform: 'scale(1.03)' }
+            }
+          },
+          animation: {
+            'gradient-x': 'gradient-x 8s ease infinite',
+            float: 'float 6s ease-in-out infinite',
+            shimmer: 'shimmer 1.6s linear infinite',
+            pulseSoft: 'pulseSoft 4s ease-in-out infinite'
+          },
+          boxShadow: {
+            glow: '0 0 0 2px rgba(127,90,240,0.25), 0 0 30px rgba(127,90,240,0.35)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- AOS (Animate On Scroll) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+  <!-- Typed.js -->
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-<!-- Font Awesome for icons -->
+
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
-    body { background: #0f0f1b; color: white; font-family: 'Inter', sans-serif; }
-    .card { background: rgba(255, 255, 255, 0.086); border: 1px solid #7f5af0; border-radius: 1rem; }
-.btn-primary { background-color: #7f5af0; transition: all 0.3s ease; }
-.btn-primary:hover { transform: scale(1.05); background-color: #6b47d9; }
-#chat-box { max-height: 300px; overflow-y: auto; }
-.message { padding: 0.5rem 1rem; border-radius: 0.75rem; margin-bottom: 0.5rem; max-width: 75%; }
-.user { background: #7f5af0; align-self: flex-end; }
-.bot { background: rgba(255,255,255,0.1); align-self: flex-start; }
-  
-    #scrollTopBtn {
-      position: fixed;
-      bottom: 32px;
-      right: 32px;
-      z-index: 60;
-      display: none;
-    }
-    @keyframes pulse {
-  0%, 100% { transform: scale(0.6); }
-  50% { transform: scale(1.3); }
-}
+    html { scroll-behavior: smooth; }
+    /* Offset for fixed navbar when using hash links */
+    section, header { scroll-margin-top: 96px; }
 
-.fixed.bottom-6.left-6 {
-  animation: pulse 3s infinite;
-}
+    /* Chat bubbles */
+    #chat-box { max-height: 360px; overflow-y: auto; }
+    .message { padding: 0.5rem 1rem; border-radius: 0.75rem; margin-bottom: 0.5rem; max-width: 85%; }
+    .user { background: #7f5af0; align-self: flex-end; color: white; }
+    .bot { background: rgba(255,255,255,0.08); align-self: flex-start; color: #e5e7eb; }
 
+    /* Floating WhatsApp pulse */
+    @keyframes pulseWA { 0%,100%{ transform: scale(1)} 50%{ transform: scale(1.15)} }
+
+    /* Typing dots */
+    .typing span{ display:inline-block; width:6px; height:6px; margin:0 2px; border-radius:9999px; background:#a78bfa; opacity:.4; }
+    .typing span:nth-child(1){ animation: bounce 1s infinite .0s }
+    .typing span:nth-child(2){ animation: bounce 1s infinite .2s }
+    .typing span:nth-child(3){ animation: bounce 1s infinite .4s }
+    @keyframes bounce{ 0%,100%{ transform:translateY(0); opacity:.3 } 50%{ transform:translateY(-5px); opacity:1 } }
+
+    /* Glass card helper */
+    .glass { background: rgba(255,255,255,0.08); border: 1px solid rgba(167,139,250,.25); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+    @keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.animate-slideDown {
+  animation: slideDown 0.6s ease-out forwards;
+  }
   </style>
 </head>
-<a href="https://wa.me/27765346323" target="_blank" rel="noopener noreferrer"
-   class="fixed bottom-6 left-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition transform hover:scale-110"
-   aria-label="Chat with us on WhatsApp">
-  <i class="fab fa-whatsapp text-2xl"></i>
-</a>
-<body class="bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white font-sans">
+<body class="min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900 via-black to-gray-800 text-white font-inter">
+  
+  <!-- Background orbs -->
+  <div class="pointer-events-none fixed inset-0 -z-10">
+    <div class="absolute -top-16 -left-16 h-64 w-64 rounded-full blur-3xl opacity-30 bg-gradient-to-br from-purple-600 via-fuchsia-500 to-pink-500 animate-float"></div>
+    <div class="absolute bottom-0 right-0 h-72 w-72 rounded-full blur-3xl opacity-20 bg-gradient-to-br from-indigo-500 via-purple-500 to-cyan-500 animate-float" style="animation-delay:1.2s"></div>
+  </div>
 
+  <!-- WhatsApp FAB -->
+  <a href="https://wa.me/27765346323" target="_blank" rel="noopener noreferrer"
+     class="fixed bottom-6 left-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-transform duration-300 hover:scale-110"
+     style="animation:pulseWA 3s infinite" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp text-2xl"></i>
+  </a>
 
- 
-   <!-- Hero Section -->
-  <header 
-    class="relative min-h-screen flex flex-col bg-cover bg-no-repeat " 
-    style="background-image: url('images/background.png');"
-  >
-    <!-- Overlay -->
-    <div class="absolute inset-0 bg-black/70"></div>
-
-    <!-- Navbar -->
-    <nav class="flex justify-between items-center p-6 bg-opacity-30 backdrop-blur-md fixed w-full z-50">
-      <div class="flex items-center space-x-3">
-       <a href="#home"><img src="images/inhouse_logo.png" alt="Inhouse Africa Logo" class="w-12 h-15 rounded-full border border-purple-400"/></a>
-        <span class="text-xl font-bold tracking-wide">Inhouse Africa Technologies</span>
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed w-full z-50 backdrop-blur bg-black/30 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="#home" class="shrink-0"><img src="images/inhouse_logo.png" alt="Inhouse Africa Logo" class="w-12 h-12 rounded-full ring-2 ring-purple-400/60"/></a>
+        <span class="text-lg md:text-xl font-bold tracking-wide">Inhouse Africa Technologies</span>
       </div>
-      <ul class="hidden md:flex space-x-8 font-medium">
-        <li><a href="#about" class="hover:text-purple-400">About</a></li>
-        <li><a href="#services" class="hover:text-purple-400">Services</a></li>
-        <li><a href="#pricing" class="hover:text-purple-400 transition">Pricing</a></li>
-        <li><a href="#portfolio" class="hover:text-purple-400">Portfolio</a></li>
-        <li><a href="#contact" class="hover:text-purple-400">Contact</a></li>
+      <ul class="hidden md:flex items-center gap-6 font-medium">
+        <li><a class="nav-link hover:text-purple-400" href="#about">About</a></li>
+        <li><a class="nav-link hover:text-purple-400" href="#services">Services</a></li>
+        <li><a class="nav-link hover:text-purple-400" href="#pricing">Pricing</a></li>
+        <li><a class="nav-link hover:text-purple-400" href="#portfolio">Portfolio</a></li>
+        <li><a class="nav-link hover:text-purple-400" href="#contact">Contact</a></li>
       </ul>
-    </nav>
+    </div>
+  </nav>
+<!-- Promo Banner -->
+<div id="promo-banner" class="w-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 
+    text-white text-center py-3 px-4 relative shadow-lg rounded-b-2xl animate-slideDown z-50">
+  <p class="font-semibold text-lg">
+    🎉 First 5 customers get a site for <span class="font-bold">R500</span> — ready in 48 hours!
+  </p>
+  <button onclick="document.getElementById('promo-banner').style.display='none'" 
+          class="absolute right-4 top-3 text-white hover:text-gray-200">
+    ✖
+  </button>
+</div>
 
-    <!-- Hero Content -->
-    <div id="home" class="relative flex-grow flex flex-col justify-center items-center text-center px-6 z-10">
+  <!-- Hero -->
+  <header id="home" class="relative min-h-screen flex items-center justify-center text-center bg-cover bg-no-repeat" style="background-image: url('images/background.png');">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80"></div>
+    <div class="relative z-10 max-w-3xl px-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 ring-1 ring-white/10 mb-6 animate-pulseSoft">
+        <span class="text-xs uppercase tracking-widest text-purple-300">AI • Web • Mobile</span>
+      </div>
       <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
-        Tomorrow’s <span class="text-purple-400">Solutions</span> Today
+        Tomorrow’s <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-300 animate-gradient-x bg-[length:200%_200%]">Solutions</span> Today
       </h1>
-      <h2 class="mt-4 text-xl md:text-2xl">
-        We build <span id="typed-text" class="text-purple-400"></span>
-      </h2>
-     <a href="https://wa.me/27765346323" target="_blank"
-   class="mt-8 px-8 py-4 bg-purple-500 hover:bg-purple-600 text-white rounded-full shadow-2xl text-lg font-bold transition transform hover:scale-110 animate-pulse inline-block"
-   rel="noopener noreferrer">
-   🚀 Let’s Build Together
-</a>
+      <h2 class="mt-4 text-xl md:text-2xl">We build <span id="typed-text" class="text-purple-300"></span></h2>
+      <a href="https://wa.me/27765346323" target="_blank" rel="noopener noreferrer"
+         class="mt-8 inline-flex items-center gap-2 px-8 py-3 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 shadow-glow hover:shadow-2xl transition-transform hover:scale-105">
+        <span>🚀 Let’s Build Together</span>
+      </a>
     </div>
   </header>
 
-  <!-- Typed.js init -->
-  <script>
-    var typed = new Typed('#typed-text', {
-      strings: ["Web Apps", "Mobile Apps", "AI Solutions", "Cloud Platforms", "Custom Software"],
-      typeSpeed: 60,
-      backSpeed: 40,
-      loop: true
-    });
-  </script>
-
-  <!-- About Section -->
-<section id="about" class="relative py-20 bg-gradient-to-b from-gray-900 via-black to-gray-900">
-  <div class="max-w-6xl mx-auto px-6 text-center">
-
-    <!-- Glass Card -->
-    <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-10 border border-white/20 hover:border-purple-400 transition duration-500">
-      <h2 class="text-3xl md:text-4xl font-bold mb-6">
-        Who <span class="text-purple-400">We</span>  Are
-      </h2>
-      <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-8">
-        At <span class="text-purple-400 font-semibold">Inhouse Africa Technologies</span>, we merge innovation with execution. 
-        Our mission is to craft next-gen solutions — from sleek <span class="text-purple-300">websites</span> 
-        to powerful <span class="text-purple-300">apps</span> and <span class="text-purple-300">AI tools</span> that 
-        empower businesses to thrive in the digital era.
-      </p>
-
-      <!-- Three Pillars -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-        <div class="p-6 bg-black/30 rounded-xl border border-purple-600/40 hover:scale-105 hover:shadow-lg transition">
-          <h3 class="text-xl font-semibold mb-3">🚀 Innovation</h3>
-          <p class="text-gray-400">We leverage modern tech stacks to keep you ahead of the curve.</p>
-        </div>
-        <div class="p-6 bg-black/30 rounded-xl border border-purple-600/40 hover:scale-105 hover:shadow-lg transition">
-          <h3 class="text-xl font-semibold mb-3">🤝 Partnership</h3>
-          <p class="text-gray-400">We work with you as a partner, not just a service provider.</p>
-        </div>
-        <div class="p-6 bg-black/30 rounded-xl border border-purple-600/40 hover:scale-105 hover:shadow-lg transition">
-          <h3 class="text-xl font-semibold mb-3">🌍 Impact</h3>
-          <p class="text-gray-400">Solutions built with scalability and sustainability in mind.</p>
+  <!-- About -->
+  <section id="about" class="py-20">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <div class="glass rounded-2xl shadow-2xl p-10" data-aos="fade-up">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Who <span class="text-purple-400">We</span> Are</h2>
+        <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-8">
+          At <span class="text-purple-300 font-semibold">Inhouse Africa Technologies</span>, we merge innovation with execution.
+          We craft next‑gen solutions — from sleek <span class="text-purple-300">websites</span> to powerful
+          <span class="text-purple-300">apps</span> and <span class="text-purple-300">AI tools</span> that help businesses thrive.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+          <div class="p-6 rounded-xl border border-purple-500/30 bg-black/30 hover:shadow-2xl transition-transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="0">
+            <h3 class="text-xl font-semibold mb-3">🚀 Innovation</h3>
+            <p class="text-gray-400">Modern stacks to keep you ahead of the curve.</p>
+          </div>
+          <div class="p-6 rounded-xl border border-purple-500/30 bg-black/30 hover:shadow-2xl transition-transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="100">
+            <h3 class="text-xl font-semibold mb-3">🤝 Partnership</h3>
+            <p class="text-gray-400">We work with you as a long‑term partner.</p>
+          </div>
+          <div class="p-6 rounded-xl border border-purple-500/30 bg-black/30 hover:shadow-2xl transition-transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="200">
+            <h3 class="text-xl font-semibold mb-3">🌍 Impact</h3>
+            <p class="text-gray-400">Scalable, sustainable solutions for growth.</p>
+          </div>
         </div>
       </div>
     </div>
-
-  </div>
-</section>
-
-<!-- Services Section -->
-<section id="services" class="py-20 bg-gray-900 text-center">
-  <h2 class="text-3xl md:text-4xl font-bold mb-12" data-aos="fade-up">
-    Our <span class="text-purple-400">Services</span>
-  </h2>
-
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
-    
-    <!-- Card 1 -->
-    <div class="p-8 bg-gray-800 rounded-2xl shadow-lg hover:shadow-purple-500/50 transition transform hover:-translate-y-2 hover:scale-105"
-         data-aos="fade-up" data-aos-delay="100">
-      <div class="flex justify-center mb-4">
-        <i class="fas fa-code text-purple-400 text-4xl"></i>
-      </div>
-      <h3 class="text-xl font-semibold mb-2">Web Development</h3>
-      <p class="text-gray-300">Modern, scalable, and responsive websites built with the latest tech stack.</p>
-    </div>
-
-    <!-- Card 2 -->
-    <div class="p-8 bg-gray-800 rounded-2xl shadow-lg hover:shadow-purple-500/50 transition transform hover:-translate-y-2 hover:scale-105"
-         data-aos="fade-up" data-aos-delay="200">
-      <div class="flex justify-center mb-4">
-        <i class="fas fa-mobile-alt text-purple-400 text-4xl"></i>
-      </div>
-      <h3 class="text-xl font-semibold mb-2">Mobile Apps</h3>
-      <p class="text-gray-300">Cross-platform mobile applications designed for performance & usability.</p>
-    </div>
-
-    <!-- Card 3 -->
-    <div class="p-8 bg-gray-800 rounded-2xl shadow-lg hover:shadow-purple-500/50 transition transform hover:-translate-y-2 hover:scale-105"
-         data-aos="fade-up" data-aos-delay="300">
-      <div class="flex justify-center mb-4">
-        <i class="fas fa-robot text-purple-400 text-4xl"></i>
-      </div>
-      <h3 class="text-xl font-semibold mb-2">AI Solutions</h3>
-      <p class="text-gray-300">Smart AI-powered tools to automate workflows and enhance productivity.</p>
-    </div>
-
-  </div>
-</section>
-
-<!-- Pricing Section -->
-<section id="pricing" class="py-20 bg-gradient-to-b from-gray-900 via-black to-gray-900 text-center">
-
-<h2 class="text-3xl md:text-4xl font-bold mb-12 relative inline-block" data-aos="fade-up">
-  Our <span class="text-purple-400">Pricing</span>
-  <span class="absolute left-0 bottom-0 w-full h-1 bg-purple-200 rounded-full mt-2 opacity-30"></span>
-</h2>  
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
-
-    <!-- Basic Plan -->
-    <div class="p-8 bg-gray-800/90 rounded-2xl shadow-2xl border border-purple-600/50 hover:scale-105 hover:shadow-purple-500/70 transition transform" data-aos="fade-up" data-aos-delay="100">
-
-      <h3 class="text-xl font-semibold mb-4">Basic</h3>
-      <p class="text-gray-300 mb-6">For small businesses or personal projects</p>
-      <span class="text-3xl font-bold text-purple-400 mb-6 block">ZAR 1,500</span>
-      <ul class="text-gray-400 mb-6 space-y-2">
-        <li>✅ 1 Website / Landing Page</li>
-        <li>✅ Basic SEO</li>
-        <li>✅ 1 Month Support</li>
-      </ul>
-      <a href="https://wa.me/27765346323?text=Hi%20I%20want%20the%20Basic%20package" target="_blank" rel="noopener noreferrer"
-         class="px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-full text-white font-semibold transition transform hover:scale-105 inline-block">
-        Get Started
-      </a>
-    </div>
-
-    <!-- Standard Plan -->
-<div class="p-8 bg-gray-800/90 rounded-2xl shadow-2xl border border-purple-600/50 hover:scale-105 hover:shadow-purple-500/70 transition transform" data-aos="fade-up" data-aos-delay="100">
-      <h3 class="text-xl font-semibold mb-4">Standard</h3>
-      <p class="text-gray-300 mb-6">For growing businesses & app projects</p>
-      <span class="text-3xl font-bold text-purple-400 mb-6 block">ZAR 4,000</span>
-      <ul class="text-gray-400 mb-6 space-y-3">
-        <li>✅ Up to 3 Pages / Features</li>
-        <li>✅ Responsive Web & Mobile Ready</li>
-        <li>✅ 3 Months Support</li>
-        <li>✅ Basic AI/Automation</li>
-      </ul>
-      <a href="https://wa.me/27765346323?text=Hi%20I%20want%20the%20Standard%20package" target="_blank" rel="noopener noreferrer"
-         class="px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-full text-white font-semibold transition transform hover:scale-105 inline-block">
-        Get Started
-      </a>
-    </div>
-
-    <!-- Premium Plan -->
-<div class="p-8 bg-gray-800/90 rounded-2xl shadow-2xl border border-purple-600/50 hover:scale-105 hover:shadow-purple-500/70 transition transform" data-aos="fade-up" data-aos-delay="100">
-      <h3 class="text-xl font-semibold mb-4">Premium</h3>
-      <p class="text-gray-300 mb-6">For advanced web, apps & AI solutions</p>
-      <span class="text-3xl font-bold text-purple-400 mb-6 block">ZAR 8,500+</span>
-      <ul class="text-gray-400 mb-6 space-y-2">
-        <li>✅ Unlimited Pages / Features</li>
-        <li>✅ Web, Mobile & AI Solutions</li>
-        <li>✅ 6 Months Support</li>
-        <li>✅ Priority Delivery & Custom Automation</li>
-      </ul>
-      <a href="https://wa.me/27765346323?text=Hi%20I%20want%20the%20Premium%20package" target="_blank" rel="noopener noreferrer"
-         class="px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-full text-white font-semibold transition transform hover:scale-105 inline-block">
-        Get Started
-      </a>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- Portfolio Section -->
-<section id="portfolio" class="py-20 bg-gray-900">
-  <div class="container mx-auto px-6 text-center">
-    <h2 class="text-4xl font-bold mb-12 text-purple-400">Our Portfolio</h2>
-
-    <div class="grid md:grid-cols-3 gap-10">
-      <!-- Project 1 -->
-      <div class="bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:scale-105 transform transition duration-300" data-aos="zoom-in" data-aos-delay="100">
-        <img src="images/splashfix.png" alt="SplashFix" class="w-full h-80 object-cover">
-        <div class="p-6">
-          <h3 class="text-2xl font-bold mb-2">SplashFix Plumbing</h3>
-          <p class="text-gray-400 mb-4">A plumbing service that specializes in fixing leaks and clogs.</p>
-          <button onclick="document.getElementById('modal-splashfix').classList.remove('hidden')" 
-                  class="px-4 py-2 bg-purple-500 hover:bg-purple-600 rounded-lg text-white transition">
-            See More
-          </button>
-        </div>
-      </div>
-
-      <!-- Project 2 -->
-      <div class="bg-gray-700 rounded-2xl shadow-lg overflow-hidden hover:scale-105 transform transition duration-300" data-aos="zoom-in" data-aos-delay="200">
-        <img src="images/secureGuard.png" alt="Secure Guard" class="w-full h-80 object-cover">
-        <div class="p-6">
-          <h3 class="text-2xl font-bold mb-2">SecureGuard</h3>
-          <p class="text-gray-400 mb-4">Trusted security solutions for all your assets.</p>
-          <button onclick="document.getElementById('modal-secureGuard').classList.remove('hidden')" 
-                  class="px-4 py-2 bg-purple-500 hover:bg-purple-600 rounded-lg text-white transition">
-            See More
-          </button>
-        </div>
-      </div>
-
-      <!-- Project 3 -->
-      <div class="bg-gray-600 rounded-2xl shadow-lg overflow-hidden hover:scale-105 transform transition duration-300" data-aos="zoom-in" data-aos-delay="300">
-        <img src="images/nailuxe.png" alt="Nailuxe" class="w-full h-80 object-cover">
-        <div class="p-6">
-          <h3 class="text-2xl font-bold mb-2">Nailuxe</h3>
-          <p class="text-gray-400 mb-4">A cosmetics company that specializes in nail care products. </p>
-          <button onclick="document.getElementById('modal-nailuxe').classList.remove('hidden')" 
-                  class="px-4 py-2 bg-purple-500 hover:bg-purple-600 rounded-lg text-white transition">
-            See More
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Hero -->
-<section class="text-center mb-12">
-<h1 class="text-5xl font-bold mb-4">AI Automation Demo</h1>
-<h2 class="text-2xl whitespace-nowrap overflow-x-auto" id="typed-hero" style="display:inline-block;vertical-align:middle;"></h2>
-</section>
-
-<script>
-var typed = new Typed('#typed-hero', {
-    strings: ["Automate Emails", "Generate Reports", "Answer FAQs", "Boost Productivity"],
-    typeSpeed: 60,
-    backSpeed: 40,
-    loop: true
-});
-</script>
-
-<!-- Demo Chat Section -->
-<div class="w-full flex justify-center items-center">
-  <section class="w-full max-w-lg mb-12 card p-8 flex flex-col fade-in">
-    <h3 class="text-2xl font-bold mb-4 text-purple-400">Try the AI Bot</h3>
-    <div id="chat-box" class="flex flex-col mb-4"></div>
-    <form id="chat-form" class="flex gap-2">
-      <input type="text" id="user-input" placeholder="Type a question..." class="flex-grow px-4 py-2 rounded-lg bg-gray-800 text-white border border-purple-400 focus:outline-none">
-      <button type="submit" class="btn-primary px-6 py-3 rounded-lg">Send</button>
-    </form>
   </section>
-</div>
 
-<!-- Call to Action -->
-<section class="text-center">
-<a href="https://wa.me/27765346323" target="_blank" rel="noopener noreferrer" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold">Request a Full Integration 🚀</a>
-</section>
+  <!-- Services -->
+  <section id="services" class="py-20 bg-gradient-to-b from-gray-900/0 via-black/40 to-black/60">
+    <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center" data-aos="fade-up">Our <span class="text-purple-400">Services</span></h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
+      <div class="p-8 rounded-2xl bg-gray-800/80 border border-purple-500/30 hover:shadow-2xl hover:-translate-y-2 transition-transform" data-aos="fade-up" data-aos-delay="0">
+        <div class="flex justify-center mb-4"><i class="fas fa-code text-purple-400 text-4xl"></i></div>
+        <h3 class="text-xl font-semibold mb-2">Web Development</h3>
+        <p class="text-gray-300">Modern, scalable, responsive websites and apps.</p>
+      </div>
+      <div class="p-8 rounded-2xl bg-gray-800/80 border border-purple-500/30 hover:shadow-2xl hover:-translate-y-2 transition-transform" data-aos="fade-up" data-aos-delay="100">
+        <div class="flex justify-center mb-4"><i class="fas fa-mobile-alt text-purple-400 text-4xl"></i></div>
+        <h3 class="text-xl font-semibold mb-2">Mobile Apps</h3>
+        <p class="text-gray-300">Cross‑platform apps built for performance.</p>
+      </div>
+      <div class="p-8 rounded-2xl bg-gray-800/80 border border-purple-500/30 hover:shadow-2xl hover:-translate-y-2 transition-transform" data-aos="fade-up" data-aos-delay="200">
+        <div class="flex justify-center mb-4"><i class="fas fa-robot text-purple-400 text-4xl"></i></div>
+        <h3 class="text-xl font-semibold mb-2">AI Solutions</h3>
+        <p class="text-gray-300">Automations, chatbots, RAG, and integrations.</p>
+      </div>
+    </div>
+  </section>
 
-<script>
-const chatBox = document.getElementById('chat-box');
-document.getElementById('chat-form').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const input = document.getElementById('user-input');
-    const userMsg = input.value.trim();
-    if (!userMsg) return;
+  <!-- Pricing -->
+  <section id="pricing" class="py-20">
+    <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center" data-aos="fade-up">Our <span class="text-purple-400">Pricing</span></h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
+      <!-- Basic -->
+      <div class="p-8 rounded-2xl bg-gray-800/90 border border-purple-600/40 hover:shadow-2xl hover:-translate-y-2 transition-transform" data-aos="zoom-in">
+        <h3 class="text-xl font-semibold mb-2">Basic</h3>
+        <p class="text-gray-300 mb-6">For small businesses or personal projects</p>
+        <div class="text-3xl font-bold text-purple-400 mb-6">ZAR 1,500</div>
+        <ul class="text-gray-400 mb-6 space-y-2">
+          <li>✅ 1 Website / Landing Page</li>
+          <li>✅ Basic SEO</li>
+          <li>✅ Responsive Design</li>
+          <li>✅ 1 Month Support</li>
+          <li>✅ Free Hosting</li>
+        </ul>
+        <a href="https://wa.me/27765346323?text=Hi%20I%20want%20the%20Basic%20package" target="_blank" rel="noopener noreferrer" class="inline-block px-6 py-3 rounded-full bg-purple-600 hover:bg-purple-700 transition shadow-glow">Get Started</a>
+      </div>
+      <!-- Standard -->
+      <div class="relative p-8 rounded-2xl bg-gray-800/90 border border-purple-600/40 hover:shadow-2xl hover:-translate-y-2 transition-transform ring-2 ring-purple-400/30" data-aos="zoom-in" data-aos-delay="100">
+        <span class="absolute -top-3 right-6 px-3 py-1 text-xs rounded-full bg-purple-500 text-white">Popular</span>
+        <h3 class="text-xl font-semibold mb-2">Standard</h3>
+        <p class="text-gray-300 mb-6">For growing businesses & app projects</p>
+        <div class="text-3xl font-bold text-purple-400 mb-6">ZAR 4,500</div>
+        <ul class="text-gray-400 mb-6 space-y-2">
+          <li>✅ Up to 3 Pages / Features</li>
+          <li>✅ Responsive Web & Mobile Ready</li>
+          <li>✅ 3 Months Support</li>
+          <li>✅ Basic AI/Automation</li>
+          <li>✅ Free Hosting & Domain</li>
+        </ul>
+        <a href="https://wa.me/27765346323?text=Hi%20I%20want%20the%20Standard%20package" target="_blank" rel="noopener noreferrer" class="inline-block px-6 py-3 rounded-full bg-purple-600 hover:bg-purple-700 transition shadow-glow">Get Started</a>
+      </div>
+      <!-- Premium -->
+      <div class="p-8 rounded-2xl bg-gray-800/90 border border-purple-600/40 hover:shadow-2xl hover:-translate-y-2 transition-transform" data-aos="zoom-in" data-aos-delay="200">
+        <h3 class="text-xl font-semibold mb-2">Premium</h3>
+        <p class="text-gray-300 mb-6">Advanced web, apps & AI solutions</p>
+        <div class="text-3xl font-bold text-purple-400 mb-6">ZAR 8,500+</div>
+        <ul class="text-gray-400 mb-6 space-y-2">
+          <li>✅ Unlimited Pages / Features</li>
+          <li>✅ Web, Mobile & AI Solutions</li>
+          <li>✅ 6 Months Support</li>
+          <li>✅ Priority Delivery & Automation</li>
+          <li>✅ Dedicated Account Manager</li>
+          <li>✅ Custom Solutions</li>
+        </ul>
+        <a href="https://wa.me/27765346323?text=Hi%20I%20want%20the%20Premium%20package" target="_blank" rel="noopener noreferrer" class="inline-block px-6 py-3 rounded-full bg-purple-600 hover:bg-purple-700 transition shadow-glow">Get Started</a>
+      </div>
+    </div>
+  </section>
 
-    // Show user message
-    const userDiv = document.createElement('div');
-    userDiv.className = "message user";
-    userDiv.textContent = userMsg;
-    chatBox.appendChild(userDiv);
+  <!-- Portfolio -->
+  <section id="portfolio" class="py-20 bg-black/40">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-12 text-purple-400" data-aos="fade-up">Our Portfolio</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Project cards -->
+        <div class="rounded-2xl overflow-hidden bg-gray-800/80 border border-white/10 hover:-translate-y-2 hover:shadow-2xl transition-transform" data-aos="zoom-in">
+          <img src="images/splashfix.png" class="w-full h-72 object-cover" alt="SplashFix"/>
+          <div class="p-6 text-left">
+            <h3 class="text-2xl font-bold mb-2">SplashFix Plumbing</h3>
+            <p class="text-gray-400 mb-4">Plumbing service specializing in leaks & clogs.</p>
+            <button onclick="document.getElementById('modal-splashfix').classList.remove('hidden')" class="px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 transition">See More</button>
+          </div>
+        </div>
+        <div class="rounded-2xl overflow-hidden bg-gray-800/80 border border-white/10 hover:-translate-y-2 hover:shadow-2xl transition-transform" data-aos="zoom-in" data-aos-delay="100">
+          <img src="images/secureGuard.png" class="w-full h-72 object-cover" alt="SecureGuard"/>
+          <div class="p-6 text-left">
+            <h3 class="text-2xl font-bold mb-2">SecureGuard</h3>
+            <p class="text-gray-400 mb-4">Trusted security solutions for your assets with around the clock surveillance and monitoring.</p>
+            <button onclick="document.getElementById('modal-secureGuard').classList.remove('hidden')" class="px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 transition">See More</button>
+          </div>
+        </div>
+        <div class="rounded-2xl overflow-hidden bg-gray-800/80 border border-white/10 hover:-translate-y-2 hover:shadow-2xl transition-transform" data-aos="zoom-in" data-aos-delay="200">
+          <img src="images/nailuxe.png" class="w-full h-72 object-cover" alt="Nailuxe"/>
+          <div class="p-6 text-left">
+            <h3 class="text-2xl font-bold mb-2">Nailuxe</h3>
+            <p class="text-gray-400 mb-4">Cosmetics brand focused on nail care. Premium quality products for beautiful nails.</p>
+            <button onclick="document.getElementById('modal-nailuxe').classList.remove('hidden')" class="px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 transition">See More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    // Show loading message
-    const botDiv = document.createElement('div');
-    botDiv.className = "message bot";
-    botDiv.textContent = "AI is typing...";
-    chatBox.appendChild(botDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
+  <!-- AI Demo -->
+  <section class="py-20 text-center">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">AI Automation Demo</h1>
+    <h2 class="text-2xl" id="typed-hero" data-aos="fade-up" data-aos-delay="100"></h2>
 
-    try {
+    <div class="w-full flex justify-center items-center mt-10">
+      <section class="w-full max-w-xl glass p-8 flex flex-col rounded-2xl" data-aos="fade-up" data-aos-delay="150">
+        <h3 class="text-2xl font-bold mb-4 text-purple-300">Try the AI Bot</h3>
+        <div id="chat-box" class="flex flex-col mb-4 rounded-xl p-3 bg-black/30 border border-white/10"></div>
+        <form id="chat-form" class="flex gap-2">
+          <input id="user-input" placeholder="Type a question..." class="flex-grow px-4 py-3 rounded-xl bg-gray-900 text-white border border-purple-500/40 focus:outline-none focus:ring-2 focus:ring-purple-500"/>
+          <button type="submit" class="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 hover:shadow-2xl hover:-translate-y-[2px] transition">Send</button>
+        </form>
+      </section>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-20 bg-gradient-to-b from-gray-900 via-black to-gray-900">
+    <div class="max-w-2xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center" data-aos="fade-up">Get in <span class="text-purple-400">Touch</span></h2>
+      <form id="contactForm" class="glass rounded-2xl p-8" autocomplete="off" data-aos="fade-up" data-aos-delay="100">
+        <div class="mb-6">
+          <label for="name" class="block text-lg font-semibold mb-2 text-gray-200">Name</label>
+          <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg bg-gray-900 text-white border border-purple-400/40 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Your Name" />
+        </div>
+        <div class="mb-6">
+          <label for="email" class="block text-lg font-semibold mb-2 text-gray-200">Email</label>
+          <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg bg-gray-900 text-white border border-purple-400/40 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="you@email.com" />
+        </div>
+        <div class="mb-6">
+          <label for="message" class="block text-lg font-semibold mb-2 text-gray-200">Message</label>
+          <textarea id="message" name="message" required rows="5" class="w-full px-4 py-3 rounded-lg bg-gray-900 text-white border border-purple-400/40 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Type your message..."></textarea>
+        </div>
+        <button type="submit" class="w-full py-3 rounded-full bg-purple-600 hover:bg-purple-700 shadow-glow text-lg font-semibold transition">Send Message</button>
+        <p id="formStatus" class="mt-4 text-center text-green-400 hidden">Message sent! Thank you.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Modals -->
+  <div id="modal-splashfix" class="fixed inset-0 bg-black/70 hidden z-50 flex items-center justify-center">
+    <div class="bg-gray-900 rounded-2xl shadow-lg p-8 max-w-lg text-left relative">
+      <h3 class="text-2xl font-bold mb-4 text-purple-400">SplashFix</h3>
+      <p class="text-gray-300 mb-6">Splashfix is a plumbing service specializing in leaks & clogs.</p>
+      <a href="https://github.com/yourusername/splashfix" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg">Visit Repo</a>
+      <button onclick="document.getElementById('modal-splashfix').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
+    </div>
+  </div>
+
+  <div id="modal-secureGuard" class="fixed inset-0 bg-black/70 hidden z-50 flex items-center justify-center">
+    <div class="bg-gray-900 rounded-2xl shadow-lg p-8 max-w-lg text-left relative">
+      <h3 class="text-2xl font-bold mb-4 text-purple-400">SecureGuard</h3>
+      <p class="text-gray-300 mb-6">Top-notch security solutions for your assets.</p>
+      <a href="https://github.com/yourusername/secureguard" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg">Visit Repo</a>
+      <button onclick="document.getElementById('modal-secureGuard').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
+    </div>
+  </div>
+
+  <div id="modal-nailuxe" class="fixed inset-0 bg-black/70 hidden z-50 flex items-center justify-center">
+    <div class="bg-gray-900 rounded-2xl shadow-lg p-8 max-w-lg text-left relative">
+      <h3 class="text-2xl font-bold mb-4 text-purple-400">Nailuxe</h3>
+      <p class="text-gray-300 mb-6">Cosmetics brand specializing in nail care products.</p>
+      <a href="https://github.com/yourusername/nailuxe" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg">Visit Repo</a>
+      <button onclick="document.getElementById('modal-nailuxe').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
+    </div>
+  </div>
+
+  <!-- Scroll to Top -->
+  <button id="scrollTopBtn" class="fixed bottom-8 right-8 bg-purple-600 hover:bg-purple-700 text-white rounded-full p-3 shadow-lg transition hidden" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up text-xl"></i>
+  </button>
+
+  <!-- Footer -->
+  <footer class="bg-black/80 py-8 text-center text-gray-400">
+    <div class="flex flex-col md:flex-row justify-center items-center gap-4">
+      <span>&copy; 2025 Inhouse Africa Technologies</span>
+      <span class="hidden md:inline">|</span>
+      <a href="mailto:kevinkutoane@ymail.com" class="hover:text-purple-400" aria-label="Email"><i class="fas fa-envelope mr-2"></i>Email</a>
+      <a href="https://wa.me/27765346323" target="_blank" rel="noopener noreferrer" class="hover:text-purple-400" aria-label="WhatsApp"><i class="fab fa-whatsapp mr-2"></i>WhatsApp</a>
+      <a href="https://linkedin.com/company/inhouseafrica" target="_blank" rel="noopener noreferrer" class="hover:text-purple-400" aria-label="LinkedIn"><i class="fab fa-linkedin mr-2"></i>LinkedIn</a>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Typed.js
+    new Typed('#typed-text', {
+      strings: ["Web Apps", "Mobile Apps", "AI Solutions", "Cloud Platforms", "Custom Software"],
+      typeSpeed: 60, backSpeed: 40, loop: true
+    });
+    new Typed('#typed-hero', {
+      strings: ["Automate Emails", "Generate Reports", "Answer FAQs", "Boost Productivity"],
+      typeSpeed: 60, backSpeed: 40, loop: true
+    });
+
+    // AOS init
+    AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 80 });
+
+    // Scroll to top button
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+      scrollBtn.classList.toggle('hidden', window.scrollY < 300);
+    });
+    scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Smooth scroll with fixed nav offset (extra safety for some browsers)
+    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        const navH = document.getElementById('navbar').offsetHeight || 80;
+        const y = target.getBoundingClientRect().top + window.pageYOffset - (navH - 4);
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      });
+    });
+
+    // Scrollspy active link
+    const sections = Array.from(document.querySelectorAll('header[id], section[id]'));
+    const navLinks = Array.from(document.querySelectorAll('.nav-link'));
+    const linkById = Object.fromEntries(navLinks.map(a => [a.getAttribute('href').replace('#',''), a]));
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const id = entry.target.getAttribute('id');
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('text-purple-400'));
+          linkById[id]?.classList.add('text-purple-400');
+        }
+      });
+    }, { rootMargin: '-50% 0px -40% 0px', threshold: 0 });
+    sections.forEach(sec => observer.observe(sec));
+
+    // Contact form (mailto)
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if (!name || !email || !message) return;
+      const mailto = `mailto:kevinkutoane@ymail.com?subject=Contact%20from%20${encodeURIComponent(name)}&body=${encodeURIComponent(message + '\n\nFrom: ' + name + ' (' + email + ')')}`;
+      window.location.href = mailto;
+      const statusEl = document.getElementById('formStatus');
+      statusEl.classList.remove('hidden');
+      setTimeout(() => { statusEl.classList.add('hidden'); this.reset(); }, 3000);
+    });
+
+    // AI chat
+    const chatBox = document.getElementById('chat-box');
+    document.getElementById('chat-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const input = document.getElementById('user-input');
+      const userMsg = input.value.trim();
+      if (!userMsg) return;
+
+      // User bubble
+      const userDiv = document.createElement('div');
+      userDiv.className = 'message user self-end';
+      userDiv.textContent = userMsg;
+      chatBox.appendChild(userDiv);
+
+      // Typing indicator
+      const botDiv = document.createElement('div');
+      botDiv.className = 'message bot';
+      botDiv.innerHTML = '<span class="typing"><span></span><span></span><span></span></span>';
+      chatBox.appendChild(botDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      try {
         const res = await fetch('https://inhouse-africa-tech.onrender.com/api/gemini', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt: userMsg })
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: userMsg })
         });
         const data = await res.json();
-        botDiv.textContent = data.text;
-        chatBox.scrollTop = chatBox.scrollHeight;
-    } catch (err) {
-        botDiv.textContent = "Error generating response";
+        // Typewriter reveal
+        const text = data.text || 'No response';
+        botDiv.textContent = '';
+        let i = 0; const speed = 18;
+        const typer = setInterval(() => {
+          botDiv.textContent += text.charAt(i);
+          i++; if (i >= text.length) clearInterval(typer);
+          chatBox.scrollTop = chatBox.scrollHeight;
+        }, speed);
+      } catch (err) {
+        botDiv.textContent = 'Error generating response';
         console.error(err);
-    }
-
-    input.value = "";
-});
-</script>
-
-
-<!-- Contact Section -->
-<section id="contact" class="py-20 bg-gradient-to-b from-gray-900 via-black to-gray-900">
-  <div class="max-w-2xl mx-auto px-6">
-    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">
-      Get in <span class="text-purple-400">Touch</span>
-    </h2>
-    <form id="contactForm" class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-white/20" autocomplete="off">
-      <div class="mb-6">
-        <label for="name" class="block text-lg font-semibold mb-2 text-gray-200">Name</label>
-        <input type="text" id="name" name="name" required class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Your Name" />
-      </div>
-      <div class="mb-6">
-        <label for="email" class="block text-lg font-semibold mb-2 text-gray-200">Email</label>
-        <input type="email" id="email" name="email" required class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="you@email.com" />
-      </div>
-      <div class="mb-6">
-        <label for="message" class="block text-lg font-semibold mb-2 text-gray-200">Message</label>
-        <textarea id="message" name="message" required rows="5" class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Type your message..."></textarea>
-      </div>
-      <button type="submit" class="w-full py-3 bg-purple-600 hover:bg-purple-700 rounded-full shadow-lg text-lg font-semibold transition transform hover:scale-105 text-white">
-        Send Message
-      </button>
-      <p id="formStatus" class="mt-4 text-center text-green-400 hidden">Message sent! Thank you.</p>
-    </form>
-  </div>
-</section>
-
-<!-- ==================== Modals ==================== -->
-
-<!-- SplashFix Modal -->
-<div id="modal-splashfix" class="fixed inset-0 bg-black/70 flex items-center justify-center hidden z-50">
-  <div class="bg-gray-900 rounded-2xl shadow-lg p-8 max-w-lg text-left relative">
-    <h3 class="text-2xl font-bold mb-4 text-purple-400">SplashFix</h3>
-    <p class="text-gray-300 mb-6">
-      Splashfix is a plumbing service that specializes in fixing leaks and clogs. They offer 24/7 emergency services and use eco-friendly products.
-    </p>
-    <a href="https://github.com/yourusername/splashfix" target="_blank" rel="noopener noreferrer"
-       class="inline-block px-4 py-2 bg-purple-500 hover:bg-purple-600 rounded-lg text-white transition">
-       Visit Repo
-    </a>
-    <button onclick="document.getElementById('modal-splashfix').classList.add('hidden')" 
-            class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
-  </div>
-</div>
-
-<!-- SecureGuard Modal -->
-<div id="modal-secureGuard" class="fixed inset-0 bg-black/70 flex items-center justify-center hidden z-50">
-  <div class="bg-gray-900 rounded-2xl shadow-lg p-8 max-w-lg text-left relative">
-    <h3 class="text-2xl font-bold mb-4 text-purple-400">SecureGuard</h3>
-    <p class="text-gray-300 mb-6">
-      SecureGuard provides top-notch security solutions for your assets, ensuring safety and peace of mind.
-    </p>
-    <a href="https://github.com/yourusername/secureguard" target="_blank" rel="noopener noreferrer"
-       class="inline-block px-4 py-2 bg-purple-500 hover:bg-purple-600 rounded-lg text-white transition">
-       Visit Repo
-    </a>
-    <button onclick="document.getElementById('modal-secureGuard').classList.add('hidden')" 
-            class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
-  </div>
-</div>
-
-<!-- Nailuxe Modal -->
-<div id="modal-nailuxe" class="fixed inset-0 bg-black/70 flex items-center justify-center hidden z-50">
-  <div class="bg-gray-900 rounded-2xl shadow-lg p-8 max-w-lg text-left relative">
-    <h3 class="text-2xl font-bold mb-4 text-purple-400">Nailuxe</h3>
-    <p class="text-gray-300 mb-6">
-      Nailuxe is a cosmetics brand specializing in nail care products. The brand focuses on high-quality, products using organic formulas to enhance natural beauty.
-    </p>
-    <a href="https://github.com/yourusername/nailuxe" target="_blank" rel="noopener noreferrer"
-       class="inline-block px-4 py-2 bg-purple-500 hover:bg-purple-600 rounded-lg text-white transition">
-       Visit Repo
-    </a>
-    <button onclick="document.getElementById('modal-nailuxe').classList.add('hidden')" 
-            class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
-  </div>
-</div>
-
-
-
-<!-- Scroll to Top Button -->
-<button id="scrollTopBtn" class="bg-purple-600 hover:bg-purple-700 text-white rounded-full p-3 shadow-lg transition" aria-label="Scroll to top">
-  <i class="fas fa-arrow-up text-xl"></i>
-</button>
-
-<!-- Footer -->
-<footer class="bg-black/80 py-8 text-center text-gray-400 mt-0">
-  <div class="flex flex-col md:flex-row justify-center items-center gap-4">
-    <span>&copy; 2025 Inhouse Africa Technologies</span>
-    <span class="hidden md:inline">|</span>
-    <a href="mailto:info@inhouseafrica.com" class="hover:text-purple-400" aria-label="Email us"><i class="fas fa-envelope mr-2"></i>Email</a>
-    <a href="https://wa.me/27765346323" target="_blank" rel="noopener noreferrer" class="hover:text-purple-400" aria-label="WhatsApp"><i class="fab fa-whatsapp mr-2"></i>WhatsApp</a>
-    <a href="https://linkedin.com/company/inhouseafrica" target="_blank" rel="noopener noreferrer" class="hover:text-purple-400" aria-label="LinkedIn"><i class="fab fa-linkedin mr-2"></i>LinkedIn</a>
-  </div>
-</footer>
-
-<script>
-  // Scroll to top button
-  const scrollBtn = document.getElementById('scrollTopBtn');
-  window.addEventListener('scroll', () => {
-    scrollBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
-  });
-  scrollBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  // Contact form handler
-  document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const message = document.getElementById('message').value.trim();
-    if (!name || !email || !message) return;
-    const mailto = `mailto:kevinkutoane@ymail.com?subject=Contact%20from%20${encodeURIComponent(name)}&body=${encodeURIComponent(message + '\n\nFrom: ' + name + ' (' + email + ')')}`;
-    window.location.href = mailto;
-    document.getElementById('formStatus').classList.remove('hidden');
-    setTimeout(() => {
-      document.getElementById('formStatus').classList.add('hidden');
-      document.getElementById('contactForm').reset();
-    }, 3000);
-  });
-</script>
-
-<script>
-  document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        window.scrollTo({
-          top: target.offsetTop,
-          behavior: "smooth"
-        });
       }
+      input.value = '';
     });
-  });
+  </script>
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 700,
+      easing: 'ease-out-cubic',
+      once: true,
+      offset: 80
+    });
+  </script>
+  <script>
+  setTimeout(() => {
+    const banner = document.getElementById("promo-banner");
+    if (banner) banner.style.display = "sticky";
+  }, 30000);
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
 </body>
 </html>
