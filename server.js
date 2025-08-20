@@ -25,6 +25,10 @@ app.post('/api/gemini', async (req, res) => {
         }]
       })
     });
+    app.get("/", (req, res) => {
+  res.send("🚀 Backend is running! Use POST /api/gemini");
+});
+
 
     const data = await response.json();
     console.log('Gemini API raw response:', JSON.stringify(data, null, 2));
