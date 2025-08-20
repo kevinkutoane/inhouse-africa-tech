@@ -25,10 +25,6 @@ app.post('/api/gemini', async (req, res) => {
         }]
       })
     });
-    app.get("/", (req, res) => {
-  res.send("🚀 Backend is running! Use POST /api/gemini");
-});
-
 
     const data = await response.json();
     console.log('Gemini API raw response:', JSON.stringify(data, null, 2));
@@ -38,6 +34,11 @@ app.post('/api/gemini', async (req, res) => {
     console.error(err);
     res.status(500).json({ text: "Error generating response" });
   }
+});
+
+// Health check and browser root route
+app.get("/", (req, res) => {
+  res.send("🚀 Backend is running! Use POST /api/gemini");
 });
 
 const port = process.env.PORT || 3000;
