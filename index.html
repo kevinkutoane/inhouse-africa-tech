@@ -340,7 +340,7 @@ document.getElementById('chat-form').addEventListener('submit', async function(e
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-        const res = await fetch('http://localhost:3000/api/gemini', {
+        const res = await fetch('https://inhouse-africa-tech.onrender.com/api/gemini', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ prompt: userMsg })
