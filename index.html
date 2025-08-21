@@ -319,106 +319,144 @@
 
 
   <!-- Portfolio -->
-  <section id="portfolio" class="py-20 bg-black/40">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white" data-aos="fade-up">Our <span class="text-purple-400">Portfolio</span> </h2><br>
-      <p class="text-gray-300 mb-8" style="font-size: 16px;">Check out some of our amazing projects. These are demo sites we have created to give possible clients a feel for what to expect, all customized to user preferences.</p>
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- Project cards -->
-        <div class="rounded-2xl overflow-hidden bg-gray-800/80 border border-white/10 hover:-translate-y-2 hover:shadow-2xl transition-transform" data-aos="zoom-in">
-          <img src="images/splashfix.png" class="w-full h-72 object-cover" alt="SplashFix"/>
-          <div class="p-6 text-left">
-            <h3 class="text-2xl font-bold mb-2">SplashFix Plumbing</h3>
-            <p class="text-gray-400 mb-4">Plumbing service specializing in leaks & clogs.</p>
-            <button onclick="document.getElementById('modal-splashfix').classList.remove('hidden')" class="px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 transition">See More</button>
+<section id="portfolio" class="py-20 bg-gradient-to-br from-black via-gray-900 to-black relative">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <!-- Title -->
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-4 text-white" data-aos="fade-up">
+      Our <span class="bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text">Portfolio</span>
+    </h2>
+    <p class="text-gray-300 max-w-2xl mx-auto mb-12 text-lg" data-aos="fade-up" data-aos-delay="100">
+      Explore some of our showcase projects. These demo sites highlight what we can deliver — tailored, modern, and built to impress.
+    </p>
+
+    <!-- Project Grid -->
+    <div class="grid md:grid-cols-3 gap-10">
+      
+      <!-- Project Card -->
+      <div class="group relative rounded-2xl overflow-hidden shadow-lg border border-white/10 hover:shadow-purple-500/30 transition-transform transform hover:-translate-y-2" data-aos="zoom-in">
+        <div class="relative h-72 overflow-hidden">
+          <img src="images/splashfix.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="SplashFix"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition"></div>
+        </div>
+        <div class="p-6 text-left">
+          <h3 class="text-2xl font-bold text-white mb-2">SplashFix Plumbing</h3>
+          <p class="text-gray-300 mb-4">Plumbing experts specializing in leaks & clogs.</p>
+          <button onclick="document.getElementById('modal-splashfix').classList.remove('hidden')" 
+            class="px-5 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-purple-800 text-white font-semibold shadow hover:scale-105 transition-all duration-300">
+            See More
+          </button>
+        </div>
+      </div>
+
+      <!-- Project Card -->
+      <div class="group relative rounded-2xl overflow-hidden shadow-lg border border-white/10 hover:shadow-pink-500/30 transition-transform transform hover:-translate-y-2" data-aos="zoom-in" data-aos-delay="100">
+        <div class="relative h-72 overflow-hidden">
+          <img src="images/secureGuard.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="SecureGuard"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition"></div>
+        </div>
+        <div class="p-6 text-left">
+          <h3 class="text-2xl font-bold text-white mb-2">SecureGuard</h3>
+          <p class="text-gray-300 mb-4">Security solutions with 24/7 monitoring & peace of mind.</p>
+          <button onclick="document.getElementById('modal-secureGuard').classList.remove('hidden')" 
+            class="px-5 py-2 rounded-lg bg-gradient-to-r from-pink-600 to-red-800 text-white font-semibold shadow hover:scale-105 transition-all duration-300">
+            See More
+          </button>
+        </div>
+      </div>
+
+      <!-- Project Card -->
+      <div class="group relative rounded-2xl overflow-hidden shadow-lg border border-white/10 hover:shadow-blue-500/30 transition-transform transform hover:-translate-y-2" data-aos="zoom-in" data-aos-delay="200">
+        <div class="relative h-72 overflow-hidden">
+          <img src="images/nailuxe.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Nailuxe"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition"></div>
+        </div>
+        <div class="p-6 text-left">
+          <h3 class="text-2xl font-bold text-white mb-2">Nailuxe</h3>
+          <p class="text-gray-300 mb-4">Luxury nail care brand with premium products for flawless nails.</p>
+          <button onclick="document.getElementById('modal-nailuxe').classList.remove('hidden')" 
+            class="px-5 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-800 text-white font-semibold shadow hover:scale-105 transition-all duration-300">
+            See More
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="team" class="py-20 bg-gradient-to-b from-gray-900/0 to-black/10">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold mb-6" data-aos="fade-up">
+      Meet the <span class="text-purple-400">Team</span>
+    </h2>
+    <p class="text-gray-300 mb-12 max-w-2xl mx-auto">
+      A small, focused team of engineers, designers, and product leaders committed to building meaningful digital experiences and reliable AI systems.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- Member -->
+      <div class="glass p-8 rounded-2xl text-left shadow-lg hover:shadow-purple-500/20 hover:scale-105 transition duration-300" data-aos="fade-up" data-aos-delay="0">
+        <div class="flex items-center gap-4">
+          <img src="images/kevin.jpg" alt="Kevin" class="w-20 h-20 rounded-full object-cover border-2 border-purple-400/40 aspect-square">
+          <div>
+            <h3 class="text-xl font-semibold">Kevin Kutoane</h3>
+            <div class="text-sm text-purple-300">Founder & CTO</div>
           </div>
         </div>
-        <div class="rounded-2xl overflow-hidden bg-gray-800/80 border border-white/10 hover:-translate-y-2 hover:shadow-2xl transition-transform" data-aos="zoom-in" data-aos-delay="100">
-          <img src="images/secureGuard.png" class="w-full h-72 object-cover" alt="SecureGuard"/>
-          <div class="p-6 text-left">
-            <h3 class="text-2xl font-bold mb-2">SecureGuard</h3>
-            <p class="text-gray-400 mb-4">Trusted security solutions for your assets with around the clock surveillance and monitoring.</p>
-            <button onclick="document.getElementById('modal-secureGuard').classList.remove('hidden')" class="px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 transition">See More</button>
+        <p class="text-gray-300 mt-4">Leads product vision and AI engineering. Kevin builds robust backends and integration pipelines ensuring seamless data flow and system interoperability.</p>
+        <div class="mt-4 flex items-center gap-3">
+          <a href="https://linkedin.com/in/kevin-mohlaoli-kutoane" class="text-purple-300 hover:text-white"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+
+      <!-- Member -->
+      <div class="glass p-8 rounded-2xl text-left shadow-lg hover:shadow-purple-500/20 hover:scale-105 transition duration-300" data-aos="fade-up" data-aos-delay="100">
+        <div class="flex items-center gap-4">
+          <img src="images/rea.jpg" alt="Realeboha" class="w-20 h-20 rounded-full object-cover border-2 border-purple-400/40 aspect-square">
+          <div>
+            <h3 class="text-xl font-semibold">Realeboha Lekhanya</h3>
+            <div class="text-sm text-purple-300">Co-Founder & Design Lead</div>
           </div>
         </div>
-        <div class="rounded-2xl overflow-hidden bg-gray-800/80 border border-white/10 hover:-translate-y-2 hover:shadow-2xl transition-transform" data-aos="zoom-in" data-aos-delay="200">
-          <img src="images/nailuxe.png" class="w-full h-72 object-cover" alt="Nailuxe"/>
-          <div class="p-6 text-left">
-            <h3 class="text-2xl font-bold mb-2">Nailuxe</h3>
-            <p class="text-gray-400 mb-4">Cosmetics brand focused on nail care. Premium quality products for beautiful nails.</p>
-            <button onclick="document.getElementById('modal-nailuxe').classList.remove('hidden')" class="px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 transition">See More</button>
+        <p class="text-gray-300 mt-4">Designs intuitive user experiences and ensures product-market fit across offerings. He spearheads design initiatives and aligns closely with product management goals.</p>
+        <div class="mt-4 flex items-center gap-3">
+          <a href="https://www.linkedin.com/in/realeboha-lekhanya-a2297778/" class="text-purple-300 hover:text-white"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+
+      <!-- Member -->
+      <div class="glass p-8 rounded-2xl text-left shadow-lg hover:shadow-purple-500/20 hover:scale-105 transition duration-300" data-aos="fade-up" data-aos-delay="200">
+        <div class="flex items-center gap-4">
+          <img src="images/KK.jpeg" alt="Kutoane" class="w-20 h-20 rounded-full object-cover border-2 border-purple-400/40 aspect-square">
+          <div>
+            <h3 class="text-xl font-semibold">Kutoane Kutoane</h3>
+            <div class="text-sm text-purple-300">CFO</div>
           </div>
+        </div>
+        <p class="text-gray-300 mt-4">A financial guru with a deep understanding of trade and development project financing across Africa’s critical infrastructure sectors.</p>
+        <div class="mt-4 flex items-center gap-3">
+          <a href="https://www.linkedin.com/in/kutoane/" class="text-purple-300 hover:text-white"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+
+      <!-- Team -->
+      <div class="glass p-8 rounded-2xl text-left shadow-lg hover:shadow-purple-500/20 hover:scale-105 transition duration-300" data-aos="fade-up" data-aos-delay="300">
+        <div class="flex items-center gap-4">
+          <img src="images/lebo.jpg" alt="Relebogile" class="w-20 h-20 rounded-full object-cover border-2 border-purple-400/40 aspect-square">
+          <div>
+            <h3 class="text-xl font-semibold">Relebogile Motjale</h3>
+            <div class="text-sm text-purple-300">Content Manager</div>
+          </div>
+        </div>
+        <p class="text-gray-300 mt-4">Heads operations and ensures seamless execution of our projects while curating high-quality content strategies.</p>
+        <div class="mt-4 flex items-center gap-3">
+          <a href="https://www.linkedin.com/in/relebogile-motjale-she-her-hers-48a88922a/" class="text-purple-300 hover:text-white"><i class="fab fa-linkedin"></i></a>
         </div>
       </div>
     </div>
-  </section>
-  <!-- Team -->
-  <section id="team" class="py-20 bg-gradient-to-b from-gray-900/0 to-black/10">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-6" data-aos="fade-up">Meet the <span class="text-purple-400">Team</span></h2>
-      <p class="text-gray-300 mb-8 max-w-2xl mx-auto">A small, focused team of engineers, designers and product folks committed to building meaningful digital experiences and reliable AI systems.</p>
+  </div>
+</section>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="glass p-8 rounded-2xl text-left shadow-lg" data-aos="fade-up" data-aos-delay="0">
-          <div class="flex items-center gap-4">
-            <img src="images/kevin.jpg" alt="Kevin" class="w-20 h-20 rounded-full object-cover border-2 border-purple-400/40">
-            <div>
-              <h3 class="text-xl font-semibold">Kevin Kutoane</h3>
-              <div class="text-sm text-gray-400">Founder & CTO</div>
-            </div>
-          </div>
-          <p class="text-gray-300 mt-4">Leads product vision and AI engineering. Kevin builds robust backends and integration pipelines. He ensures seamless data flow and system interoperability.</p>
-          <div class="mt-4 flex items-center gap-3">
-           
-            <a href="https://linkedin.com/in/kevin-mohlaoli-kutoane" class="text-purple-300 hover:text-white"><i class="fab fa-linkedin"></i></a>
-          </div>
-        </div>
-
-        <div class="glass p-6 rounded-2xl text-left shadow-lg" data-aos="fade-up" data-aos-delay="100">
-          <div class="flex items-center gap-4">
-            <img src="images/rea.jpg" alt="Realeboha" class="w-20 h-20 rounded-full object-cover border-2 border-purple-400/40">
-            <div>
-              <h3 class="text-xl font-semibold">Realeboha Lekhanya</h3>
-              <div class="text-sm text-gray-400">Co-Founder & Design Lead</div>
-            </div>
-          </div>
-          <p class="text-gray-300 mt-4">Designs intuitive user experiences and ensures product-market fit across our offerings. He spearheads our design initiatives and collaborates closely with product management to align on goals.</p>
-          <div class="mt-4 flex items-center gap-3">
-            
-            <a href="https://www.linkedin.com/in/realeboha-lekhanya-a2297778/" class="text-purple-300 hover:text-white"><i class="fab fa-linkedin"></i></a>
-          </div>
-        </div>
-
-        <div class="glass p-6 rounded-2xl text-left shadow-lg" data-aos="fade-up" data-aos-delay="200">
-          <div class="flex items-center gap-4">
-            <img src="images/KK.jpeg" alt="Rele" class="w-20 h-20 rounded-full object-cover border-2 border-purple-400/40">
-            <div>
-              <h3 class="text-xl font-semibold">Kutoane Kutoane</h3>
-              <div class="text-sm text-gray-400">Director</div>
-            </div>
-          </div>
-          <p class="text-gray-300 mt-4">Experienced economic veteran who overlooks product strategy and execution.</p>
-          <div class="mt-4 flex items-center gap-3">
-            
-            <a href="https://www.linkedin.com/in/kutoane/" class="text-purple-300 hover:text-white"><i class="fab fa-linkedin"></i></a>
-          </div>
-        </div>
-                <div class="glass p-6 rounded-2xl text-left shadow-lg" data-aos="fade-up" data-aos-delay="200">
-          <div class="flex items-center gap-4">
-            <img src="images/lebo.jpg" alt="Rele" class="w-20 h-20 rounded-full object-cover border-2 border-purple-400/40">
-            <div>
-              <h3 class="text-xl font-semibold">Relebogile Motjale</h3>
-              <div class="text-sm text-gray-400">Content Manager</div>
-            </div>
-          </div>
-          <p class="text-gray-300 mt-4">Heads operations and ensures seamless execution of our projects.</p>
-          <div class="mt-4 flex items-center gap-3">
-            
-            <a href="https://www.linkedin.com/in/relebogile-motjale-she-her-hers-48a88922a/" class="text-purple-300 hover:text-white"><i class="fab fa-linkedin"></i></a>
-          </div>
-      </div>
-    </div>
-  </section>
 
   <!-- AI Demo -->
   <section class="py-20 text-center">
