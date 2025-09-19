@@ -50,6 +50,7 @@
       }
     }
   </script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <!-- AOS (Animate On Scroll) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
@@ -127,6 +128,7 @@
       <ul class="hidden md:flex items-center gap-6 font-medium">
         <li><a class="nav-link hover:text-purple-400" href="#about">About</a></li>
         <li><a class="nav-link hover:text-purple-400" href="#services">Services</a></li>
+        <li><a class="nav-link hover:text-purple-400" href="#blog">Blog</a></li>
         <li><a class="nav-link hover:text-purple-400" href="#pricing">Pricing</a></li>
         <li><a class="nav-link hover:text-purple-400" href="#portfolio">Portfolio</a></li>
         <li><a class="nav-link hover:text-purple-400" href="#team">Team</a></li>
@@ -138,7 +140,7 @@
 <div id="promo-banner" class="w-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 
     text-white text-center py-3 px-4 relative shadow-lg rounded-b-2xl animate-slideDown z-50">
   <p class="font-semibold text-lg">
-    🎉 First 5 customers get a site for <span class="font-bold">R500</span> — ready in 48 hours!
+    🎉 First 5 customers get a site for <span class="font-bold">R750</span> — ready in 48 hours!
   </p>
   <button onclick="document.getElementById('promo-banner').style.display='none'" 
           class="absolute right-4 top-3 text-white hover:text-gray-200">
@@ -157,12 +159,60 @@
         Tomorrow’s <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-300 animate-gradient-x bg-[length:200%_200%]">Solutions</span> Today
       </h1>
       <h2 class="mt-4 text-xl md:text-2xl">We build <span id="typed-text" class="text-purple-300"></span></h2>
-      <a href="https://wa.me/27765346323" target="_blank" rel="noopener noreferrer"
-         class="mt-8 inline-flex items-center gap-2 px-8 py-3 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 shadow-glow hover:shadow-2xl transition-transform hover:scale-105">
-        <span>🚀 Let’s Build Together</span>
-      </a>
+      <button id="openQuoteModal"
+  class="mt-8 inline-flex items-center gap-2 px-8 py-3 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 shadow-glow hover:shadow-2xl transition-transform hover:scale-105">
+  <span>💡 Get a Quote</span>
+</button>
+
     </div>
   </header>
+
+  <!-- Quote Modal -->
+<div id="quoteModal" class="fixed inset-0 hidden bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg p-8 relative">
+    
+    <!-- Close Button -->
+    <button id="closeQuoteModal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
+      ✖
+    </button>
+
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Request a Quote</h2>
+    <p class="text-gray-500 mb-6">Tell us what you need, and we’ll get back to you shortly.</p>
+
+    <form id="quoteForm" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Full Name</label>
+        <input type="text" required class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none text-purple-900"/>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Email</label>
+        <input type="email" required class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none text-purple-900"/>
+      </div>
+      <div>
+         <label for="contactNumber" class="block text-sm font-medium text-gray-700">Contact Number</label>
+        <input id="contactNumber" name="contactNumber" type="tel" required title="Enter your contact number including country code" placeholder="+27 76 534 6323" class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none text-purple-900"/>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Project Type</label>
+        <select required class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none text-purple-900">
+          <option value="">Select an option</option>
+          <option>Website Development</option>
+          <option>Mobile App Development</option>
+          <option value="AI Integration" title="AI Integration">AI Integration</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Project Details</label>
+        <textarea rows="4" required class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none text-purple-900"></textarea>
+      </div>
+      <button type="submit" class="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-lg font-semibold hover:scale-105 transition">
+        📩 Submit Request
+      </button>
+    </form>
+  </div>
+</div>
+
 
 <!-- About -->
 <section id="about" class="py-20">
@@ -196,6 +246,39 @@
     </div>
   </div>
 </section>
+
+<!-- Blog preview -->
+<section id="blog" class="py-20 bg-black/5">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="glass rounded-2xl shadow-2xl p-10" data-aos="fade-up">
+     <h2 class="text-4xl md:text-5xl font-extrabold mb-4 text-white text-center" data-aos="fade-up">
+      Latest <span class="bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text">Insights</span>
+    </h2>
+
+    <!-- Blog grid -->
+    <div id="blog-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
+  </div>
+</section>
+
+<!-- Blog Modal -->
+<div id="blog-modal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+  <div class="bg-white rounded-2xl max-w-3xl w-full mx-4 p-6 overflow-y-auto max-h-[90vh] relative shadow-xl">
+    <button onclick="closeBlog()" class="absolute top-3 right-3 text-gray-600 hover:text-black text-xl">✖</button>
+    
+    <!-- Blog metadata -->
+    <div id="blog-meta" class="mb-6 border-b border-gray-200 pb-4">
+      <h2 id="blog-title" class="text-2xl font-bold text-gray-900"></h2>
+      <div class="text-sm text-gray-500 mt-1" id="blog-info"></div>
+    </div>
+
+    <!-- Blog content -->
+    <div id="blog-content" class="prose prose-lg max-w-none text-black"></div>
+  </div>
+</div>
+
+
+
+
 
 
 <!-- Services -->
@@ -273,8 +356,9 @@
         <li>✅ 1 Website / Landing Page</li>
         <li>✅ Basic SEO</li>
         <li>✅ Responsive Design</li>
-        <li>✅ 1 Month Support</li>
-        <li>✅ Free Hosting</li>
+        <li>✅ 3 Months Support</li>
+        <li>✅ 5 Email Accounts</li>
+        <li>✅ Hosting & Domain Setup</li>
       </ul>
       <a href="https://wa.me/27765346323?text=Hi%20I%20want%20the%20Basic%20package" target="_blank" rel="noopener noreferrer" class="inline-block px-6 py-3 rounded-full bg-purple-600 hover:bg-gradient-to-r from-purple-600 to-pink-500 hover:shadow-2xl hover:-translate-y-[2px] transition hover:shadow-purple-500/50">
         Get Started
@@ -286,12 +370,15 @@
       <span class="absolute -top-3 right-6 px-3 py-1 text-xs rounded-full bg-purple-600 text-white animate-pulse">🔥 Popular</span>
       <h3 class="text-xl font-semibold mb-2 text-white">Standard</h3>
       <p class="text-gray-300 mb-6">For growing businesses & app projects</p>
-      <div class="text-3xl font-bold text-purple-400 mb-6">ZAR 5,500</div>
+      <div class="text-3xl font-bold text-purple-400 mb-6">ZAR 6,500</div>
       <ul class="text-gray-400 mb-6 space-y-2">
-        <li>✅ Up to 3 Pages / Features</li>
+        <li>✅ Up to 5 Pages</li>
         <li>✅ Responsive Web & Mobile Ready</li>
-        <li>✅ 3 Months Support</li>
+        <li>✅ 9 Months Support</li>
+        <li>✅ SEO Optimization</li>
         <li>✅ Basic AI/Automation</li>
+        <li>✅ 10 Email Accounts</li>
+        <li>✅ Performance Optimization</li>
         <li>✅ Hosting & Domain Setup</li>
       </ul>
       <a href="https://wa.me/27765346323?text=Hi%20I%20want%20the%20Standard%20package" target="_blank" rel="noopener noreferrer" class="inline-block px-6 py-3 rounded-full bg-purple-600 hover:bg-gradient-to-r from-purple-600 to-pink-500 hover:shadow-2xl hover:-translate-y-[2px] transition hover:shadow-purple-500/50">
@@ -302,14 +389,18 @@
     <!-- Premium -->
     <div class="p-8 rounded-2xl bg-gray-800/90 border border-purple-600/40 hover:shadow-[0_0_35px_rgba(168,85,247,0.6)] hover:-translate-y-3 transition-all duration-300" data-aos="zoom-in" data-aos-delay="200">
       <h3 class="text-xl font-semibold mb-2 text-white">Premium</h3>
-      <p class="text-gray-300 mb-6">Advanced web, apps & AI solutions</p>
-      <div class="text-3xl font-bold text-purple-400 mb-6">ZAR 10,500+</div>
+      <p class="text-gray-300 mb-6">Advanced web, mobile apps & AI solutions</p>
+      <div class="text-3xl font-bold text-purple-400 mb-6">ZAR 15,500+</div>
       <ul class="text-gray-400 mb-6 space-y-2">
-        <li>✅ Unlimited Pages / Features</li>
+        <li>✅ 10 Pages</li>
         <li>✅ Web, Mobile & AI Solutions</li>
-        <li>✅ 6 Months Support</li>
+        <li>✅ Advanced SEO</li>
+        <li>✅ 15 Email Accounts</li>
+        <li>✅ Performance Optimization</li>
+        <li>✅ Unlimited Support</li>
         <li>✅ Priority Delivery & Automation</li>
         <li>✅ Dedicated Account Manager</li>
+        <li>✅ Hosting & Domain Setup</li>
         <li>✅ Custom Solutions</li>
       </ul>
       <a href="https://wa.me/27765346323?text=Hi%20I%20want%20the%20Premium%20package" target="_blank" rel="noopener noreferrer" class="inline-block px-6 py-3 rounded-full bg-purple-600 hover:bg-gradient-to-r from-purple-600 to-pink-500 hover:shadow-2xl hover:-translate-y-[2px] transition hover:shadow-purple-500/50">
@@ -408,8 +499,8 @@
         </div>
         <p class="text-gray-300 mt-4">Leads product vision and AI engineering. Kevin builds robust backends and integration pipelines ensuring seamless data flow and system interoperability.</p>
         <div class="mt-4 flex items-center gap-3">
-          <a href="https://linkedin.com/in/kevin-mohlaoli-kutoane" class="text-purple-300 hover:text-white"><i class="fab fa-linkedin"></i></a>
-          <a href="https://portfolio-website-c226f.web.app/" class="text-purple-300 hover:text-white"><i class="fa fa-globe"></i></a>
+          <a href="https://linkedin.com/in/kevin-mohlaoli-kutoane" class="text-purple-300 hover:text-white" aria-label="Kevin Kutoane on LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="https://portfolio-website-c226f.web.app/" class="text-purple-300 hover:text-white" aria-label="Kevin's portfolio website"><i class="fa fa-globe"></i></a>
         </div>
       </div>
 
@@ -424,7 +515,7 @@
         </div>
         <p class="text-gray-300 mt-4">Designs intuitive user experiences and ensures product-market fit across offerings. He spearheads design initiatives and aligns closely with product management goals.</p>
         <div class="mt-4 flex items-center gap-3">
-          <a href="https://www.linkedin.com/in/realeboha-lekhanya-a2297778/" class="text-purple-300 hover:text-white"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.linkedin.com/in/realeboha-lekhanya-a2297778/" class="text-purple-300 hover:text-white" aria-label="Realeboha Lekhanya on LinkedIn"><i class="fab fa-linkedin"></i></a>
         </div>
       </div>
 
@@ -439,7 +530,7 @@
         </div>
         <p class="text-gray-300 mt-4">A financial guru with a deep understanding of trade and development project financing across Africa’s critical infrastructure sectors.</p>
         <div class="mt-4 flex items-center gap-3">
-          <a href="https://www.linkedin.com/in/kutoane/" class="text-purple-300 hover:text-white"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.linkedin.com/in/kutoane/" class="text-purple-300 hover:text-white" aria-label="Kutoane Kutoane on LinkedIn"><i class="fab fa-linkedin"></i></a>
         </div>
       </div>
 
@@ -454,13 +545,13 @@
         </div>
         <p class="text-gray-300 mt-4">Heads operations and ensures seamless execution of our projects while curating high-quality content strategies.</p>
         <div class="mt-4 flex items-center gap-3">
-          <a href="https://www.linkedin.com/in/relebogile-motjale-she-her-hers-48a88922a/" class="text-purple-300 hover:text-white"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.linkedin.com/in/relebogile-motjale-she-her-hers-48a88922a/" class="text-purple-300 hover:text-white" aria-label="Relebogile Motjale on LinkedIn"><i class="fab fa-linkedin"></i></a>
         </div>
       </div>
     </div>
   </div>
 </section>
-
+<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02NhjPxNf6xhLWTJrrPjTjUMArukvrbD9UCjxA2pikKAXWTjF4pU7vQQLnWB2UZq9Dl%26id%3D61580865125704&show_text=true&width=500" width="500" height="544" style="border:none;overflow:hidden; border-radius:25px; align:center;" scrolling="no" frameborder="1" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
 
   <!-- AI Demo -->
   <section class="py-20 text-center">
@@ -559,7 +650,7 @@
 
   <!-- Back to Top Button -->
   <a href="#top" 
-     class="absolute right-6 bottom-6 bg-purple-600 hover:bg-purple-700 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110">
+    class="absolute right-6 bottom-6 bg-purple-600 hover:bg-purple-700 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110" aria-label="Back to top">
     <i class="fas fa-arrow-up"></i>
   </a>
 </footer>
@@ -567,6 +658,36 @@
 
   <!-- Scripts -->
   <script>
+    // Improve markdown rendering for the blog modal: ensure spacing and readable typography
+    (function(){
+      const style = document.createElement('style');
+      style.textContent = `
+        /* Scoped modal markdown styles */
+        #blog-content { color: #0f172a; }
+        #blog-content p { margin: 0 0 0.9rem; line-height: 1.6; color: #334155; }
+        #blog-content h1, #blog-content h2, #blog-content h3, #blog-content h4 { color: #0f172a; margin-top: 1.25rem; margin-bottom: 0.6rem; line-height: 1.2; }
+        #blog-content h1 { font-size: 1.6rem; }
+        #blog-content h2 { font-size: 1.35rem; }
+        #blog-content h3 { font-size: 1.15rem; }
+        #blog-content ul, #blog-content ol { margin: 0.6rem 0 0.9rem 1.2rem; color: #334155; }
+        #blog-content li { margin: 0.35rem 0; }
+        #blog-content pre { background: #0f172a; color: #e2e8f0; padding: 0.75rem; border-radius: 0.5rem; overflow:auto; }
+        #blog-content code { background: #f1f5f9; color: #0f172a; padding: 0.15rem 0.35rem; border-radius: 0.35rem; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace; }
+        #blog-content img { max-width: 100%; border-radius: 0.5rem; margin: 0.6rem 0; }
+        /* Make links stand out in modal */
+        #blog-content a { color: #7c3aed; text-decoration: underline; }
+      `;
+      document.head.appendChild(style);
+    })();
+
+    // Configure marked to use GitHub-flavored markdown and preserve line breaks
+    if (window.marked && typeof window.marked.setOptions === 'function') {
+      try {
+        window.marked.setOptions({ gfm: true, breaks: true, smartLists: true });
+      } catch (e) {
+        console.warn('Could not set marked options', e);
+      }
+    }
     // Typed.js
     new Typed('#typed-text', {
       strings: ["Web Apps", "Mobile Apps", "AI Solutions", "Cloud Platforms", "Custom Software"],
@@ -651,18 +772,8 @@
 
     // AI chat
     const chatBox = document.getElementById('chat-box');
-    let aiMessageCount = 0;
-    const maxAiMessages = 3;
     document.getElementById('chat-form').addEventListener('submit', async function(e) {
       e.preventDefault();
-      if (aiMessageCount >= maxAiMessages) {
-        const botDiv = document.createElement('div');
-        botDiv.className = 'message bot';
-        botDiv.textContent = 'Demo limit reached. Please contact us for full access.';
-        chatBox.appendChild(botDiv);
-        chatBox.scrollTop = chatBox.scrollHeight;
-        return;
-      }
       const input = document.getElementById('user-input');
       const userMsg = input.value.trim();
       if (!userMsg) return;
@@ -685,6 +796,14 @@
           method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ prompt: userMsg })
         });
+        // If server responds 429, show friendly message
+        if (res.status === 429) {
+          const json = await res.json().catch(() => ({}));
+          botDiv.className = 'message bot';
+          botDiv.textContent = json.text || 'Demo limit reached for your IP. Please try again later or contact us.';
+          chatBox.scrollTop = chatBox.scrollHeight;
+          return;
+        }
         const data = await res.json();
         let text = data.text || 'No response';
 
@@ -760,6 +879,59 @@
     });
   </script>
   <script>
+    // Promo banner fix: hide properly
+    setTimeout(() => {
+      const banner = document.getElementById("promo-banner");
+      if (banner) banner.style.display = "none";
+    }, 20000);
+
+    // Load posts from manifest and render up to 3 previews
+    (async function loadPosts(){
+      try {
+        const resp = await fetch('/blog/posts.json');
+        if (!resp.ok) return;
+        const posts = await resp.json();
+        const previewEl = document.getElementById('blog-preview');
+        previewEl.innerHTML = '';
+        posts.slice(0,3).forEach(p => {
+          const card = document.createElement('div');
+          card.className = 'glass p-6 rounded-2xl';
+          card.innerHTML = `
+            <h3 class="text-2xl font-bold text-white">${p.title}</h3>
+            <p class="text-gray-400 text-sm mt-1">${p.date}</p>
+            <p class="text-gray-300 mt-4">${p.excerpt || ''}</p>
+            <div class="mt-4">
+              <a href="/blog/post.html?post=${encodeURIComponent(p.file)}" class="text-purple-300 underline">Read more</a>
+            </div>
+          `;
+          previewEl.appendChild(card);
+        });
+      } catch (e) {
+        // ignore
+      }
+    })();
+
+    // Demo quota UI helper: request a lightweight HEAD to get headers
+    (async function fetchQuota(){
+      try {
+        const res = await fetch('/api/gemini', { method: 'OPTIONS' });
+        // Some servers may not support OPTIONS; fall back to a harmless POST with empty prompt if 405
+        if (res.status === 405 || res.status === 404) {
+          // skip
+        }
+        const limit = res.headers.get('x-demo-limit');
+        const remaining = res.headers.get('x-demo-remaining');
+        if (limit) {
+          document.getElementById('demo-limit').innerText = limit;
+          document.getElementById('demo-remaining').innerText = remaining || '0';
+          document.getElementById('demo-quota').style.display = 'block';
+        }
+      } catch (e) {
+        // ignore
+      }
+    })();
+  </script>
+  <script>
     // Initialize AOS
     AOS.init({
       duration: 700,
@@ -774,6 +946,92 @@
     if (banner) banner.style.display = "sticky";
   }, 20000);
 </script>
+
+<!-- Quote Modal Script -->
+<script>
+  const openBtn = document.getElementById('openQuoteModal');
+  const closeBtn = document.getElementById('closeQuoteModal');
+  const modal = document.getElementById('quoteModal');
+
+  openBtn.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    modal.classList.add('hidden');
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.add('hidden');
+    }
+  });
+</script>
+<script>
+  const blogPosts = [
+    { 
+      title: "Welcome to Inhouse Africa Technologies' first tech blog", 
+      file: "blog/first-post.md", 
+      image: "images/blog1.jpg",
+      author: "Kevin Kutoane",
+      date: "March 12, 2025"
+    },
+    { 
+      title: "Top Web Trends for 2025", 
+      file: "blog/pwa-guide.md", 
+      image: "images/blog2.jpg",
+      author: "Relebogile Motjale",
+      date: "March 5, 2025"
+    },
+    { 
+      title: "Mobile First: Why It Still Matters", 
+      file: "blog/rag-for-smes.md", 
+      image: "images/blog3.jpg",
+      author: "Realeboha Lekhanya",
+      date: "Feb 28, 2025"
+    }
+  ];
+
+  const grid = document.getElementById("blog-grid");
+  const blogContent = document.getElementById("blog-content");
+  const blogTitle = document.getElementById("blog-title");
+  const blogInfo = document.getElementById("blog-info");
+  const blogModal = document.getElementById("blog-modal");
+
+  // Build blog cards
+  blogPosts.forEach((post, index) => {
+    const card = document.createElement("article");
+    card.className = "glass p-6 rounded-2xl hover:scale-105 transition shadow-lg";
+    card.innerHTML = `
+      <img src="${post.image}" alt="${post.title}" class="rounded-xl mb-4">
+      <h3 class="text-xl font-semibold mb-2">${post.title}</h3>
+      <p class="text-gray-400 text-sm mb-4">By ${post.author} • ${post.date}</p>
+      <button onclick="openBlog(${index})" class="text-purple-300 hover:text-white font-medium">Read More →</button>
+    `;
+    grid.appendChild(card);
+  });
+
+  // Open blog modal
+  async function openBlog(index) {
+    const post = blogPosts[index];
+    const res = await fetch(post.file);
+    const md = await res.text();
+
+    blogTitle.textContent = post.title;
+    blogInfo.textContent = `By ${post.author} • ${post.date}`;
+    blogContent.innerHTML = marked.parse(md);
+    blogModal.classList.remove("hidden");
+    blogModal.classList.add("flex");
+  }
+
+  // Close blog modal
+  function closeBlog() {
+    blogModal.classList.add("hidden");
+    blogModal.classList.remove("flex");
+  }
+</script>
+
+
 
 </body>
 </html>

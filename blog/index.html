@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Inhouse Africa Technologies</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- You can link to your main stylesheet here if you have one, after Tailwind -->
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans antialiased">
+    <div class="container mx-auto p-6 max-w-3xl">
+        <h1 class="text-4xl font-bold text-purple-400 mb-6">Our Blog</h1>
+        <p class="text-gray-300 mb-8">Welcome to our blog! Browse our latest posts below:</p>
+        <div id="blog-carousel" class="relative max-w-4xl mx-auto">
+            <div id="carousel-slides" class="overflow-hidden rounded-2xl"></div>
+            <button id="carousel-prev" aria-label="Previous" class="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800/60 p-2 rounded-full">‹</button>
+            <button id="carousel-next" aria-label="Next" class="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-800/60 p-2 rounded-full">›</button>
+        </div>
+    </div>
+
+    <script>
+                (async function renderPosts(){
+                        const slides = document.getElementById('carousel-slides');
+            try {
+                                const resp = await fetch('posts.json');
+                if (!resp.ok) throw new Error('No manifest');
+                const posts = await resp.json();
+                                if (!posts || posts.length === 0) {
+                                        slides.innerHTML = '<p class="text-gray-400">No posts yet. Check back soon.</p>';
+                                        return;
+                                }
+                                // build slides
+                                slides.innerHTML = posts.map((p, idx) => `
+                                        <div class="slide ${idx===0? 'active' : 'hidden'}" data-idx="${idx}">
+                                            <a href="post.html?post=${encodeURIComponent(p.file)}">
+                                                <div class="relative bg-gray-800 rounded-2xl overflow-hidden">
+                                                    <img src="${p.image || '/images/hero.png'}" alt="${p.title}" class="w-full h-64 object-cover">
+                                                    <div class="p-6">
+                                                        <h3 class="text-2xl font-bold text-white">${p.title}</h3>
+                                                        <p class="text-gray-400 text-sm mt-1">${p.date}</p>
+                                                        <p class="text-gray-300 mt-4">${p.excerpt || ''}</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                `).join('');
+                                // carousel controls
+                                let current = 0;
+                                const slideEls = Array.from(slides.querySelectorAll('.slide'));
+                                function show(i){
+                                    slideEls.forEach((s, idx) => { s.classList.toggle('hidden', idx !== i); s.classList.toggle('active', idx === i); });
+                                }
+                                document.getElementById('carousel-next').addEventListener('click', ()=>{ current = (current+1) % slideEls.length; show(current); });
+                                document.getElementById('carousel-prev').addEventListener('click', ()=>{ current = (current-1+slideEls.length) % slideEls.length; show(current); });
+                                // auto-advance
+                                setInterval(()=>{ current = (current+1) % slideEls.length; show(current); }, 7000);
+            } catch (e) {
+                                slides.innerHTML = '<p class="text-gray-400">No posts yet. Check back soon.</p>';
+            }
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Practical Retrieval-Augmented Generation (RAG) for SMEs",
+    "file": "rag-for-smes.md",
+    "date": "2025-09-18 14:00:00 +0200",
+    "excerpt": "RAG combines retrieval from your own documents with generative models to deliver accurate, context-aware answers. For small businesses, it's a powerful way to b...",
+    "image": "",
+    "thumbnail": "",
+    "useImageAsThumbnail": true
+  },
+  {
+    "title": "Building Progressive Web Apps for African Markets",
+    "file": "pwa-guide.md",
+    "date": "2025-09-17 11:00:00 +0200",
+    "excerpt": "Progressive Web Apps (PWAs) offer fast, installable experiences that work offline — ideal for markets with intermittent connectivity. This guide covers service...",
+    "image": "",
+    "thumbnail": "",
+    "useImageAsThumbnail": false
+  },
+  {
+    "title": "How AI Can Help Small Businesses Scale",
+    "file": "ai-for-smes.md",
+    "date": "2025-09-16 09:00:00 +0200",
+    "excerpt": "AI isn't just for large enterprises. Small and medium businesses can leverage AI to automate customer support, analyze sales trends, and personalize marketing —...",
+    "image": "",
+    "thumbnail": "",
+    "useImageAsThumbnail": false
+  },
+  {
+    "title": "Welcome to the Inhouse Africa Technologies Blog!",
+    "file": "first-post.md",
+    "date": "2025-09-15 10:00:00 +0200",
+    "excerpt": "Hello and welcome to the official blog of Inhouse Africa Technologies! We are thrilled to launch this platform to share our insights, expertise, and the latest...",
+    "image": "",
+    "thumbnail": "",
+    "useImageAsThumbnail": false
+  }
+]

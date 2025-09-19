@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How AI Can Help Small Businesses Scale</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style> body{background:#0f172a;color:#e5e7eb} .container{max-width:900px;margin:3rem auto;padding:1rem} img{max-width:100%} </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/blog/index.html" class="text-sm text-purple-300">← Back to blog</a>
+    <h1 id="post-title" class="text-4xl font-bold text-white mt-4"></h1>
+    <p id="post-meta" class="text-gray-400 mt-1"></p>
+    <div id="post-image" class="mt-4"></div>
+    <main id="content" class="prose prose-invert mt-6"></main>
+  </div>
+  <script>
+    (async function(){
+      const postFile = 'ai-for-smes.md';
+      try{
+        const resp = await fetch(postFile);
+        const text = await resp.text();
+        const fmMatch = text.match(/^---\s*\n([\s\S]*?)\n---\s*\n/);
+        let fm = {};
+        let content = text;
+        if (fmMatch){
+          const fmString = fmMatch[1];
+          fmString.split('\n').forEach(line=>{ const idx=line.indexOf(':'); if (idx>-1){ let key=line.slice(0,idx).trim(); let val=line.slice(idx+1).trim(); if ((val.startsWith('"')&&val.endsWith('"'))||(val.startsWith("'")&&val.endsWith("'"))){val=val.slice(1,-1);} fm[key]=val; }});
+          content = text.slice(fmMatch[0].length);
+        }
+        document.title = fm.title || 'Post';
+        document.getElementById('post-title').innerText = fm.title || '';
+        document.getElementById('post-meta').innerText = (fm.date?('Posted on '+fm.date.split(' ')[0]):'') + (fm.author?(' by '+fm.author):'');
+        if (fm.image){ document.getElementById('post-image').innerHTML = `<img src="${fm.image}" alt="${fm.title||''}" class="rounded">`; }
+        document.getElementById('content').innerHTML = marked.parse(content);
+      }catch(e){ document.getElementById('content').innerHTML = '<p class="text-gray-400">Unable to load post.</p>'; console.error(e);} 
+    })();
+  </script>
+</body>
+</html>
