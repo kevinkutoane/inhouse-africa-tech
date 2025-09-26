@@ -77,14 +77,15 @@
                     <div id="statusDot" class="w-3 h-3 rounded-full bg-yellow-400 ring-2 ring-yellow-400/30"></div>
                 </div>
 
-                <div class="flex-1 flex items-center justify-center">
-                    <div id="art" class="w-full h-64 rounded-2xl bg-gradient-to-tr from-purple-800 via-pink-700 to-cyan-500/30 flex items-center justify-center text-3xl font-bold text-white/90">
-                        <div class="space-y-2 text-center">
-                            <div class="text-lg opacity-90">Interactive Preview</div>
-                            <div class="text-sm opacity-80">Hover and click for easter eggs</div>
+                        <div class="flex-1 flex items-center justify-center">
+                            <div id="art" class="w-full h-64 rounded-2xl bg-gradient-to-tr from-purple-800 via-pink-700 to-cyan-500/30 flex items-center justify-center text-3xl font-bold text-white/90 relative overflow-hidden cursor-pointer transition-all duration-300">
+                                <div id="artText" class="space-y-2 text-center pointer-events-none select-none">
+                                    <div class="text-lg opacity-90">Interactive Preview</div>
+                                    <div class="text-sm opacity-80">Hover and click for easter eggs</div>
+                                </div>
+                                <div id="sparkleBox" class="absolute inset-0 pointer-events-none"></div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
                 <div class="flex gap-3">
                     <button id="ghostBtn" class="flex-1 px-4 py-3 bg-white/5 rounded-lg">View Changelog</button>
@@ -126,7 +127,79 @@
         }
     </style>
 
-    <script>
+        <script>
+                // Easter eggs for the preview pane
+                (function(){
+                    const art = document.getElementById('art');
+                    const artText = document.getElementById('artText');
+                    const sparkleBox = document.getElementById('sparkleBox');
+                    const eggs = [
+                        { type: 'emoji', value: '🦄✨', label: 'Unicorn Mode!' },
+                        { type: 'emoji', value: '🤖', label: 'AI is watching...' },
+                        { type: 'fact', value: 'Did you know? Africa has the youngest population in the world.' },
+                        { type: 'fact', value: 'Fun fact: The first website ever was published in 1991.' },
+                        { type: 'emoji', value: '🌈', label: 'Double rainbow!' },
+                        { type: 'anim', value: 'spin', label: 'Spinning up...' },
+                        { type: 'emoji', value: '🚀', label: 'Launching soon!' },
+                        { type: 'fact', value: 'Easter egg: You found a secret!' },
+                        { type: 'emoji', value: '👾', label: 'Glitch in the matrix' },
+                        { type: 'anim', value: 'shake', label: 'Shaking things up!' }
+                    ];
+
+                    // Sparkle effect on hover
+                    function sparkle(e) {
+                        const rect = art.getBoundingClientRect();
+                        for(let i=0;i<6;i++) {
+                            const s = document.createElement('div');
+                            const x = e ? (e.clientX - rect.left) : Math.random()*rect.width;
+                            const y = e ? (e.clientY - rect.top) : Math.random()*rect.height;
+                            s.className = 'absolute w-2 h-2 rounded-full bg-white opacity-80 pointer-events-none';
+                            s.style.left = (x + (Math.random()-0.5)*40) + 'px';
+                            s.style.top = (y + (Math.random()-0.5)*40) + 'px';
+                            s.style.boxShadow = `0 0 12px 2px #fff, 0 0 24px 8px #a78bfa`;
+                            s.style.transform = `scale(${0.7+Math.random()*1.2})`;
+                            s.style.transition = 'opacity 0.7s, transform 0.7s';
+                            sparkleBox.appendChild(s);
+                            setTimeout(()=>{ s.style.opacity=0; s.style.transform+=' scale(2.2)'; }, 10);
+                            setTimeout(()=>{ s.remove(); }, 800);
+                        }
+                    }
+                    art.addEventListener('mousemove', sparkle);
+                    art.addEventListener('mouseenter', (e)=>{
+                        art.style.background = 'radial-gradient(circle at 60% 40%, #fff7, #a78bfa 60%, #0ea5e9 100%)';
+                        sparkle(e);
+                    });
+                    art.addEventListener('mouseleave', ()=>{
+                        art.style.background = '';
+                    });
+
+                    // Easter egg on click
+                    art.addEventListener('click', ()=>{
+                        const egg = eggs[Math.floor(Math.random()*eggs.length)];
+                        if(egg.type==='emoji') {
+                            artText.innerHTML = `<div class="text-5xl animate-bounce">${egg.value}</div><div class="text-base mt-2">${egg.label}</div>`;
+                            sparkle();
+                        } else if(egg.type==='fact') {
+                            artText.innerHTML = `<div class="text-lg font-semibold">${egg.value}</div>`;
+                            sparkle();
+                        } else if(egg.type==='anim') {
+                            if(egg.value==='spin') {
+                                art.classList.add('animate-spin');
+                                artText.innerHTML = `<div class="text-3xl">🌀</div><div class="text-base mt-2">${egg.label}</div>`;
+                                setTimeout(()=>{ art.classList.remove('animate-spin'); artText.innerHTML = orig; }, 1200);
+                            } else if(egg.value==='shake') {
+                                art.classList.add('animate-pulse');
+                                artText.innerHTML = `<div class="text-3xl">💥</div><div class="text-base mt-2">${egg.label}</div>`;
+                                setTimeout(()=>{ art.classList.remove('animate-pulse'); artText.innerHTML = orig; }, 900);
+                            }
+                            sparkle();
+                        }
+                        // Restore after 2s
+                        setTimeout(()=>{ artText.innerHTML = orig; }, 2000);
+                    });
+                    // Save original content
+                    const orig = artText.innerHTML;
+                })();
         // Particle background & gradient animator
         (function(){
             const canvas = document.getElementById('bgCanvas');
