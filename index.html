@@ -235,9 +235,11 @@
 
         // Countdown (example: 3 days from now)
         (function(){
-            const end = Date.now() + 3*24*60*60*1000; // 3 days
+            // Set a fixed end date: September 29, 2025, 12:00 PM (noon) local time
+            const end = new Date(2025, 8, 29, 12, 0, 0, 0).getTime(); // Month is 0-indexed (8=September)
             function update(){
-                const s = Math.max(0, Math.floor((end - Date.now())/1000));
+                const now = Date.now();
+                const s = Math.max(0, Math.floor((end - now)/1000));
                 const days = Math.floor(s / 86400); const hrs = Math.floor((s%86400)/3600);
                 const mins = Math.floor((s%3600)/60); const secs = s%60;
                 document.getElementById('days').textContent = String(days).padStart(2,'0');
