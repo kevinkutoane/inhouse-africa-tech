@@ -177,6 +177,7 @@
                     // Easter egg on click
                     art.addEventListener('click', ()=>{
                         const egg = eggs[Math.floor(Math.random()*eggs.length)];
+                        let restoreDelay = 4000;
                         if(egg.type==='emoji') {
                             artText.innerHTML = `<div class="text-5xl animate-bounce">${egg.value}</div><div class="text-base mt-2">${egg.label}</div>`;
                             sparkle();
@@ -184,19 +185,22 @@
                             artText.innerHTML = `<div class="text-lg font-semibold">${egg.value}</div>`;
                             sparkle();
                         } else if(egg.type==='anim') {
+                            restoreDelay = 2500;
                             if(egg.value==='spin') {
                                 art.classList.add('animate-spin');
                                 artText.innerHTML = `<div class="text-3xl">🌀</div><div class="text-base mt-2">${egg.label}</div>`;
-                                setTimeout(()=>{ art.classList.remove('animate-spin'); artText.innerHTML = orig; }, 1200);
+                                setTimeout(()=>{ art.classList.remove('animate-spin'); artText.innerHTML = orig; }, restoreDelay);
                             } else if(egg.value==='shake') {
                                 art.classList.add('animate-pulse');
                                 artText.innerHTML = `<div class="text-3xl">💥</div><div class="text-base mt-2">${egg.label}</div>`;
-                                setTimeout(()=>{ art.classList.remove('animate-pulse'); artText.innerHTML = orig; }, 900);
+                                setTimeout(()=>{ art.classList.remove('animate-pulse'); artText.innerHTML = orig; }, restoreDelay);
                             }
                             sparkle();
                         }
-                        // Restore after 2s
-                        setTimeout(()=>{ artText.innerHTML = orig; }, 2000);
+                        // Restore after 4s (facts/emoji) or 2.5s (anim)
+                        if(egg.type!=='anim') {
+                            setTimeout(()=>{ artText.innerHTML = orig; }, restoreDelay);
+                        }
                     });
                     // Save original content
                     const orig = artText.innerHTML;
