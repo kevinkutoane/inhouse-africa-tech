@@ -1,3 +1,12 @@
+---
+layout: post
+title: "Mobile-first: Why it still matters"
+author: "Kevin Kutoane"
+date: 2025-09-16 09:00:00 +0200
+categories: [AI, Business]
+tags: [AI, SMEs, automation]
+---
+
 **Mobile First: Why It Still Matters**
 
 The term "mobile-first" has been a buzzword in the web design and marketing world for over a decade. In the fast-paced digital landscape, a decade can feel like a lifetime. So, it’s fair to ask: is a mobile-first strategy still relevant, or is it just outdated advice?

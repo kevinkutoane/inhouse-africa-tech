@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Inhouse Africa Technologies</title>
+  <link rel="icon" type="image/png" href="images/logo_iat.png">
+  
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Tailwind config (CDN) -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            inter: ['Inter', 'ui-sans-serif', 'system-ui']
+          },
+          keyframes: {
+            'gradient-x': {
+              '0%, 100%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' }
+            },
+            float: {
+              '0%,100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' }
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' }
+            },
+            pulseSoft: {
+              '0%,100%': { transform: 'scale(1)' },
+              '50%': { transform: 'scale(1.03)' }
+            }
+          },
+          animation: {
+            'gradient-x': 'gradient-x 8s ease infinite',
+            float: 'float 6s ease-in-out infinite',
+            shimmer: 'shimmer 1.6s linear infinite',
+            pulseSoft: 'pulseSoft 4s ease-in-out infinite'
+          },
+          boxShadow: {
+            glow: '0 0 0 2px rgba(127,90,240,0.25), 0 0 30px rgba(127,90,240,0.35)'
+          }
+        }
+      }
+    }
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <!-- AOS (Animate On Scroll) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+  <!-- Typed.js -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    html { scroll-behavior: smooth; }
+    /* Offset for fixed navbar when using hash links */
+    section, header { scroll-margin-top: 96px; }
+
+    /* Chat bubbles */
+    #chat-box { max-height: 360px; overflow-y: auto; }
+    .message { padding: 0.5rem 1rem; border-radius: 0.75rem; margin-bottom: 0.5rem; max-width: 85%; }
+    .user { background: #7f5af0; align-self: flex-end; color: white; }
+    .bot { background: rgba(255,255,255,0.08); align-self: flex-start; color: #e5e7eb; }
+
+    /* Floating WhatsApp pulse */
+    @keyframes pulseWA { 0%,100%{ transform: scale(1)} 50%{ transform: scale(1.15)} }
+
+    /* Typing dots */
+    .typing span{ display:inline-block; width:6px; height:6px; margin:0 2px; border-radius:9999px; background:#a78bfa; opacity:.4; }
+    .typing span:nth-child(1){ animation: bounce 1s infinite .0s }
+    .typing span:nth-child(2){ animation: bounce 1s infinite .2s }
+    .typing span:nth-child(3){ animation: bounce 1s infinite .4s }
+    @keyframes bounce{ 0%,100%{ transform:translateY(0); opacity:.3 } 50%{ transform:translateY(-5px); opacity:1 } }
+
+    /* Glass card helper */
+    .glass { background: rgba(255,255,255,0.08); border: 1px solid rgba(167,139,250,.25); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+    @keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.animate-slideDown {
+  animation: slideDown 0.6s ease-out forwards;
+  }
+  /* simple fade-in for bot responses */
+  .fade-in { opacity: 0; animation: fadeIn 360ms ease forwards; }
+  @keyframes fadeIn { to { opacity: 1; } }
+  </style>
+</head>
+<body class="min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900 via-black to-gray-800 text-white font-inter">
+  
+  <!-- Background orbs -->
+  <div class="pointer-events-none fixed inset-0 -z-10">
+    <div class="absolute -top-16 -left-16 h-64 w-64 rounded-full blur-3xl opacity-30 bg-gradient-to-br from-purple-600 via-fuchsia-500 to-pink-500 animate-float"></div>
+    <div class="absolute bottom-0 right-0 h-72 w-72 rounded-full blur-3xl opacity-20 bg-gradient-to-br from-indigo-500 via-purple-500 to-cyan-500 animate-float" style="animation-delay:1.2s"></div>
+  </div>
+
+  <!-- WhatsApp FAB -->
+  <a href="https://wa.me/27765346323" target="_blank" rel="noopener noreferrer"
+     class="fixed bottom-6 left-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-transform duration-300 hover:scale-110"
+     style="animation:pulseWA 3s infinite" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp text-2xl"></i>
+  </a>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed w-full z-50 backdrop-blur bg-black/30 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="#home" class="shrink-0"><img src="images/logo_iat.png" alt="Inhouse Africa Logo" class="w-12 h-12 rounded-full ring-2 ring-purple-400/60"/></a>
+        <span class="text-lg md:text-xl font-bold tracking-wide">Inhouse Africa Technologies</span>
+      </div>
+      <ul class="hidden md:flex items-center gap-6 font-medium">
+        <li><a class="nav-link hover:text-purple-400" href="#about">About</a></li>
+        <li><a class="nav-link hover:text-purple-400" href="#blog">Blog</a></li>
+        <li><a class="nav-link hover:text-purple-400" href="#services">Services</a></li>
+        
+        <li><a class="nav-link hover:text-purple-400" href="#pricing">Pricing</a></li>
+        <li><a class="nav-link hover:text-purple-400" href="#portfolio">Portfolio</a></li>
+        <li><a class="nav-link hover:text-purple-400" href="#team">Team</a></li>
+        <li><a class="nav-link hover:text-purple-400" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+<!-- Promo Banner -->
+<div id="promo-banner" class="w-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 
+    text-white text-center py-3 px-4 relative shadow-lg rounded-b-2xl animate-slideDown z-50">
+  <p class="font-semibold text-lg">
+    🎉 First 5 customers get a site for <span class="font-bold">R750</span> — ready in 48 hours!
+  </p>
+  <button onclick="document.getElementById('promo-banner').style.display='none'" 
+          class="absolute right-4 top-3 text-white hover:text-gray-200">
+    ✖
+  </button>
+</div>
+
+  <!-- Hero -->
+  <header id="home" class="relative min-h-screen flex items-center justify-center text-center bg-cover bg-no-repeat" style="background-image: url('images/bg4.png');">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80"></div>
+    <div class="relative z-10 max-w-3xl px-6">
+      <div class="inline-flex items-center gap-3 px-3 py-1 rounded-full bg-white/10 ring-1 ring-white/10 mb-6 animate-pulse"  >
+        <span class="text-xs uppercase tracking-widest text-purple-300">AI • Web • Mobile</span>
+      </div>
+      <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+        Tomorrow’s <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-300 animate-gradient-x bg-[length:200%_200%]">Solutions</span> Today
+      </h1>
+      <h2 class="mt-4 text-xl md:text-2xl">We build <span id="typed-text" class="text-purple-300"></span></h2>
+      <button id="openQuoteModal"
+  class="mt-8 inline-flex items-center gap-2 px-8 py-3 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 shadow-glow hover:shadow-2xl transition-transform hover:scale-105">
+  <span>💡 Get a Quote</span>
+</button>
+
+    </div>
+  </header>
+
+  <!-- Quote Modal -->
+<div id="quoteModal" class="fixed inset-0 hidden bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg p-8 relative">
+    
+    <!-- Close Button -->
+    <button id="closeQuoteModal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
+      ✖
+    </button>
+
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Request a Quote</h2>
+    <p class="text-gray-500 mb-6">Tell us what you need, and we’ll get back to you shortly.</p>
+
+    <form id="quoteForm" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Full Name</label>
+        <input type="text" name="name" required class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none text-purple-900"/>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Email</label>
+        <input type="email" name="email" required class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none text-purple-900"/>
+      </div>
+      <div>
+         <label for="contactNumber" class="block text-sm font-medium text-gray-700">Contact Number</label>
+        <input id="contactNumber" name="contact" type="tel" required title="Enter your contact number including country code" placeholder="+27 76 534 6323" class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none text-purple-900"/>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Project Type</label>
+        <select name="projectType" required class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none text-purple-900">
+          <option value="">Select an option</option>
+          <option>Website Development</option>
+          <option>Mobile App Development</option>
+          <option value="AI Integration" title="AI Integration">AI Integration</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Project Details</label>
+        <textarea name="details"rows="4" required class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none text-purple-900"></textarea>
+      </div>
+      <button type="submit" class="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-lg font-semibold hover:scale-105 transition">
+        📩 Submit Request
+      </button>
+    </form>
+  </div>
+</div>
+
+
+<!-- About -->
+<section id="about" class="py-20">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <div class="glass rounded-2xl shadow-2xl p-10" data-aos="fade-up">
+       <h2 class="text-4xl md:text-5xl font-extrabold mb-4 text-white text-center" data-aos="fade-up">
+     Who <span class="bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text">We</span> Are
+    </h2><br>
+      <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-8">
+        <span class="text-purple-300 font-semibold">Inhouse Africa Technologies</span> was born from a simple idea:  
+        build digital solutions that don’t just look good — but actually work.  
+        Like many businesses, we went quiet during the COVID years. But in 2025, we reignited the vision, starting fresh with our own site before extending our craft to clients.  
+      </p>
+      <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-8">
+        Founded by a developer with a passion for clean design and problem-solving, we’ve grown into a studio that delivers sleek <span class="text-purple-300">websites</span>, powerful <span class="text-purple-300">apps</span>, and practical <span class="text-purple-300">AI solutions</span> that help businesses scale and stay relevant.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+        <div class="p-6 rounded-xl border border-purple-500/30 bg-black/30 hover:shadow-2xl transition-transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="0">
+          <h3 class="text-xl font-semibold mb-3">🚀 Innovation</h3>
+          <p class="text-gray-400">Modern stacks to keep you ahead of the curve.</p>
+        </div>
+        <div class="p-6 rounded-xl border border-purple-500/30 bg-black/30 hover:shadow-2xl transition-transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="100">
+          <h3 class="text-xl font-semibold mb-3">🤝 Partnership</h3>
+          <p class="text-gray-400">We work with you as a long-term partner.</p>
+        </div>
+        <div class="p-6 rounded-xl border border-purple-500/30 bg-black/30 hover:shadow-2xl transition-transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="200">
+          <h3 class="text-xl font-semibold mb-3">🌍 Impact</h3>
+          <p class="text-gray-400">Scalable, sustainable solutions for growth.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Blog preview -->
+
+<section id="blog" class="py-20 bg-black/5">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="glass rounded-2xl shadow-2xl p-10" data-aos="fade-up">
+      <h2 class="text-4xl md:text-5xl font-extrabold mb-4 text-white text-center" data-aos="fade-up">
+        Latest <span class="bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text">Insights</span>
+      </h2>
+      <div id="blog-list" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    // Blog post metadata (manually synced with your markdown files)
+    const blogPosts = [
+      {
+        filename: 'ai-for-smes',
+        title: 'How AI Can Help Small Businesses Scale',
+        author: 'Kevin Kutoane',
+        date: '2025-09-16',
+        summary: "AI isn't just for large enterprises. Small and medium businesses can leverage AI to automate customer support, analyze sales trends, and personalize marketing."
+      },
+      {
+        filename: 'pwa-guide',
+        title: 'Building Progressive Web Apps for African Markets',
+        author: 'Kevin Kutoane',
+        date: '2025-09-17',
+        summary: 'Progressive Web Apps (PWAs) offer fast, installable experiences that work offline — ideal for markets with intermittent connectivity. This guide covers service workers, caching, and more.'
+      },
+      {
+        filename: 'rag-for-smes',
+        title: 'Practical Retrieval-Augmented Generation (RAG) for SMEs',
+        author: 'Kevin Kutoane',
+        date: '2025-09-18',
+        summary: "RAG combines retrieval from your own documents with generative models to deliver accurate, context-aware answers. For small businesses, it's a powerful way to bring AI to your data."
+      },
+      {
+        filename: 'first-post',
+        title: 'Welcome to the Inhouse Africa Technologies Blog!',
+        author: 'Relebogile Motjale',
+        date: '2025-09-15',
+        summary: 'Hello and welcome to the official blog of Inhouse Africa Technologies! We are thrilled to launch this platform to share our insights, expertise, and the latest trends in web development, mobile apps, and AI solutions.'
+      }
+    ];
+
+    // Render blog cards
+    const blogList = document.getElementById('blog-list');
+    blogPosts.forEach(post => {
+      const postCard = document.createElement('div');
+      postCard.className = 'p-8 rounded-2xl bg-gray-800/80 border border-purple-500/30 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group';
+      postCard.setAttribute('data-aos', 'fade-up');
+      postCard.setAttribute('data-aos-delay', '0');
+      postCard.innerHTML = `
+        <h3 class="text-xl font-semibold mb-2 text-purple-400 group-hover:text-purple-300 transition-colors">${post.title}</h3>
+        <p class="text-gray-400 text-sm mb-3">${post.date} by ${post.author}</p>
+        <p class="text-gray-300 mb-4 leading-relaxed">${post.summary}</p>
+        <a href="blog/post.html?post=${post.filename}.md" class="inline-flex items-center gap-2 mt-4 px-6 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold hover:shadow-glow hover:scale-105 transition-all">
+          <span>Read More</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      `;
+      blogList.appendChild(postCard);
+    });
+</script>
+
+
+
+
+
+<!-- Services -->
+<section id="services" class="py-20 bg-gradient-to-b from-gray-900/0 via-black/40 to-black/60">
+  <h2 class="text-4xl md:text-5xl font-extrabold mb-4 text-white text-center" data-aos="fade-up">
+     Our <span class="bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text">Services</span>
+    </h2><br>
+  <p class="text-gray-300 mb-12 text-center max-w-2xl mx-auto" style="font-size: 16px;" data-aos="fade-up" data-aos-delay="50">
+    From idea to execution — we bring your vision to life with modern technology, speed, and creativity.
+  </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
+    <!-- Web Dev -->
+    <div class="p-8 rounded-2xl bg-gray-800/80 border border-purple-500/30 hover:shadow-2xl hover:-translate-y-2 transition-transform" data-aos="fade-up" data-aos-delay="0">
+      <div class="flex justify-center mb-4"><i class="fas fa-code text-purple-400 text-4xl"></i></div>
+      <h3 class="text-xl font-semibold mb-2">Web Development</h3>
+      <p class="text-gray-300">Modern, scalable, responsive websites and apps.</p>
+    </div>
+    <!-- Mobile -->
+    <div class="p-8 rounded-2xl bg-gray-800/80 border border-purple-500/30 hover:shadow-2xl hover:-translate-y-2 transition-transform" data-aos="fade-up" data-aos-delay="100">
+      <div class="flex justify-center mb-4"><i class="fas fa-mobile-alt text-purple-400 text-4xl"></i></div>
+      <h3 class="text-xl font-semibold mb-2">Mobile Apps</h3>
+      <p class="text-gray-300">Cross-platform apps built for performance.</p>
+    </div>
+    <!-- AI -->
+    <div class="p-8 rounded-2xl bg-gray-800/80 border border-purple-500/30 hover:shadow-2xl hover:-translate-y-2 transition-transform" data-aos="fade-up" data-aos-delay="200">
+      <div class="flex justify-center mb-4"><i class="fas fa-robot text-purple-400 text-4xl"></i></div>
+      <h3 class="text-xl font-semibold mb-2">AI Solutions</h3>
+      <p class="text-gray-300">Automations, chatbots, RAG, and integrations.</p>
+    </div>
+  </div>
+
+  <!-- Second Row -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6 mt-10">
+    <!-- Branding -->
+    <div class="p-8 rounded-2xl bg-gray-800/80 border border-purple-500/30 hover:shadow-2xl hover:-translate-y-2 transition-transform" data-aos="fade-up" data-aos-delay="300">
+      <div class="flex justify-center mb-4"><i class="fas fa-bullhorn text-purple-400 text-4xl"></i></div>
+      <h3 class="text-xl font-semibold mb-2">Branding & Design</h3>
+      <p class="text-gray-300">Logos, UI/UX, and visuals that give your brand identity.</p>
+    </div>
+    <!-- E-Commerce -->
+    <div class="p-8 rounded-2xl bg-gray-800/80 border border-purple-500/30 hover:shadow-2xl hover:-translate-y-2 transition-transform" data-aos="fade-up" data-aos-delay="400">
+      <div class="flex justify-center mb-4"><i class="fas fa-shopping-cart text-purple-400 text-4xl"></i></div>
+      <h3 class="text-xl font-semibold mb-2">E-Commerce</h3>
+      <p class="text-gray-300">Online stores with payment gateways, product management, and analytics.</p>
+    </div>
+    <!-- Consulting -->
+    <div class="p-8 rounded-2xl bg-gray-800/80 border border-purple-500/30 hover:shadow-2xl hover:-translate-y-2 transition-transform" data-aos="fade-up" data-aos-delay="500">
+      <div class="flex justify-center mb-4"><i class="fas fa-lightbulb text-purple-400 text-4xl"></i></div>
+      <h3 class="text-xl font-semibold mb-2">Tech Consulting</h3>
+      <p class="text-gray-300">Get guidance on digital transformation, scaling, and cloud adoption.</p>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Pricing -->
+<section id="pricing" class="py-20 relative overflow-hidden">
+  <!-- Background Accent -->
+  <div class="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-gray-900/60 to-black pointer-events-none"></div>
+
+ <h2 class="text-4xl md:text-5xl font-extrabold mb-4 text-white text-center" data-aos="fade-up">
+     Our <span class="bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text">Pricing</span>
+    </h2><br>
+    <p class="text-gray-300 text-center mb-12">Choose a pricing plan that fits your needs.</p>
+
+  <div class="relative grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
+    
+    <!-- Basic -->
+    <div class="p-8 rounded-2xl bg-gray-800/90 border border-purple-600/40 hover:shadow-[0_0_25px_rgba(168,85,247,0.4)] hover:-translate-y-3 transition-all duration-300" data-aos="zoom-in">
+      <h3 class="text-xl font-semibold mb-2 text-white">Basic</h3>
+      <p class="text-gray-300 mb-6">For small businesses or personal projects</p>
+      <div class="text-3xl font-bold text-purple-400 mb-6">ZAR 3,250</div>
+      <ul class="text-gray-400 mb-6 space-y-2">
+        <li>✅ 1 Website / Landing Page</li>
+        <li>✅ Basic SEO</li>
+        <li>✅ Responsive Design</li>
+        <li>✅ 3 Months Support</li>
+        <li>✅ 5 Email Accounts</li>
+        <li>✅ Hosting & Domain Setup</li>
+      </ul>
+      <a href="https://wa.me/27765346323?text=Hi%20I%20want%20the%20Basic%20package" target="_blank" rel="noopener noreferrer" class="inline-block px-6 py-3 rounded-full bg-purple-600 hover:bg-gradient-to-r from-purple-600 to-pink-500 hover:shadow-2xl hover:-translate-y-[2px] transition hover:shadow-purple-500/50">
+        Get Started
+      </a>
+    </div>
+
+    <!-- Standard -->
+    <div class="relative p-8 rounded-2xl bg-gradient-to-br from-purple-700/20 via-gray-800/90 to-gray-900/90 border border-purple-500/40 hover:shadow-[0_0_35px_rgba(168,85,247,0.6)] hover:-translate-y-3 transition-all duration-300 ring-2 ring-purple-400/30" data-aos="zoom-in" data-aos-delay="100">
+      <span class="absolute -top-3 right-6 px-3 py-1 text-xs rounded-full bg-purple-600 text-white animate-pulse">🔥 Popular</span>
+      <h3 class="text-xl font-semibold mb-2 text-white">Standard</h3>
+      <p class="text-gray-300 mb-6">For growing businesses & app projects</p>
+      <div class="text-3xl font-bold text-purple-400 mb-6">ZAR 6,500</div>
+      <ul class="text-gray-400 mb-6 space-y-2">
+        <li>✅ Up to 5 Pages</li>
+        <li>✅ Responsive Web & Mobile Ready</li>
+        <li>✅ 9 Months Support</li>
+        <li>✅ SEO Optimization</li>
+        <li>✅ Basic AI/Automation</li>
+        <li>✅ 10 Email Accounts</li>
+        <li>✅ Performance Optimization</li>
+        <li>✅ Hosting & Domain Setup</li>
+      </ul>
+      <a href="https://wa.me/27765346323?text=Hi%20I%20want%20the%20Standard%20package" target="_blank" rel="noopener noreferrer" class="inline-block px-6 py-3 rounded-full bg-purple-600 hover:bg-gradient-to-r from-purple-600 to-pink-500 hover:shadow-2xl hover:-translate-y-[2px] transition hover:shadow-purple-500/50">
+        Get Started
+      </a>
+    </div>
+
+    <!-- Premium -->
+    <div class="p-8 rounded-2xl bg-gray-800/90 border border-purple-600/40 hover:shadow-[0_0_35px_rgba(168,85,247,0.6)] hover:-translate-y-3 transition-all duration-300" data-aos="zoom-in" data-aos-delay="200">
+      <h3 class="text-xl font-semibold mb-2 text-white">Premium</h3>
+      <p class="text-gray-300 mb-6">Advanced web, mobile apps & AI solutions</p>
+      <div class="text-3xl font-bold text-purple-400 mb-6">ZAR 15,500+</div>
+      <ul class="text-gray-400 mb-6 space-y-2">
+        <li>✅ 10 Pages</li>
+        <li>✅ Web, Mobile & AI Solutions</li>
+        <li>✅ Advanced SEO</li>
+        <li>✅ 15 Email Accounts</li>
+        <li>✅ Performance Optimization</li>
+        <li>✅ Unlimited Support</li>
+        <li>✅ Priority Delivery & Automation</li>
+        <li>✅ Dedicated Account Manager</li>
+        <li>✅ Hosting & Domain Setup</li>
+        <li>✅ Custom Solutions</li>
+      </ul>
+      <a href="https://wa.me/27765346323?text=Hi%20I%20want%20the%20Premium%20package" target="_blank" rel="noopener noreferrer" class="inline-block px-6 py-3 rounded-full bg-purple-600 hover:bg-gradient-to-r from-purple-600 to-pink-500 hover:shadow-2xl hover:-translate-y-[2px] transition hover:shadow-purple-500/50">
+        Get Started
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+  <!-- Portfolio -->
+<section id="portfolio" class="py-20 bg-gradient-to-br from-black via-gray-900 to-black relative">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <!-- Title -->
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-4 text-white" data-aos="fade-up">
+      Our <span class="bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text">Portfolio</span>
+    </h2>
+    <p class="text-gray-300 max-w-2xl mx-auto mb-12 text-lg" data-aos="fade-up" data-aos-delay="100">
+      Explore some of our showcase projects. These demo sites highlight what we can deliver — tailored, modern, and built to impress.
+    </p>
+
+    <!-- Project Grid -->
+    <div class="grid md:grid-cols-3 gap-10">
+      
+      <!-- Project Card -->
+      <div class="group relative rounded-2xl overflow-hidden shadow-lg border border-white/10 hover:shadow-purple-500/30 transition-transform transform hover:-translate-y-2" data-aos="zoom-in">
+        <div class="relative h-72 overflow-hidden">
+          <img src="images/splashfix.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="SplashFix"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition"></div>
+        </div>
+        <div class="p-6 text-left">
+          <h3 class="text-2xl font-bold text-white mb-2">SplashFix Plumbing</h3>
+          <p class="text-gray-300 mb-4">Plumbing experts specializing in leaks & clogs.</p>
+          <button onclick="document.getElementById('modal-splashfix').classList.remove('hidden')" 
+            class="px-5 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-purple-800 text-white font-semibold shadow hover:scale-105 transition-all duration-300">
+            See More
+          </button>
+        </div>
+      </div>
+
+      <!-- Project Card -->
+      <div class="group relative rounded-2xl overflow-hidden shadow-lg border border-white/10 hover:shadow-pink-500/30 transition-transform transform hover:-translate-y-2" data-aos="zoom-in" data-aos-delay="100">
+        <div class="relative h-72 overflow-hidden">
+          <img src="images/secureGuard.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="SecureGuard"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition"></div>
+        </div>
+        <div class="p-6 text-left">
+          <h3 class="text-2xl font-bold text-white mb-2">SecureGuard</h3>
+          <p class="text-gray-300 mb-4">Security solutions with 24/7 monitoring & peace of mind.</p>
+          <button onclick="document.getElementById('modal-secureGuard').classList.remove('hidden')" 
+            class="px-5 py-2 rounded-lg bg-gradient-to-r from-pink-600 to-red-800 text-white font-semibold shadow hover:scale-105 transition-all duration-300">
+            See More
+          </button>
+        </div>
+      </div>
+
+      <!-- Project Card -->
+      <div class="group relative rounded-2xl overflow-hidden shadow-lg border border-white/10 hover:shadow-blue-500/30 transition-transform transform hover:-translate-y-2" data-aos="zoom-in" data-aos-delay="200">
+        <div class="relative h-72 overflow-hidden">
+          <img src="images/nailuxe.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Nailuxe"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition"></div>
+        </div>
+        <div class="p-6 text-left">
+          <h3 class="text-2xl font-bold text-white mb-2">Nailuxe</h3>
+          <p class="text-gray-300 mb-4">Luxury nail care brand with premium products for flawless nails.</p>
+          <button onclick="document.getElementById('modal-nailuxe').classList.remove('hidden')" 
+            class="px-5 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-800 text-white font-semibold shadow hover:scale-105 transition-all duration-300">
+            See More
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!--TEAM-->
+
+<section id="team" class="py-20 bg-gradient-to-b from-gray-900/0 to-black/10">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-4 text-white" data-aos="fade-up">
+      Meet the <span class="bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text">Team</span>
+    </h2>
+    <p class="text-gray-300 mb-12 max-w-2xl mx-auto">
+      A small, focused team of engineers, designers, and product leaders committed to building meaningful digital experiences and reliable AI systems.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- Member -->
+      <div class="glass p-8 rounded-2xl text-left shadow-lg hover:shadow-purple-500/20 hover:scale-105 transition duration-300" data-aos="fade-up" data-aos-delay="0">
+        <div class="flex items-center gap-4">
+          <img src="images/kevin.jpg" alt="Kevin" class="w-20 h-20 rounded-full object-cover border-2 border-purple-400/40 aspect-square">
+          <div>
+            <h3 class="text-xl font-semibold">Kevin Kutoane</h3>
+            <div class="text-sm text-purple-300">Founder & CTO</div>
+          </div>
+        </div>
+        <p class="text-gray-300 mt-4">Leads product vision and AI engineering. Kevin builds robust backends and integration pipelines ensuring seamless data flow and system interoperability.</p>
+        <div class="mt-4 flex items-center gap-3">
+          <a href="https://linkedin.com/in/kevin-mohlaoli-kutoane" class="text-purple-300 hover:text-white" aria-label="Kevin Kutoane on LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="https://portfolio-website-c226f.web.app/" class="text-purple-300 hover:text-white" aria-label="Kevin's portfolio website"><i class="fa fa-globe"></i></a>
+        </div>
+      </div>
+
+      <!-- Member -->
+      <div class="glass p-8 rounded-2xl text-left shadow-lg hover:shadow-purple-500/20 hover:scale-105 transition duration-300" data-aos="fade-up" data-aos-delay="100">
+        <div class="flex items-center gap-4">
+          <img src="images/rea.jpg" alt="Realeboha" class="w-20 h-20 rounded-full object-cover border-2 border-purple-400/40 aspect-square">
+          <div>
+            <h3 class="text-xl font-semibold">Realeboha Lekhanya</h3>
+            <div class="text-sm text-purple-300">Co-Founder & Design Lead</div>
+          </div>
+        </div>
+        <p class="text-gray-300 mt-4">Designs intuitive user experiences and ensures product-market fit across offerings. He spearheads design initiatives and aligns closely with product management goals.</p>
+        <div class="mt-4 flex items-center gap-3">
+          <a href="https://www.linkedin.com/in/realeboha-lekhanya-a2297778/" class="text-purple-300 hover:text-white" aria-label="Realeboha Lekhanya on LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+
+      <!-- Member -->
+      <div class="glass p-8 rounded-2xl text-left shadow-lg hover:shadow-purple-500/20 hover:scale-105 transition duration-300" data-aos="fade-up" data-aos-delay="200">
+        <div class="flex items-center gap-4">
+          <img src="images/KK.jpeg" alt="Kutoane" class="w-20 h-20 rounded-full object-cover border-2 border-purple-400/40 aspect-square">
+          <div>
+            <h3 class="text-xl font-semibold">Kutoane Kutoane</h3>
+            <div class="text-sm text-purple-300">CFO</div>
+          </div>
+        </div>
+        <p class="text-gray-300 mt-4">A financial guru with a deep understanding of trade and development project financing across Africa’s critical infrastructure sectors.</p>
+        <div class="mt-4 flex items-center gap-3">
+          <a href="https://www.linkedin.com/in/kutoane/" class="text-purple-300 hover:text-white" aria-label="Kutoane Kutoane on LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+
+      <!-- Team -->
+      <div class="glass p-8 rounded-2xl text-left shadow-lg hover:shadow-purple-500/20 hover:scale-105 transition duration-300" data-aos="fade-up" data-aos-delay="300">
+        <div class="flex items-center gap-4">
+          <img src="images/lebo.jpg" alt="Relebogile" class="w-20 h-20 rounded-full object-cover border-2 border-purple-400/40 aspect-square">
+          <div>
+            <h3 class="text-xl font-semibold">Relebogile Motjale</h3>
+            <div class="text-sm text-purple-300">Content Manager</div>
+          </div>
+        </div>
+        <p class="text-gray-300 mt-4">Heads operations and ensures seamless execution of our projects while curating high-quality content strategies.</p>
+        <div class="mt-4 flex items-center gap-3">
+          <a href="https://www.linkedin.com/in/relebogile-motjale-she-her-hers-48a88922a/" class="text-purple-300 hover:text-white" aria-label="Relebogile Motjale on LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02NhjPxNf6xhLWTJrrPjTjUMArukvrbD9UCjxA2pikKAXWTjF4pU7vQQLnWB2UZq9Dl%26id%3D61580865125704&show_text=true&width=500" width="500" height="544" style="border:none;overflow:hidden; border-radius:25px; align:center;" scrolling="no" frameborder="1" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe> -->
+
+  <!-- AI Demo -->
+  <section class="py-20 text-center">
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-4 text-white" data-aos="fade-up">AI <span class="bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text">Automation</span> Demo</h2>
+  <h2 class="text-2xl inline-block align-middle whitespace-nowrap" id="typed-hero" data-aos="fade-up" data-aos-delay="100"></h2>
+
+    <div class="w-full flex justify-center items-center mt-10">
+      <section class="w-full max-w-xl glass p-8 flex flex-col rounded-2xl" data-aos="fade-up" data-aos-delay="150">
+        <h3 class="text-2xl font-bold mb-4 text-purple-300">Try the AI Bot</h3>
+        <div id="chat-box" class="flex flex-col mb-4 rounded-xl p-3 bg-black/30 border border-white/10"></div>
+        <form id="chat-form" class="flex gap-2">
+          <input id="user-input" placeholder="Type a question..." class="flex-grow px-4 py-3 rounded-xl bg-gray-900 text-white border border-purple-500/40 focus:outline-none focus:ring-2 focus:ring-purple-500"/>
+          <button type="submit" class="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 hover:shadow-2xl hover:-translate-y-[2px] transition">Send</button>
+        </form>
+      </section>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-20 bg-gradient-to-b from-gray-900 via-black to-gray-900">
+    <div class="max-w-2xl mx-auto px-6">
+     <h2 class="text-4xl md:text-5xl font-extrabold mb-4 text-white text-center" data-aos="fade-up">
+     Get in <span class="bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text">Touch</span>
+    </h2><br>
+      <form id="contactForm" class="glass rounded-2xl p-8" autocomplete="off" data-aos="fade-up" data-aos-delay="100">
+        <div class="mb-6">
+          <label for="name" class="block text-lg font-semibold mb-2 text-gray-200">Name</label>
+          <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg bg-gray-900 text-white border border-purple-400/40 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Your Name" />
+        </div>
+        <div class="mb-6">
+          <label for="email" class="block text-lg font-semibold mb-2 text-gray-200">Email</label>
+          <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg bg-gray-900 text-white border border-purple-400/40 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="you@email.com" />
+        </div>
+        <div class="mb-6">
+          <label for="message" class="block text-lg font-semibold mb-2 text-gray-200">Message</label>
+          <textarea id="message" name="message" required rows="5" class="w-full px-4 py-3 rounded-lg bg-gray-900 text-white border border-purple-400/40 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Type your message..."></textarea>
+        </div>
+        <button type="submit" class="w-full py-3 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 hover:shadow-2xl hover:-translate-y-[2px] transition">Send Message</button>
+        <p id="formStatus" class="mt-4 text-center text-green-400 hidden">Message sent! Thank you.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Modals -->
+  <div id="modal-splashfix" class="fixed inset-0 bg-black/70 hidden z-50 flex items-center justify-center">
+    <div class="bg-gray-900 rounded-2xl shadow-lg p-8 max-w-lg text-left relative">
+      <h3 class="text-2xl font-bold mb-4 text-purple-400">SplashFix</h3>
+      <p class="text-gray-300 mb-6">Splashfix is a plumbing service specializing in leaks & clogs.</p>
+      <a href="https://kevinkutoane.github.io/splashfix-plumbing/" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-500 hover:shadow-2xl hover:-translate-y-[2px] transition">Visit Demo Site</a>
+      <button onclick="document.getElementById('modal-splashfix').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
+    </div>
+  </div>
+
+  <div id="modal-secureGuard" class="fixed inset-0 bg-black/70 hidden z-50 flex items-center justify-center">
+    <div class="bg-gray-900 rounded-2xl shadow-lg p-8 max-w-lg text-left relative">
+      <h3 class="text-2xl font-bold mb-4 text-purple-400">SecureGuard</h3>
+      <p class="text-gray-300 mb-6">Top-notch security solutions for your assets.</p>
+      <a href="https://kevinkutoane.github.io/secure-guard/" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-500 hover:shadow-2xl hover:-translate-y-[2px] transition">Visit Demo Site</a>
+      <button onclick="document.getElementById('modal-secureGuard').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
+    </div>
+  </div>
+
+  <div id="modal-nailuxe" class="fixed inset-0 bg-black/70 hidden z-50 flex items-center justify-center">
+    <div class="bg-gray-900 rounded-2xl shadow-lg p-8 max-w-lg text-left relative">
+      <h3 class="text-2xl font-bold mb-4 text-purple-400">Nailuxe</h3>
+      <p class="text-gray-300 mb-6">Cosmetics brand specializing in nail care products.</p>
+      <a href="https://kevinkutoane.github.io/nailuxe/" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-500 hover:shadow-2xl hover:-translate-y-[2px] transition">Visit Demo Site</a>
+      <button onclick="document.getElementById('modal-nailuxe').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
+    </div>
+  </div>
+
+  <!-- Scroll to Top -->
+  <button id="scrollTopBtn" class="fixed bottom-8 right-8 bg-purple-600 hover:bg-purple-700 text-white rounded-full p-3 shadow-lg transition hidden" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up text-xl"></i>
+  </button>
+
+<!-- Footer -->
+<footer class="relative bg-black/80 py-8 text-center text-gray-400 border-t border-purple-500/20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+      <span>&copy; 2025 Inhouse Africa Technologies</span>
+      <span class="hidden md:inline">|</span>
+      <a href="mailto:kevinkutoane@ymail.com" class="flex items-center gap-2 hover:text-purple-400 transition-colors">
+        <i class="fas fa-envelope"></i> Email
+      </a>
+      <a href="https://wa.me/27765346323" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-purple-400 transition-colors">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+      </a>
+      <a href="https://linkedin.com/company/inhouse-africa-technologies-pty-ltd" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-purple-400 transition-colors">
+        <i class="fab fa-linkedin"></i> LinkedIn
+      </a>
+    </div>
+    <!-- Tagline -->
+    <p class="mt-4 text-sm text-gray-500 italic">Building Africa’s digital future.</p>
+  </div>
+
+  <!-- Back to Top Button -->
+  <a href="#top" 
+    class="absolute right-6 bottom-6 bg-purple-600 hover:bg-purple-700 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+</footer>
+
+
+  <!-- Scripts -->
+  <script>
+    // Improve markdown rendering for the blog modal: ensure spacing and readable typography
+    (function(){
+      const style = document.createElement('style');
+      style.textContent = `
+        /* Scoped modal markdown styles */
+        #blog-content { color: #0f172a; }
+        #blog-content p { margin: 0 0 0.9rem; line-height: 1.6; color: #334155; }
+        #blog-content h1, #blog-content h2, #blog-content h3, #blog-content h4 { color: #0f172a; margin-top: 1.25rem; margin-bottom: 0.6rem; line-height: 1.2; }
+        #blog-content h1 { font-size: 1.6rem; }
+        #blog-content h2 { font-size: 1.35rem; }
+        #blog-content h3 { font-size: 1.15rem; }
+        #blog-content ul, #blog-content ol { margin: 0.6rem 0 0.9rem 1.2rem; color: #334155; }
+        #blog-content li { margin: 0.35rem 0; }
+        #blog-content pre { background: #0f172a; color: #e2e8f0; padding: 0.75rem; border-radius: 0.5rem; overflow:auto; }
+        #blog-content code { background: #f1f5f9; color: #0f172a; padding: 0.15rem 0.35rem; border-radius: 0.35rem; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace; }
+        #blog-content img { max-width: 100%; border-radius: 0.5rem; margin: 0.6rem 0; }
+        /* Make links stand out in modal */
+        #blog-content a { color: #7c3aed; text-decoration: underline; }
+      `;
+      document.head.appendChild(style);
+    })();
+
+    // Configure marked to use GitHub-flavored markdown and preserve line breaks
+    if (window.marked && typeof window.marked.setOptions === 'function') {
+      try {
+        window.marked.setOptions({ gfm: true, breaks: true, smartLists: true });
+      } catch (e) {
+        console.warn('Could not set marked options', e);
+      }
+    }
+    // Typed.js
+    new Typed('#typed-text', {
+      strings: ["Web Apps", "Mobile Apps", "AI Solutions", "Cloud Platforms", "Custom Software"],
+      typeSpeed: 60, backSpeed: 40, loop: true
+    });
+    new Typed('#typed-hero', {
+      strings: ["Automate Emails", "Generate Reports", "Answer FAQs", "Boost Productivity"],
+      typeSpeed: 60, backSpeed: 40, loop: true
+    });
+
+    // AOS init
+    AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 80 });
+
+    // Scroll to top button
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+      scrollBtn.classList.toggle('hidden', window.scrollY < 300);
+    });
+    scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Smooth scroll with fixed nav offset using requestAnimationFrame for consistent easing
+    function smoothScrollTo(targetY, duration = 700) {
+      const startY = window.pageYOffset;
+      const distance = targetY - startY;
+      const startTime = performance.now();
+
+      // easeInOutCubic
+      function ease(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      }
+
+      function step(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = ease(progress);
+        window.scrollTo(0, Math.round(startY + distance * eased));
+        if (elapsed < duration) requestAnimationFrame(step);
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (!target) return;
+        const navH = document.getElementById('navbar').offsetHeight || 80;
+        const targetY = target.getBoundingClientRect().top + window.pageYOffset - (navH - 8);
+        smoothScrollTo(targetY, 700);
+      });
+    });
+
+    // Scrollspy active link
+    const sections = Array.from(document.querySelectorAll('header[id], section[id]'));
+    const navLinks = Array.from(document.querySelectorAll('.nav-link'));
+    const linkById = Object.fromEntries(navLinks.map(a => [a.getAttribute('href').replace('#',''), a]));
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const id = entry.target.getAttribute('id');
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('text-purple-400'));
+          linkById[id]?.classList.add('text-purple-400');
+        }
+      });
+    }, { rootMargin: '-50% 0px -40% 0px', threshold: 0 });
+    sections.forEach(sec => observer.observe(sec));
+
+    // Contact form (mailto)
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if (!name || !email || !message) return;
+      const mailto = `mailto:kevinkutoane@ymail.com?subject=Contact%20from%20${encodeURIComponent(name)}&body=${encodeURIComponent(message + '\n\nFrom: ' + name + ' (' + email + ')')}`;
+      window.location.href = mailto;
+      const statusEl = document.getElementById('formStatus');
+      statusEl.classList.remove('hidden');
+      setTimeout(() => { statusEl.classList.add('hidden'); this.reset(); }, 3000);
+    });
+
+    // AI chat
+    const chatBox = document.getElementById('chat-box');
+    document.getElementById('chat-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const input = document.getElementById('user-input');
+      const userMsg = input.value.trim();
+      if (!userMsg) return;
+
+      // User bubble
+      const userDiv = document.createElement('div');
+      userDiv.className = 'message user self-end';
+      userDiv.textContent = userMsg;
+      chatBox.appendChild(userDiv);
+
+      // Typing indicator
+      const botDiv = document.createElement('div');
+      botDiv.className = 'message bot';
+      botDiv.innerHTML = '<span class="typing"><span></span><span></span><span></span></span>';
+      chatBox.appendChild(botDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      try {
+        const res = await fetch('https://inhouse-africa-tech.onrender.com/api/gemini', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: userMsg })
+        });
+        // If server responds 429, show friendly message
+        if (res.status === 429) {
+          const json = await res.json().catch(() => ({}));
+          botDiv.className = 'message bot';
+          botDiv.textContent = json.text || 'Demo limit reached for your IP. Please try again later or contact us.';
+          chatBox.scrollTop = chatBox.scrollHeight;
+          return;
+        }
+        const data = await res.json();
+        let text = data.text || 'No response';
+
+        // Ensure concise responses (truncate if too long)
+        const maxChars = 800; // adjust if needed
+        if (text.length > maxChars) text = text.slice(0, maxChars) + '…';
+
+        // enhanced markdown-like renderer: **bold**, *italic*, - lists, numbered lists, and [label](url) links
+        function escapeHtml(str) {
+          return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+        function linkify(s) {
+          return s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (m, label, url) => {
+            const href = escapeHtml(url);
+            const textLabel = escapeHtml(label);
+            return `<a href="${href}" target="_blank" rel="noopener noreferrer" class="text-purple-300 underline">${textLabel}</a>`;
+          });
+        }
+        function mdToHtml(src) {
+          const lines = src.split(/\r?\n/);
+          let html = '';
+          let inUL = false;
+          let inOL = false;
+
+          lines.forEach(raw => {
+            const line = raw.trim();
+            const olMatch = line.match(/^(\d+)\.\s+(.*)$/);
+            if (olMatch) {
+              if (!inOL) { if (inUL) { html += '</ul>'; inUL = false; } html += '<ol class="list-decimal pl-6 mt-2">'; inOL = true; }
+              let item = escapeHtml(olMatch[2])
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.+?)\*/g, '<em>$1</em>');
+              item = linkify(item);
+              html += `<li class="text-gray-300">${item}</li>`;
+            } else if (line.startsWith('- ')) {
+              if (!inUL) { if (inOL) { html += '</ol>'; inOL = false; } html += '<ul class="list-disc pl-6 mt-2">'; inUL = true; }
+              let item = escapeHtml(line.slice(2))
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.+?)\*/g, '<em>$1</em>');
+              item = linkify(item);
+              html += `<li class="text-gray-300">${item}</li>`;
+            } else {
+              if (inUL) { html += '</ul>'; inUL = false; }
+              if (inOL) { html += '</ol>'; inOL = false; }
+              if (line === '') { html += '<br/>'; }
+              else {
+                let p = escapeHtml(line)
+                  .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                  .replace(/\*(.+?)\*/g, '<em>$1</em>');
+                p = linkify(p);
+                html += `<p class="text-gray-300">${p}</p>`;
+              }
+            }
+          });
+          if (inUL) html += '</ul>';
+          if (inOL) html += '</ol>';
+          return html;
+        }
+
+        // Simulate a short typing delay proportional to length, then render formatted HTML with a fade-in
+        const typingDelay = Math.min(1000 + text.length * 5, 2500);
+        setTimeout(() => {
+          botDiv.innerHTML = mdToHtml(text);
+          botDiv.classList.add('fade-in');
+          chatBox.scrollTop = chatBox.scrollHeight;
+        }, typingDelay);
+        aiMessageCount++;
+      } catch (err) {
+        botDiv.textContent = 'Error generating response';
+        console.error(err);
+      }
+      input.value = '';
+    });
+  </script>
+  <!--PROMO BANNER-->
+  <script>
+    // Promo banner fix: hide properly
+    setTimeout(() => {
+      const banner = document.getElementById("promo-banner");
+      if (banner) banner.style.display = "none";
+    }, 20000);
+
+    // Load posts from manifest and render up to 3 previews
+    (async function loadPosts(){
+      try {
+        const resp = await fetch('/blog/posts.json');
+        if (!resp.ok) return;
+        const posts = await resp.json();
+        const previewEl = document.getElementById('blog-preview');
+        previewEl.innerHTML = '';
+        posts.slice(0,3).forEach(p => {
+          const card = document.createElement('div');
+          card.className = 'glass p-6 rounded-2xl';
+          card.innerHTML = `
+            <h3 class="text-2xl font-bold text-white">${p.title}</h3>
+            <p class="text-gray-400 text-sm mt-1">${p.date}</p>
+            <p class="text-gray-300 mt-4">${p.excerpt || ''}</p>
+            <div class="mt-4">
+              <a href="/blog/post.html?post=${encodeURIComponent(p.file)}" class="text-purple-300 underline">Read more</a>
+            </div>
+          `;
+          previewEl.appendChild(card);
+        });
+      } catch (e) {
+        // ignore
+      }
+    })();
+
+    // Demo quota UI helper: request a lightweight HEAD to get headers
+    (async function fetchQuota(){
+      try {
+        const res = await fetch('/api/gemini', { method: 'OPTIONS' });
+        // Some servers may not support OPTIONS; fall back to a harmless POST with empty prompt if 405
+        if (res.status === 405 || res.status === 404) {
+          // skip
+        }
+        const limit = res.headers.get('x-demo-limit');
+        const remaining = res.headers.get('x-demo-remaining');
+        if (limit) {
+          document.getElementById('demo-limit').innerText = limit;
+          document.getElementById('demo-remaining').innerText = remaining || '0';
+          document.getElementById('demo-quota').style.display = 'block';
+        }
+      } catch (e) {
+        // ignore
+      }
+    })();
+  </script>
+  <!-- AOS Animation Init -->
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 700,
+      easing: 'ease-out-cubic',
+      once: true,
+      offset: 80
+    });
+  </script>
+  <!-- Promo Banner Script -->
+  <script>
+  setTimeout(() => {
+    const banner = document.getElementById("promo-banner");
+    if (banner) banner.style.display = "sticky";
+  }, 20000);
+</script>
+
+<!-- Quote Modal Script -->
+<script>
+  const openBtn = document.getElementById('openQuoteModal');
+  const closeBtn = document.getElementById('closeQuoteModal');
+  const modal = document.getElementById('quoteModal');
+
+  openBtn.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    modal.classList.add('hidden');
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.add('hidden');
+    }
+  });
+</script>
+
+
+
+<!-- Load local config (gitignored) then main runtime script -->
+<script src="/scripts/quote-config.js"></script>
+<script src="/scripts/main.js"></script>
+
+
+
+</body>
+</html>

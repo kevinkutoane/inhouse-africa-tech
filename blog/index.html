@@ -4,20 +4,169 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - Inhouse Africa Technologies</title>
+    <link rel="icon" type="image/png" href="/images/logo_iat.png">
+    
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- You can link to your main stylesheet here if you have one, after Tailwind -->
+    
+    <!-- Tailwind config to match main site -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'ui-sans-serif', 'system-ui']
+                    },
+                    keyframes: {
+                        'gradient-x': {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' }
+                        },
+                        float: {
+                            '0%,100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' }
+                        },
+                        pulseSoft: {
+                            '0%,100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.03)' }
+                        }
+                    },
+                    animation: {
+                        'gradient-x': 'gradient-x 8s ease infinite',
+                        float: 'float 6s ease-in-out infinite',
+                        shimmer: 'shimmer 1.6s linear infinite',
+                        pulseSoft: 'pulseSoft 4s ease-in-out infinite'
+                    },
+                    boxShadow: {
+                        glow: '0 0 0 2px rgba(127,90,240,0.25), 0 0 30px rgba(127,90,240,0.35)'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- AOS (Animate On Scroll) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    
+    <style>
+        html { scroll-behavior: smooth; }
+        /* Glass card helper */
+        .glass { background: rgba(255,255,255,0.08); border: 1px solid rgba(167,139,250,.25); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+    </style>
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans antialiased">
-    <div class="container mx-auto p-6 max-w-3xl">
-        <h1 class="text-4xl font-bold text-purple-400 mb-6">Our Blog</h1>
-        <p class="text-gray-300 mb-8">Welcome to our blog! Browse our latest posts below:</p>
-        <div id="blog-carousel" class="relative max-w-4xl mx-auto">
-            <div id="carousel-slides" class="overflow-hidden rounded-2xl"></div>
-            <button id="carousel-prev" aria-label="Previous" class="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800/60 p-2 rounded-full">‹</button>
-            <button id="carousel-next" aria-label="Next" class="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-800/60 p-2 rounded-full">›</button>
-        </div>
+<body class="min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900 via-black to-gray-800 text-white font-inter">
+    
+    <!-- Background orbs to match main site -->
+    <div class="pointer-events-none fixed inset-0 -z-10">
+        <div class="absolute -top-16 -left-16 h-64 w-64 rounded-full blur-3xl opacity-30 bg-gradient-to-br from-purple-600 via-fuchsia-500 to-pink-500 animate-float"></div>
+        <div class="absolute bottom-0 right-0 h-72 w-72 rounded-full blur-3xl opacity-20 bg-gradient-to-br from-indigo-500 via-purple-500 to-cyan-500 animate-float" style="animation-delay:1.2s"></div>
     </div>
+    <!-- Header with Navigation -->
+    <header class="fixed w-full z-50 backdrop-blur bg-black/30 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <nav class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <img src="/images/logo_iat.png" alt="Inhouse Africa Logo" class="w-12 h-12 rounded-full ring-2 ring-purple-400/60" onerror="this.style.display='none'">
+                    <div>
+                        <h1 class="text-lg md:text-xl font-bold tracking-wide text-white">Inhouse Africa Technologies</h1>
+                        <p class="text-xs text-purple-300 uppercase tracking-wide">Blog</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="/" class="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-500 hover:shadow-glow hover:scale-105 text-white rounded-lg transition-all font-semibold">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        Home
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 pt-20">
+        <div class="max-w-6xl mx-auto px-6 py-20">
+            <!-- Hero Section -->
+            <div class="glass rounded-2xl shadow-2xl p-10 mb-12" data-aos="fade-up">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-extrabold mb-4 text-white" data-aos="fade-up">
+                        Latest <span class="bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text">Insights</span>
+                    </h2>
+                    <p class="text-lg md:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto mb-8" data-aos="fade-up" data-aos-delay="100">Discover our thoughts on web development, AI solutions, and digital transformation across Africa.</p>
+                    
+                    <!-- Stats or Badges -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+                        <div class="p-6 rounded-xl border border-purple-500/30 bg-black/30 hover:shadow-2xl transition-transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="0">
+                            <div class="text-3xl font-bold text-purple-400 mb-2" id="post-count">-</div>
+                            <div class="text-sm text-gray-400 uppercase tracking-wide">Articles Published</div>
+                        </div>
+                        <div class="p-6 rounded-xl border border-purple-500/30 bg-black/30 hover:shadow-2xl transition-transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="100">
+                            <div class="text-3xl font-bold text-pink-400 mb-2">3+</div>
+                            <div class="text-sm text-gray-400 uppercase tracking-wide">Tech Topics</div>
+                        </div>
+                        <div class="p-6 rounded-xl border border-purple-500/30 bg-black/30 hover:shadow-2xl transition-transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="200">
+                            <div class="text-3xl font-bold text-cyan-400 mb-2">2025</div>
+                            <div class="text-sm text-gray-400 uppercase tracking-wide">Year Started</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Blog Carousel -->
+                <div class="bg-slate-800/30 backdrop-blur-sm rounded-3xl p-8 border border-slate-700/50 shadow-2xl" data-aos="fade-up" data-aos-delay="300">
+                    <div id="blog-carousel" class="relative max-w-4xl mx-auto">
+                        <div id="carousel-slides" class="overflow-hidden rounded-2xl"></div>
+                        <button id="carousel-prev" aria-label="Previous" class="absolute left-4 top-1/2 -translate-y-1/2 bg-purple-600/80 hover:bg-purple-600 hover:scale-110 text-white p-3 rounded-full transition-all shadow-lg backdrop-blur-sm">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                        </button>
+                        <button id="carousel-next" aria-label="Next" class="absolute right-4 top-1/2 -translate-y-1/2 bg-purple-600/80 hover:bg-purple-600 hover:scale-110 text-white p-3 rounded-full transition-all shadow-lg backdrop-blur-sm">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative bg-black/80 py-8 text-center text-gray-400 border-t border-purple-500/20">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+                <span>&copy; 2025 Inhouse Africa Technologies</span>
+                <span class="hidden md:inline">|</span>
+                <a href="mailto:kevinkutoane@ymail.com" class="flex items-center gap-2 hover:text-purple-400 transition-colors">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                    </svg>
+                    Email
+                </a>
+                <a href="https://wa.me/27765346323" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-purple-400 transition-colors">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                    </svg>
+                    WhatsApp
+                </a>
+                <a href="https://linkedin.com/company/inhouse-africa-technologies-pty-ltd" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-purple-400 transition-colors">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd"></path>
+                    </svg>
+                    LinkedIn
+                </a>
+            </div>
+            <!-- Tagline -->
+            <p class="mt-4 text-sm text-gray-500 italic">Building Africa's digital future.</p>
+        </div>
+    </footer>
 
     <script>
                 (async function renderPosts(){
@@ -26,6 +175,8 @@
                                 const resp = await fetch('/blog/posts.json');
                 if (!resp.ok) throw new Error('No manifest');
                 const posts = await resp.json();
+                                // Update post count
+                                document.getElementById('post-count').textContent = posts.length;
                                 if (!posts || posts.length === 0) {
                                         slides.innerHTML = '<p class="text-gray-400">No posts yet. Check back soon.</p>';
                                         return;
@@ -33,13 +184,20 @@
                                 // build slides
                                 slides.innerHTML = posts.map((p, idx) => `
                                         <div class="slide ${idx===0? 'active' : 'hidden'}" data-idx="${idx}">
-                                            <a href="post.html?post=${encodeURIComponent(p.file)}">
-                                                <div class="relative bg-gray-800 rounded-2xl overflow-hidden">
-                                                    <img src="${p.image || '/images/hero.png'}" alt="${p.title}" class="w-full h-64 object-cover">
-                                                    <div class="p-6">
-                                                        <h3 class="text-2xl font-bold text-white">${p.title}</h3>
-                                                        <p class="text-gray-400 text-sm mt-1">${p.date}</p>
-                                                        <p class="text-gray-300 mt-4">${p.excerpt || ''}</p>
+                                            <a href="post.html?post=${encodeURIComponent(p.file)}" class="block">
+                                                <div class="relative bg-gray-800/80 border border-purple-500/30 rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group">
+                                                    <img src="${p.image || '/images/hero.png'}" alt="${p.title}" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+                                                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
+                                                    <div class="relative p-6">
+                                                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">${p.title}</h3>
+                                                        <p class="text-purple-300 text-sm mb-3">${new Date(p.date).toDateString()}</p>
+                                                        <p class="text-gray-300 leading-relaxed">${p.excerpt || ''}</p>
+                                                        <div class="mt-4 flex items-center text-purple-400 group-hover:text-purple-300 transition-colors">
+                                                            <span class="text-sm font-medium">Read More</span>
+                                                            <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                                            </svg>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </a>
@@ -59,6 +217,14 @@
                                 slides.innerHTML = '<p class="text-gray-400">No posts yet. Check back soon.</p>';
             }
         })();
+        
+        // Initialize AOS animations to match main site
+        AOS.init({
+            duration: 700,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 80
+        });
     </script>
 </body>
 </html>
