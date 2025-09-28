@@ -23,7 +23,7 @@
                 (async function renderPosts(){
                         const slides = document.getElementById('carousel-slides');
             try {
-                                const resp = await fetch('posts.json');
+                                const resp = await fetch('/blog/posts.json');
                 if (!resp.ok) throw new Error('No manifest');
                 const posts = await resp.json();
                                 if (!posts || posts.length === 0) {
