@@ -5,10 +5,14 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config();
 import { createClient as createRedisClient } from 'redis';
+import fs from 'fs';
+import path from 'path';
+import nodemailer from 'nodemailer';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Demo limiter config
 const DEMO_MAX = parseInt(process.env.DEMO_MAX || '5', 10);
@@ -117,6 +121,136 @@ app.post('/api/gemini', demoLimitMiddleware, async (req, res) => {
     console.error(err);
     res.status(500).json({ text: "Error generating response" });
   }
+});
+
+// ------------------ Lead Capture Endpoint ------------------
+// Simple file-based storage (upgrade later to DB / CRM)
+const leadsFile = path.join(process.cwd(), 'leads.json');
+
+function readLeads() {
+  try {
+    if (!fs.existsSync(leadsFile)) return [];
+    const raw = fs.readFileSync(leadsFile, 'utf8');
+    return JSON.parse(raw || '[]');
+  } catch (e) {
+    console.error('Failed reading leads:', e);
+    return [];
+  }
+}
+
+function writeLeads(leads) {
+  try {
+    fs.writeFileSync(leadsFile, JSON.stringify(leads, null, 2), 'utf8');
+  } catch (e) {
+    console.error('Failed writing leads:', e);
+  }
+}
+
+// Basic in-memory anti-spam (same email cooldown)
+const recentEmails = new Map(); // email -> timestamp
+const EMAIL_COOLDOWN_MS = 2 * 60 * 1000; // 2 minutes
+
+app.post('/api/lead', (req, res) => {
+  const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.ip || 'unknown';
+  const {
+    name = '',
+    email = '',
+    phone = '',
+    company = '',
+    projectType = '',
+    budget = '',
+    timeline = '',
+    details = '',
+    _hp = '' // honeypot
+  } = req.body || {};
+
+  // Honeypot trap
+  if (_hp) return res.status(400).json({ ok: false, error: 'Spam detected' });
+
+  // Basic validation
+  if (!name.trim() || !email.trim() || !projectType.trim() || !details.trim()) {
+    return res.status(400).json({ ok: false, error: 'Missing required fields' });
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ ok: false, error: 'Invalid email' });
+  }
+  if (details.length < 15) {
+    return res.status(400).json({ ok: false, error: 'Please provide more project detail (min 15 chars)' });
+  }
+
+  const now = Date.now();
+  const last = recentEmails.get(email) || 0;
+  if (now - last < EMAIL_COOLDOWN_MS) {
+    return res.status(429).json({ ok: false, error: 'Please wait before submitting again' });
+  }
+  recentEmails.set(email, now);
+
+  const leads = readLeads();
+  const lead = {
+    id: `${now}-${Math.random().toString(36).slice(2,8)}`,
+    ts: new Date().toISOString(),
+    ip,
+    name: name.trim(),
+    email: email.trim().toLowerCase(),
+    phone: phone.trim(),
+    company: company.trim(),
+    projectType: projectType.trim(),
+    budget: budget.trim(),
+    timeline: timeline.trim(),
+    details: details.trim(),
+    userAgent: req.headers['user-agent'] || ''
+  };
+  leads.push(lead);
+  writeLeads(leads);
+
+  // Fire and forget email notification if SMTP configured
+  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, LEAD_NOTIFY_TO, LEAD_NOTIFY_FROM } = process.env;
+  if (SMTP_HOST && SMTP_PORT && SMTP_USER && SMTP_PASS && (LEAD_NOTIFY_TO || LEAD_NOTIFY_FROM)) {
+    try {
+      const transporter = nodemailer.createTransport({
+        host: SMTP_HOST,
+        port: parseInt(SMTP_PORT, 10) || 587,
+        secure: Number(SMTP_PORT) === 465, // true for 465, false otherwise
+        auth: { user: SMTP_USER, pass: SMTP_PASS }
+      });
+      const fromAddr = LEAD_NOTIFY_FROM || SMTP_USER;
+      const toAddr = LEAD_NOTIFY_TO || SMTP_USER;
+      const subject = `New Lead: ${lead.name} (${lead.projectType || 'Project'})`;
+      const textBody = `New lead captured\n\n` +
+        `Name: ${lead.name}\n` +
+        `Email: ${lead.email}\n` +
+        `Phone: ${lead.phone}\n` +
+        `Company: ${lead.company}\n` +
+        `Project Type: ${lead.projectType}\n` +
+        `Budget: ${lead.budget}\n` +
+        `Timeline: ${lead.timeline}\n` +
+        `Details: ${lead.details}\n` +
+        `IP: ${lead.ip}\n` +
+        `User-Agent: ${lead.userAgent}\n` +
+        `Captured: ${lead.ts}`;
+      const htmlBody = `<h2>New Lead Captured</h2><ul>` +
+        `<li><strong>Name:</strong> ${lead.name}</li>` +
+        `<li><strong>Email:</strong> ${lead.email}</li>` +
+        `<li><strong>Phone:</strong> ${lead.phone || ''}</li>` +
+        `<li><strong>Company:</strong> ${lead.company || ''}</li>` +
+        `<li><strong>Project Type:</strong> ${lead.projectType}</li>` +
+        `<li><strong>Budget:</strong> ${lead.budget || ''}</li>` +
+        `<li><strong>Timeline:</strong> ${lead.timeline || ''}</li>` +
+        `<li><strong>Details:</strong><br/><pre style="white-space:pre-wrap;font-family:inherit">${lead.details}</pre></li>` +
+        `<li><strong>IP:</strong> ${lead.ip}</li>` +
+        `<li><strong>User-Agent:</strong> ${lead.userAgent}</li>` +
+        `<li><strong>Captured:</strong> ${lead.ts}</li>` +
+        `</ul>`;
+      transporter.sendMail({ from: fromAddr, to: toAddr, subject, text: textBody, html: htmlBody })
+        .then(info => console.log('Lead notification email sent:', info.messageId))
+        .catch(err => console.error('Lead notification email failed:', err));
+    } catch (e) {
+      console.error('Email notification setup error:', e);
+    }
+  }
+
+  res.json({ ok: true, leadId: lead.id });
 });
 
 // Health check and browser root route
