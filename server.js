@@ -100,17 +100,9 @@ async function demoLimitMiddleware(req, res, next) {
 
 app.post('/api/gemini', demoLimitMiddleware, async (req, res) => {
   try {
-    console.log('[gemini] Request received:', { prompt: req.body?.prompt?.substring(0, 50) });
     const { prompt } = req.body;
 
-    if (!prompt) {
-      console.warn('[gemini] No prompt provided');
-      return res.status(400).json({ text: "No prompt provided" });
-    }
-
     const geminiUrl = process.env.GEMINI_API_URL || 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
-    console.log('[gemini] Calling API:', geminiUrl);
-    
     const response = await fetch(`${geminiUrl}?key=${process.env.GEMINI_API_KEY}`, {
       method: 'POST',
       headers: {
@@ -123,20 +115,12 @@ app.post('/api/gemini', demoLimitMiddleware, async (req, res) => {
       })
     });
 
-    console.log('[gemini] API response status:', response.status);
     const data = await response.json();
-    console.log('[gemini] API response data:', JSON.stringify(data, null, 2));
-    
-    if (!response.ok) {
-      console.error('[gemini] API error:', data);
-      return res.status(500).json({ text: "AI service temporarily unavailable" });
-    }
-    
+    console.log('Gemini API raw response:', JSON.stringify(data, null, 2));
     const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response";
-    console.log('[gemini] Sending response:', text.substring(0, 50));
     res.json({ text });
   } catch (err) {
-    console.error('[gemini] Error:', err);
+    console.error(err);
     res.status(500).json({ text: "Error generating response" });
   }
 });
