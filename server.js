@@ -13,6 +13,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// Static hosting so frontend and API share origin
+app.use(express.static(process.cwd()));
 
 // Demo limiter config
 const DEMO_MAX = parseInt(process.env.DEMO_MAX || '5', 10);
@@ -165,23 +167,30 @@ app.post('/api/lead', (req, res) => {
   } = req.body || {};
 
   // Honeypot trap
-  if (_hp) return res.status(400).json({ ok: false, error: 'Spam detected' });
+  if (_hp) {
+    console.warn('[lead] honeypot triggered', { ip, email });
+    return res.status(400).json({ ok: false, error: 'Spam detected' });
+  }
 
   // Basic validation
   if (!name.trim() || !email.trim() || !projectType.trim() || !details.trim()) {
+    console.warn('[lead] missing required', { ip, name, email, projectType, detailsLength: details.length });
     return res.status(400).json({ ok: false, error: 'Missing required fields' });
   }
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
+    console.warn('[lead] invalid email format', { ip, email });
     return res.status(400).json({ ok: false, error: 'Invalid email' });
   }
   if (details.length < 15) {
+    console.warn('[lead] details too short', { ip, email, detailsLength: details.length });
     return res.status(400).json({ ok: false, error: 'Please provide more project detail (min 15 chars)' });
   }
 
   const now = Date.now();
   const last = recentEmails.get(email) || 0;
   if (now - last < EMAIL_COOLDOWN_MS) {
+    console.warn('[lead] cooldown hit', { ip, email, msRemaining: EMAIL_COOLDOWN_MS - (now - last) });
     return res.status(429).json({ ok: false, error: 'Please wait before submitting again' });
   }
   recentEmails.set(email, now);
@@ -203,6 +212,7 @@ app.post('/api/lead', (req, res) => {
   };
   leads.push(lead);
   writeLeads(leads);
+  console.log('[lead] stored', { id: lead.id, email: lead.email, projectType: lead.projectType });
 
   // Fire and forget email notification if SMTP configured
   const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, LEAD_NOTIFY_TO, LEAD_NOTIFY_FROM } = process.env;
