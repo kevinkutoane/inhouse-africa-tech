@@ -1,78 +1,108 @@
 // Main runtime script for client-side behavior
 // Currently contains the quote form submission handler.
 
+// IIFE to bootstrap interactions
 (function () {
   document.addEventListener('DOMContentLoaded', function () {
-    const quoteForm = document.getElementById('quoteForm');
     const quoteModal = document.getElementById('quoteModal');
-    if (!quoteForm) return;
+    const openBtn = document.getElementById('openQuoteModal');
+    const closeBtn = document.getElementById('closeQuoteModal');
+    const quoteForm = document.getElementById('quoteForm');
+    const successPanel = document.getElementById('quoteFormSuccess');
+    const submitBtn = document.getElementById('quoteSubmitBtn');
+    const statusEl = document.getElementById('quoteStatus');
 
-    // Resolve Apps Script URL in this order:
-    // 1) window.QUOTE_SCRIPT_URL (preferred)
-    // 2) data-script-url attribute on the form
-    function resolveScriptUrl() {
-      try {
-        if (window && typeof window.QUOTE_SCRIPT_URL === 'string' && window.QUOTE_SCRIPT_URL.trim()) {
-          return window.QUOTE_SCRIPT_URL.trim();
-        }
-      } catch (e) {
-        // ignore
+    // Basic open/close handlers (ensure accessibility focus trap could be added later)
+    function openModal() {
+      if (!quoteModal) return;
+      quoteModal.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+      setTimeout(()=>{
+        const firstInput = quoteForm?.querySelector('input,select,textarea');
+        firstInput && firstInput.focus();
+      }, 50);
+    }
+    function closeModal() {
+      if (!quoteModal) return;
+      quoteModal.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+    openBtn && openBtn.addEventListener('click', openModal);
+    closeBtn && closeBtn.addEventListener('click', closeModal);
+    quoteModal && quoteModal.addEventListener('click', (e)=>{ if (e.target === quoteModal) closeModal(); });
+    document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') closeModal(); });
+
+    if (!quoteForm) return; // nothing else to wire
+
+    // Helper: show loading state
+    function setLoading(loading) {
+      if (!submitBtn) return;
+      const label = submitBtn.querySelector('.submit-label');
+      const dots = submitBtn.querySelector('.loading-dots');
+      if (loading) {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-60','cursor-not-allowed');
+        if (label) label.classList.add('hidden');
+        if (dots) dots.classList.remove('hidden');
+      } else {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-60','cursor-not-allowed');
+        if (label) label.classList.remove('hidden');
+        if (dots) dots.classList.add('hidden');
       }
-      if (quoteForm.dataset && quoteForm.dataset.scriptUrl) return quoteForm.dataset.scriptUrl.trim();
-      return '';
     }
 
-    const scriptURL = resolveScriptUrl();
-
-    // small status element (created if missing)
-    let statusEl = document.getElementById('quoteStatus');
-    if (!statusEl) {
-      statusEl = document.createElement('p');
-      statusEl.id = 'quoteStatus';
-      statusEl.className = 'mt-2 text-sm';
-      quoteForm.appendChild(statusEl);
-    }
-
-    // If no script URL was found, show a helpful message
-    if (!scriptURL) {
-      statusEl.textContent = '⚠️ Configuration missing: create scripts/quote-config.js with your Apps Script URL (see scripts/quote-config.example.js).';
-      statusEl.classList.add('text-red-400');
-      return;
-    }
-
-    quoteForm.addEventListener('submit', async (e) => {
+    async function submitLead(e) {
       e.preventDefault();
+      if (!statusEl) return;
       statusEl.textContent = '';
+      statusEl.className = 'mt-4 text-sm';
 
-      const submitBtn = quoteForm.querySelector('button[type="submit"]');
-      if (submitBtn) { submitBtn.disabled = true; submitBtn.classList.add('opacity-60', 'cursor-not-allowed'); }
-
-      const fd = new FormData(quoteForm);
-
-      try {
-        const res = await fetch(scriptURL, { method: 'POST', body: fd });
-
-        if (res.ok) {
-          statusEl.textContent = '✅ Thank you — your request was submitted.';
-          statusEl.classList.remove('text-red-400');
-          statusEl.classList.add('text-green-400');
-          quoteForm.reset();
-          setTimeout(() => { if (quoteModal) quoteModal.classList.add('hidden'); statusEl.textContent = ''; }, 1400);
-        } else {
-          const txt = await res.text().catch(() => '');
-          console.warn('Submission response not ok', res.status, txt);
-          statusEl.textContent = '⚠️ Something went wrong. Please try again.';
-          statusEl.classList.remove('text-green-400');
-          statusEl.classList.add('text-red-400');
-        }
-      } catch (err) {
-        console.error('Quote submission failed', err);
-        statusEl.textContent = '❌ Submission failed. Check your connection and try again.';
-        statusEl.classList.remove('text-green-400');
+      // Client-side validation (basic)
+      const formData = new FormData(quoteForm);
+      const payload = Object.fromEntries(formData.entries());
+      if (payload._hp) return; // honeypot triggered silently
+      if (!payload.name || !payload.email || !payload.projectType || !payload.details) {
+        statusEl.textContent = '⚠️ Please fill all required fields.';
         statusEl.classList.add('text-red-400');
-      } finally {
-        if (submitBtn) { submitBtn.disabled = false; submitBtn.classList.remove('opacity-60', 'cursor-not-allowed'); }
+        return;
       }
-    });
+      if (String(payload.details).trim().length < 15) {
+        statusEl.textContent = '⚠️ Provide at least 15 characters in project details.';
+        statusEl.classList.add('text-red-400');
+        return;
+      }
+
+      setLoading(true);
+      try {
+        const res = await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const data = await res.json().catch(()=>({}));
+        if (!res.ok || !data.ok) {
+          statusEl.textContent = data.error || 'Submission failed. Please try again.';
+          statusEl.classList.add('text-red-400');
+          statusEl.setAttribute('role', 'alert');
+          return;
+        }
+        // Success: hide form, show panel and announce success
+        quoteForm.classList.add('hidden');
+        successPanel && successPanel.classList.remove('hidden');
+        statusEl.textContent = 'Success! Your quote request has been received.';
+        statusEl.classList.add('text-green-400','font-medium');
+        statusEl.setAttribute('role', 'status');
+      } catch(err) {
+        console.error('Lead submission error', err);
+        statusEl.textContent = 'Network error. Please retry.';
+        statusEl.classList.add('text-red-400');
+        statusEl.setAttribute('role', 'alert');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    quoteForm.addEventListener('submit', submitLead);
   });
 })();
