@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inhouse Africa Technologies - Under Maintenance</title>
+    <!-- Tailwind CSS CDN for basic styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white min-h-screen font-sans overflow-x-hidden overflow-y-auto">
+    <!-- Animated gradient background -->
+    <canvas id="bgCanvas" class="absolute inset-0 -z-10 w-full h-full"></canvas>
+
+    <div class="relative z-10 flex items-center justify-center px-2 sm:px-4 min-h-screen" style="min-height:100vh;">
+        <div class="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center justify-center mx-auto">
+            <!-- Left: hero / glitch title -->
+            <div class="p-6 sm:p-8 md:p-10 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 text-center">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="space-y-1 text-left">
+                        <div class="text-sm text-indigo-300 uppercase tracking-widest font-semibold">Inhouse Africa Tech ZA</div>
+                        <div class="text-xs text-gray-400 font-medium">Maintenance Mode</div>
+                    </div>
+                    <div class="flex gap-3">
+                        <button id="notifyBtn" class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-500 hover:to-pink-400 text-sm font-bold shadow-lg hover:shadow-purple-500/30 transition-all duration-300 hover:scale-105">Notify me</button>
+                        <button id="toggleDev" class="px-4 py-2 rounded-xl border border-white/20 hover:border-white/40 text-sm font-semibold hover:bg-white/10 transition-all duration-300">Dev</button>
+                    </div>
+                </div>
+
+                <h1 class="glitch text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight break-words text-center" data-text="We're Getting Better">
+                    We're Getting Better
+                </h1>
+
+                <p class="text-gray-300 mb-8 text-lg text-center leading-relaxed">Refactoring, deploying new features, and tuning performance. We'll be back soon — brighter, faster, and smarter.</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 max-w-md mx-auto">
+                    <div class="p-5 rounded-xl bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300 text-center">
+                        <div class="text-sm text-gray-300 font-medium">Estimated</div>
+                        <div class="text-xl font-bold text-white">2–4 days</div>
+                    </div>
+                    <div class="p-5 rounded-xl bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300 text-center">
+                        <div class="text-sm text-gray-300 font-medium">Support</div>
+                        <div class="text-lg font-bold text-white break-all">kevinkutoane@ymail.com</div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <div id="countdown" class="flex flex-wrap gap-3 sm:gap-4 text-center text-sm justify-center max-w-lg mx-auto">
+                        <div class="flex-1 min-w-[80px] px-3 py-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300">
+                            <div id="days" class="text-2xl sm:text-3xl font-bold text-white">-</div>
+                            <div class="text-xs text-gray-300 font-medium uppercase tracking-wider">Days</div>
+                        </div>
+                        <div class="flex-1 min-w-[80px] px-3 py-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300">
+                            <div id="hours" class="text-2xl sm:text-3xl font-bold text-white">-</div>
+                            <div class="text-xs text-gray-300 font-medium uppercase tracking-wider">Hours</div>
+                        </div>
+                        <div class="flex-1 min-w-[80px] px-3 py-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300">
+                            <div id="mins" class="text-2xl sm:text-3xl font-bold text-white">-</div>
+                            <div class="text-xs text-gray-300 font-medium uppercase tracking-wider">Minutes</div>
+                        </div>
+                        <div class="flex-1 min-w-[80px] px-3 py-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300">
+                            <div id="secs" class="text-2xl sm:text-3xl font-bold text-white">-</div>
+                            <div class="text-xs text-gray-300 font-medium uppercase tracking-wider">Seconds</div>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="notifyForm" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                    <input id="notifyEmail" type="email" placeholder="Enter your email to get notified" class="flex-1 px-5 py-4 rounded-xl bg-black/50 placeholder-gray-400 border border-white/20 hover:border-white/30 focus:border-purple-400 focus:outline-none text-white transition-all duration-300" />
+                    <button type="submit" id="notifyBtn" class="px-6 py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-500 hover:from-indigo-500 hover:to-purple-400 font-bold text-white transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-purple-500/30">Notify me</button>
+                </form>
+            </div>
+
+            <!-- Right: artwork / interactive area -->
+        <div class="p-6 sm:p-8 md:p-10 rounded-3xl bg-gradient-to-br from-black/70 to-black/50 border border-white/20 shadow-2xl flex flex-col gap-6 hover:shadow-cyan-500/20 transition-all duration-500">
+                <div class="flex items-center justify-between">
+                    <div class="text-sm text-gray-300 font-medium">Status</div>
+                    <div id="statusDot" class="w-4 h-4 rounded-full bg-yellow-400 ring-4 ring-yellow-400/30 animate-pulse"></div>
+                </div>
+
+                        <div class="flex-1 flex items-center justify-center">
+                            <div id="art" class="w-full h-48 sm:h-64 md:h-80 rounded-2xl bg-gradient-to-tr from-purple-800 via-pink-700 to-cyan-500/30 flex items-center justify-center text-xl sm:text-2xl md:text-3xl font-bold text-white/90 relative overflow-hidden cursor-pointer transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/30 border border-white/10">
+                                <div id="artText" class="space-y-3 text-center pointer-events-none select-none">
+                                    <div class="text-lg sm:text-xl opacity-95 font-bold">Interactive Preview</div>
+                                    <div class="text-sm sm:text-base opacity-85">Hover and click for easter eggs</div>
+                                </div>
+                                <div id="sparkleBox" class="absolute inset-0 pointer-events-none"></div>
+                            </div>
+                        </div>
+
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button id="ghostBtn" class="flex-1 px-5 py-4 bg-white/10 hover:bg-white/15 rounded-xl font-semibold transition-all duration-300 hover:scale-105 border border-white/10 hover:border-white/20">View Changelog</button>
+                    <button id="contactBtn" class="flex-1 px-5 py-4 bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 rounded-xl font-bold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-emerald-500/30">Contact Team</button>
+                </div>
+
+                <div id="devConsole" class="hidden mt-4 p-4 bg-black/70 rounded-lg text-xs font-mono text-green-300 max-h-36 overflow-auto">/* Dev console hidden - press Dev */</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Changelog Modal -->
+    <div id="changelogModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-white/10 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden">
+            <div class="flex items-center justify-between p-6 border-b border-white/10">
+                <h3 class="text-xl font-bold text-white">📋 Development Changelog</h3>
+                <button id="closeChangelog" class="text-gray-400 hover:text-white text-xl">&times;</button>
+            </div>
+            <div class="p-6 overflow-y-auto max-h-[60vh] text-gray-300">
+                <div class="space-y-6">
+                    <div class="border-l-2 border-purple-500 pl-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-purple-400 font-semibold">v2.1.0</span>
+                            <span class="text-xs bg-purple-500/20 text-purple-300 px-2 py-1 rounded">Current</span>
+                        </div>
+                        <p class="text-sm text-gray-400 mb-3">September 28, 2025</p>
+                        <ul class="space-y-1 text-sm">
+                            <li class="flex items-center gap-2"><span class="text-green-400">✨</span> Enhanced interactive preview pane with slower easter eggs</li>
+                            <li class="flex items-center gap-2"><span class="text-blue-400">🔧</span> Improved email notification system reliability</li>
+                            <li class="flex items-center gap-2"><span class="text-yellow-400">⚡</span> Optimized countdown timer with real-time updates</li>
+                        </ul>
+                    </div>
+                    <div class="border-l-2 border-gray-500 pl-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-gray-400 font-semibold">v2.0.0</span>
+                        </div>
+                        <p class="text-sm text-gray-400 mb-3">September 26, 2025</p>
+                        <ul class="space-y-1 text-sm">
+                            <li class="flex items-center gap-2"><span class="text-green-400">✨</span> Modern maintenance page with interactive elements</li>
+                            <li class="flex items-center gap-2"><span class="text-purple-400">🎨</span> Glitch effects and animated background particles</li>
+                            <li class="flex items-center gap-2"><span class="text-blue-400">📱</span> Fully responsive mobile-first design</li>
+                            <li class="flex items-center gap-2"><span class="text-cyan-400">⭐</span> Sparkle effects and hover interactions</li>
+                        </ul>
+                    </div>
+                    <div class="border-l-2 border-gray-500 pl-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-gray-400 font-semibold">v1.5.0</span>
+                        </div>
+                        <p class="text-sm text-gray-400 mb-3">September 25, 2025</p>
+                        <ul class="space-y-1 text-sm">
+                            <li class="flex items-center gap-2"><span class="text-orange-400">🔧</span> Blog system integration and markdown support</li>
+                            <li class="flex items-center gap-2"><span class="text-green-400">🚀</span> Performance optimizations and code cleanup</li>
+                            <li class="flex items-center gap-2"><span class="text-red-400">🐛</span> Fixed quote form submission issues</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Micro-interactions and animations -->
+    <style>
+        /* Glitch title (use data-text to avoid content duplication issues) */
+        .glitch { position: relative; color: white; display: inline-block; line-height: 1.03; z-index: 2; }
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute; left: 0; top: 0; width: 100%; pointer-events: none; z-index: 1; overflow: hidden;
+        }
+        .glitch::before { transform: translate(-2px, -2px) skewX(-6deg); color: rgba(124,58,237,0.85); mix-blend-mode: screen; clip-path: inset(0 0 50% 0); animation: g1 2.5s infinite linear; }
+        .glitch::after { transform: translate(2px, 2px) skewX(6deg); color: rgba(236,72,153,0.85); mix-blend-mode: screen; clip-path: inset(50% 0 0 0); animation: g2 2.1s infinite linear; }
+        @keyframes g1 { 0% { transform: translate(-2px,-2px) skewX(-6deg); } 50% { transform: translate(-6px,0) skewX(-2deg); } 100% { transform: translate(-2px,-2px) skewX(-6deg); } }
+        @keyframes g2 { 0% { transform: translate(2px,2px) skewX(6deg); } 50% { transform: translate(6px,0) skewX(2deg); } 100% { transform: translate(2px,2px) skewX(6deg); } }
+
+        /* Subtle floating particles */
+        #bgCanvas { filter: blur(6px) brightness(.85) saturate(1.1); }
+
+        /* Interactive art hover */
+        #art { transition: transform .35s cubic-bezier(.2,.9,.3,1), box-shadow .35s; }
+        #art:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 15px 40px rgba(0,0,0,0.45); }
+
+        /* Buttons */
+        button:active { transform: translateY(1px); }
+
+                /* Ensure readable wrapping and spacing on small screens */
+                @media (max-width: 640px) {
+                    .glitch { font-size: 1.3rem; }
+                    #countdown { gap: .3rem; }
+                    #art { min-height: 120px; }
+                }
+    </style>
+
+        <script>
+                // Easter eggs for the preview pane
+                (function(){
+                    const art = document.getElementById('art');
+                    const artText = document.getElementById('artText');
+                    const sparkleBox = document.getElementById('sparkleBox');
+                    const eggs = [
+                        { type: 'emoji', value: '🦄✨', label: 'Unicorn Mode!' },
+                        { type: 'emoji', value: '🤖', label: 'AI is watching...' },
+                        { type: 'fact', value: 'Did you know? Africa has the youngest population in the world.' },
+                        { type: 'fact', value: 'Fun fact: The first website ever was published in 1991.' },
+                        { type: 'emoji', value: '🌈', label: 'Double rainbow!' },
+                        { type: 'anim', value: 'spin', label: 'Spinning up...' },
+                        { type: 'emoji', value: '🚀', label: 'Launching soon!' },
+                        { type: 'fact', value: 'Easter egg: You found a secret!' },
+                        { type: 'emoji', value: '👾', label: 'Glitch in the matrix' },
+                        { type: 'anim', value: 'shake', label: 'Shaking things up!' }
+                    ];
+
+                    // Sparkle effect on hover
+                    function sparkle(e) {
+                        const rect = art.getBoundingClientRect();
+                        for(let i=0;i<6;i++) {
+                            const s = document.createElement('div');
+                            const x = e ? (e.clientX - rect.left) : Math.random()*rect.width;
+                            const y = e ? (e.clientY - rect.top) : Math.random()*rect.height;
+                            s.className = 'absolute w-2 h-2 rounded-full bg-white opacity-80 pointer-events-none';
+                            s.style.left = (x + (Math.random()-0.5)*40) + 'px';
+                            s.style.top = (y + (Math.random()-0.5)*40) + 'px';
+                            s.style.boxShadow = `0 0 12px 2px #fff, 0 0 24px 8px #a78bfa`;
+                            s.style.transform = `scale(${0.7+Math.random()*1.2})`;
+                            s.style.transition = 'opacity 2s, transform 2s';
+                            sparkleBox.appendChild(s);
+                            setTimeout(()=>{ s.style.opacity=0; s.style.transform+=' scale(2.2)'; }, 10);
+                            setTimeout(()=>{ s.remove(); }, 2100);
+                        }
+                    }
+                    art.addEventListener('mousemove', sparkle);
+                    art.addEventListener('mouseenter', (e)=>{
+                        art.style.background = 'radial-gradient(circle at 60% 40%, #fff7, #a78bfa 60%, #0ea5e9 100%)';
+                        sparkle(e);
+                    });
+                    art.addEventListener('mouseleave', ()=>{
+                        art.style.background = '';
+                    });
+
+                    // Easter egg on click
+                    art.addEventListener('click', ()=>{
+                        const egg = eggs[Math.floor(Math.random()*eggs.length)];
+                        let restoreDelay = 8000;
+                        if(egg.type==='emoji') {
+                            artText.innerHTML = `<div class="text-5xl animate-bounce">${egg.value}</div><div class="text-base mt-2">${egg.label}</div>`;
+                            sparkle();
+                        } else if(egg.type==='fact') {
+                            artText.innerHTML = `<div class="text-lg font-semibold">${egg.value}</div>`;
+                            sparkle();
+                        } else if(egg.type==='anim') {
+                            restoreDelay = 6000;
+                            if(egg.value==='spin') {
+                                art.classList.add('animate-spin');
+                                artText.innerHTML = `<div class="text-3xl">🌀</div><div class="text-base mt-2">${egg.label}</div>`;
+                                setTimeout(()=>{ art.classList.remove('animate-spin'); artText.innerHTML = orig; }, restoreDelay);
+                            } else if(egg.value==='shake') {
+                                art.classList.add('animate-pulse');
+                                artText.innerHTML = `<div class="text-3xl">💥</div><div class="text-base mt-2">${egg.label}</div>`;
+                                setTimeout(()=>{ art.classList.remove('animate-pulse'); artText.innerHTML = orig; }, restoreDelay);
+                            }
+                            sparkle();
+                        }
+                        // Restore after 4s (facts/emoji) or 2.5s (anim)
+                        if(egg.type!=='anim') {
+                            setTimeout(()=>{ artText.innerHTML = orig; }, restoreDelay);
+                        }
+                    });
+                    // Save original content
+                    const orig = artText.innerHTML;
+                })();
+        // Particle background & gradient animator
+        (function(){
+            const canvas = document.getElementById('bgCanvas');
+            const ctx = canvas.getContext('2d');
+            let w = canvas.width = innerWidth; let h = canvas.height = innerHeight;
+            const particles = [];
+            const colors = ['#7C3AED','#FB7185','#06B6D4','#A78BFA'];
+            function rand(min,max){ return Math.random()*(max-min)+min }
+            for(let i=0;i<70;i++){ particles.push({ x: rand(0,w), y: rand(0,h), r: rand(0.6,2.4), vx: rand(-0.25,0.25), vy: rand(-0.2,0.2), c: colors[i%colors.length] }) }
+            function resize(){ w=canvas.width=innerWidth; h=canvas.height=innerHeight }
+            addEventListener('resize', resize);
+            function draw(){ ctx.clearRect(0,0,w,h);
+                // animated gradient
+                const g = ctx.createLinearGradient(0,0,w,h);
+                g.addColorStop(0, '#0f172a'); g.addColorStop(.4, '#1e293b'); g.addColorStop(1, '#0f172a');
+                ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+                // particles
+                particles.forEach(p=>{
+                    p.x += p.vx; p.y += p.vy;
+                    if(p.x< -50) p.x = w+50; if(p.x > w+50) p.x = -50;
+                    if(p.y< -50) p.y = h+50; if(p.y > h+50) p.y = -50;
+                    ctx.beginPath(); ctx.fillStyle = p.c; ctx.globalAlpha = .12; ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+                });
+                ctx.globalAlpha = 1; requestAnimationFrame(draw);
+            }
+            draw();
+        })();
+
+        // Countdown (12 hours from now)
+        (function(){
+            // Set end time to 12 hours from now
+            const end = Date.now() + (12 * 60 * 60 * 1000); // 12 hours in milliseconds
+            function update(){
+                const now = Date.now();
+                const s = Math.max(0, Math.floor((end - now)/1000));
+                const days = Math.floor(s / 86400); const hrs = Math.floor((s%86400)/3600);
+                const mins = Math.floor((s%3600)/60); const secs = s%60;
+                document.getElementById('days').textContent = String(days).padStart(2,'0');
+                document.getElementById('hours').textContent = String(hrs).padStart(2,'0');
+                document.getElementById('mins').textContent = String(mins).padStart(2,'0');
+                document.getElementById('secs').textContent = String(secs).padStart(2,'0');
+                requestAnimationFrame(update);
+            }
+            update();
+        })();
+
+        // Micro interactions: notify form & dev console
+        (function(){
+            const form = document.getElementById('notifyForm');
+            const email = document.getElementById('notifyEmail');
+            const notifyBtn = document.getElementById('notifyBtn');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const val = email.value.trim();
+                if (!val || !/@/.test(val)) {
+                    email.classList.add('border-red-400');
+                    return;
+                }
+                // Create a prefilled email to the site owner
+                const to = 'kevinkutoane@ymail.com';
+                const subject = encodeURIComponent('Subscribe: Maintenance notification');
+                const body = encodeURIComponent(`Please notify this address when the site is live: ${val}\n\nSubmitted via maintenance page.`);
+                const mailto = `mailto:${to}?subject=${subject}&body=${body}`;
+                // Try window.open, fallback to location.href
+                let opened = false;
+                try {
+                    const win = window.open(mailto, '_blank');
+                    if (win) opened = true;
+                } catch (err) {}
+                if (!opened) {
+                    window.location.href = mailto;
+                }
+                // Provide UI feedback
+                notifyBtn.textContent = 'Opening mail…';
+                notifyBtn.classList.add('opacity-80');
+                setTimeout(() => {
+                    notifyBtn.textContent = 'Notify me';
+                    notifyBtn.classList.remove('opacity-80');
+                }, 2200);
+                email.value = '';
+            });
+
+            // Toggle dev console
+            const toggle = document.getElementById('toggleDev');
+            const dev = document.getElementById('devConsole');
+            toggle.addEventListener('click', ()=>{
+                if(dev.classList.contains('hidden')){ dev.classList.remove('hidden'); dev.textContent = '[DEV] Logs: ' + new Date().toISOString(); }
+                else { dev.classList.add('hidden') }
+            });
+
+            // Ghost button animation
+            document.getElementById('ghostBtn').addEventListener('click', ()=>{
+                document.getElementById('changelogModal').classList.remove('hidden');
+            });
+            
+            // Close changelog modal
+            document.getElementById('closeChangelog').addEventListener('click', ()=>{
+                document.getElementById('changelogModal').classList.add('hidden');
+            });
+            
+            // Close modal when clicking outside
+            document.getElementById('changelogModal').addEventListener('click', (e)=>{
+                if(e.target.id === 'changelogModal') {
+                    document.getElementById('changelogModal').classList.add('hidden');
+                }
+            });
+            document.getElementById('contactBtn').addEventListener('click', ()=>{
+                window.location.href = 'mailto:kevinkutoane@ymail.com';
+            });
+        })();
+    </script>
+
+</body>
+</html>
