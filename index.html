@@ -2083,6 +2083,11 @@
       setTimeout(() => { statusEl.classList.add('hidden'); this.reset(); }, 3000);
     });
 
+    // Helper function for HTML escaping (moved to top for reuse)
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
     // Enhanced AI chat with improved UX
     const chatBox = document.getElementById('chat-box');
     let messageCount = 0;
@@ -2260,11 +2265,6 @@
         console.error('Chat error:', err);
       }
     });
-    
-    // Helper function for HTML escaping (moved outside for reuse)
-    function escapeHtml(str) {
-      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    }
   </script>
   <!--PROMO BANNER-->
   <script>
