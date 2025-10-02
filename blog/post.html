@@ -217,15 +217,43 @@
             async function loadPost(postFile) {
                 try {
                     console.log('Attempting to load post:', postFile);
-                    const resp = await fetch(postFile);
+                    
+                    // Try fetching the markdown file directly first
+                    let resp = await fetch(postFile);
                     console.log('Fetch response:', resp.status, resp.statusText);
-                    if (!resp.ok) {
-                        console.error('Failed to fetch:', resp.status, resp.statusText);
-                        throw new Error('Not found: ' + resp.status);
+                    
+                    // If the direct fetch fails and it's a .md file, try fetching as text with different headers
+                    if (!resp.ok && postFile.endsWith('.md')) {
+                        console.log('Direct .md fetch failed, trying with different approach...');
+                        
+                        // Try adding cache-busting and explicit headers
+                        resp = await fetch(postFile + '?raw=true', {
+                            headers: {
+                                'Content-Type': 'text/plain',
+                                'Accept': 'text/plain, text/markdown, */*'
+                            }
+                        });
+                        
+                        if (!resp.ok) {
+                            console.log('Alternative fetch also failed, trying without query params...');
+                            resp = await fetch(postFile, {
+                                headers: {
+                                    'Content-Type': 'text/plain',
+                                    'Accept': 'text/plain, text/markdown, */*'
+                                }
+                            });
+                        }
                     }
+                    
+                    if (!resp.ok) {
+                        console.error('All fetch attempts failed:', resp.status, resp.statusText);
+                        throw new Error(`Failed to load post: ${resp.status} ${resp.statusText}`);
+                    }
+                    
                     const text = await resp.text();
                     console.log('Fetched text length:', text.length);
                     console.log('First 200 chars:', text.substring(0, 200));
+                    
                     const { frontMatter, content } = parseFrontMatter(text);
 
                     // title extraction
