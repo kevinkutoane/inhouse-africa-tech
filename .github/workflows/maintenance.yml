@@ -1,0 +1,54 @@
+name: Deploy Maintenance Mode
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Deploy mode'
+        required: true
+        default: 'maintenance'
+        type: choice
+        options:
+        - maintenance
+        - normal
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Deploy Maintenance Mode
+      if: github.event.inputs.mode == 'maintenance'
+      run: |
+        # Backup current index.html
+        cp index.html index-backup.html
+        # Create redirect to maintenance.html
+        cat > index.html << 'EOF'
+        <!DOCTYPE html>
+        <html><head><meta charset="UTF-8"><title>Under Maintenance</title>
+        <link rel="icon" type="image/png" href="images/logo_iat.png">
+        <meta http-equiv="refresh" content="0; url=maintenance.html">
+        <script>window.location.replace('maintenance.html');</script></head>
+        <body style="background:#000;color:#fff;text-align:center;padding:50px;font-family:system-ui;">
+        <h2>Redirecting to maintenance page...</h2>
+        <a href="maintenance.html" style="color:#7c3aed;">Click here if not redirected</a>
+        </body></html>
+        EOF
+        
+    - name: Restore Normal Mode  
+      if: github.event.inputs.mode == 'normal'
+      run: |
+        # Restore original index.html
+        if [ -f index-backup.html ]; then
+          cp index-backup.html index.html
+        fi
+        
+    - name: Commit changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git commit -m "Deploy ${{ github.event.inputs.mode }} mode" -a || exit 0
+        git push

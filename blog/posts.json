@@ -1,5 +1,14 @@
 [
   {
+    "title": "Experience the Future: Our Interactive AI Automation Demo",
+    "file": "ai-automation-demo.md",
+    "date": "2025-10-02 10:00:00 +0200",
+    "excerpt": "Discover how our interactive AI Automation Demo showcases the transformative potential of artificial intelligence for business operations. Experience AI capabilities firsthand with our live, intelligent chat interface.",
+    "image": "",
+    "thumbnail": "",
+    "useImageAsThumbnail": true
+  },
+  {
     "title": "Practical Retrieval-Augmented Generation (RAG) for SMEs",
     "file": "rag-for-smes.md",
     "date": "2025-09-18 14:00:00 +0200",
@@ -35,4 +44,5 @@
     "thumbnail": "",
     "useImageAsThumbnail": false
   }
+ 
 ]

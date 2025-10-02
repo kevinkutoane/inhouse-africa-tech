@@ -117,20 +117,10 @@
                     </div>
                 </div>
                 
-                <!-- Blog Carousel -->
+                <!-- Blog Posts Grid -->
                 <div class="bg-slate-800/30 backdrop-blur-sm rounded-3xl p-8 border border-slate-700/50 shadow-2xl" data-aos="fade-up" data-aos-delay="300">
-                    <div id="blog-carousel" class="relative max-w-4xl mx-auto">
-                        <div id="carousel-slides" class="overflow-hidden rounded-2xl"></div>
-                        <button id="carousel-prev" aria-label="Previous" class="absolute left-4 top-1/2 -translate-y-1/2 bg-purple-600/80 hover:bg-purple-600 hover:scale-110 text-white p-3 rounded-full transition-all shadow-lg backdrop-blur-sm">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                            </svg>
-                        </button>
-                        <button id="carousel-next" aria-label="Next" class="absolute right-4 top-1/2 -translate-y-1/2 bg-purple-600/80 hover:bg-purple-600 hover:scale-110 text-white p-3 rounded-full transition-all shadow-lg backdrop-blur-sm">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </button>
+                    <div id="blog-posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Posts will be loaded here -->
                     </div>
                 </div>
             </div>
@@ -169,52 +159,46 @@
     </footer>
 
     <script>
-                (async function renderPosts(){
-                        const slides = document.getElementById('carousel-slides');
+        (async function renderPosts(){
+            const postsGrid = document.getElementById('blog-posts-grid');
             try {
-                                const resp = await fetch('/blog/posts.json');
+                const resp = await fetch('/blog/posts.json');
                 if (!resp.ok) throw new Error('No manifest');
                 const posts = await resp.json();
-                                // Update post count
-                                document.getElementById('post-count').textContent = posts.length;
-                                if (!posts || posts.length === 0) {
-                                        slides.innerHTML = '<p class="text-gray-400">No posts yet. Check back soon.</p>';
-                                        return;
-                                }
-                                // build slides
-                                slides.innerHTML = posts.map((p, idx) => `
-                                        <div class="slide ${idx===0? 'active' : 'hidden'}" data-idx="${idx}">
-                                            <a href="post.html?post=${encodeURIComponent(p.file)}" class="block">
-                                                <div class="relative bg-gray-800/80 border border-purple-500/30 rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group">
-                                                    <img src="${p.image || '/images/hero.png'}" alt="${p.title}" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
-                                                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
-                                                    <div class="relative p-6">
-                                                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">${p.title}</h3>
-                                                        <p class="text-purple-300 text-sm mb-3">${new Date(p.date).toDateString()}</p>
-                                                        <p class="text-gray-300 leading-relaxed">${p.excerpt || ''}</p>
-                                                        <div class="mt-4 flex items-center text-purple-400 group-hover:text-purple-300 transition-colors">
-                                                            <span class="text-sm font-medium">Read More</span>
-                                                            <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                `).join('');
-                                // carousel controls
-                                let current = 0;
-                                const slideEls = Array.from(slides.querySelectorAll('.slide'));
-                                function show(i){
-                                    slideEls.forEach((s, idx) => { s.classList.toggle('hidden', idx !== i); s.classList.toggle('active', idx === i); });
-                                }
-                                document.getElementById('carousel-next').addEventListener('click', ()=>{ current = (current+1) % slideEls.length; show(current); });
-                                document.getElementById('carousel-prev').addEventListener('click', ()=>{ current = (current-1+slideEls.length) % slideEls.length; show(current); });
-                                // auto-advance
-                                setInterval(()=>{ current = (current+1) % slideEls.length; show(current); }, 7000);
+                
+                // Update post count
+                document.getElementById('post-count').textContent = posts.length;
+                
+                if (!posts || posts.length === 0) {
+                    postsGrid.innerHTML = '<p class="text-gray-400 col-span-full text-center">No posts yet. Check back soon.</p>';
+                    return;
+                }
+                
+                // Render all posts as individual cards
+                postsGrid.innerHTML = posts.map((post, index) => `
+                    <div class="group" data-aos="fade-up" data-aos-delay="${index * 100}">
+                        <a href="post.html?post=${encodeURIComponent(post.file)}" class="block">
+                            <div class="relative bg-gray-800/80 border border-purple-500/30 rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 h-full flex flex-col">
+                                <img src="${post.image || '/images/hero.png'}" alt="${post.title}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
+                                <div class="relative p-6 flex flex-col flex-grow">
+                                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors line-clamp-2">${post.title}</h3>
+                                    <p class="text-purple-300 text-sm mb-3">${new Date(post.date).toDateString()}</p>
+                                    <p class="text-gray-300 leading-relaxed text-sm flex-grow line-clamp-3 mb-4">${post.excerpt || ''}</p>
+                                    <div class="mt-auto flex items-center text-purple-400 group-hover:text-purple-300 transition-colors">
+                                        <span class="text-sm font-medium">Read More</span>
+                                        <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                `).join('');
+                
             } catch (e) {
-                                slides.innerHTML = '<p class="text-gray-400">No posts yet. Check back soon.</p>';
+                postsGrid.innerHTML = '<p class="text-gray-400 col-span-full text-center">No posts yet. Check back soon.</p>';
             }
         })();
         
