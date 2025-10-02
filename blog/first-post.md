@@ -1,11 +1,6 @@
----
-layout: post
-title: "Welcome to our blog posts launch!"
-author: "Kevin Kutoane"
-date: 2025-09-16 09:00:00 +0200
-categories: [Business]
-tags: [AI, SMEs, automation]
----
+# Welcome to the Inhouse Africa Technologies Blog!
+
+*Published on September 15, 2025*
 
 Hello and welcome to the official blog of **Inhouse Africa Technologies!** We are thrilled to launch this platform to share our insights, expertise, and the latest trends in web development, mobile apps, and AI solutions.
 

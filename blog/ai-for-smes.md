@@ -1,11 +1,6 @@
----
-layout: post
-title: "How AI Can Help Small Businesses Scale"
-author: "Kevin Kutoane"
-date: 2025-09-16 09:00:00 +0200
-categories: [AI, Business]
-tags: [AI, SMEs, automation]
----
+# How AI Can Help Small Businesses Scale
+
+*Published on September 16, 2025*
 
 The word "scaling" often brings to mind massive investments, huge teams, and complex operations—things that seem out of reach for a small business. But what if we told you the secret to scaling isn't just about throwing more people or money at the problem, but about working smarter?
 

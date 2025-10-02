@@ -1,11 +1,6 @@
----
-layout: post
-title: "Mobile-first: Why it still matters"
-author: "Kevin Kutoane"
-date: 2025-09-16 09:00:00 +0200
-categories: [AI, Business]
-tags: [AI, SMEs, automation]
----
+# Building Progressive Web Apps for African Markets
+
+*Published on September 17, 2025*
 
 **AI for Small Business: Your Guide to Smarter Growth**
 Sarah, the owner of "Petal & Thread," a charming small florist shop, used to dread Mondays. Not because of the fresh flower deliveries, but because her inbox would be overflowing with repetitive questions: "What are your hours?" "Do you deliver to my area?" "Can I get a custom bouquet quote?" Answering these took hours, pulling her away from her passion – crafting beautiful arrangements.

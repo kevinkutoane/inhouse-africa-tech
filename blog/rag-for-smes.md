@@ -1,11 +1,6 @@
----
-layout: post
-title: "Mobile-first: Why it still matters"
-author: "Kevin Kutoane"
-date: 2025-09-16 09:00:00 +0200
-categories: [AI, Business]
-tags: [AI, SMEs, automation]
----
+# Practical Retrieval-Augmented Generation (RAG) for SMEs
+
+*Published on September 18, 2025*
 
 **Mobile First: Why It Still Matters**
 

@@ -1,3 +1,12 @@
+---
+layout: post
+title: "Interact with our AI automation on oor homepage"
+author: "Kevin Kutoane"
+date: 2025-09-16 09:00:00 +0200
+categories: [AI, Business]
+tags: [AI, SMEs, automation]
+---
+
 # Experience the Future: Our Interactive AI Automation Demo
 
 *Published on October 2, 2025*
@@ -201,6 +210,6 @@ At Inhouse Africa Technologies, we're committed to making advanced AI accessible
 
 ---
 
-*Visit our [AI Automation Demo](/ai-automation-demo) on our website and experience the future of business automation firsthand. For more information about our AI solutions, contact us at [kevinkutoane@ymail.com](mailto:kevinkutoane@ymail.com) or connect with us on [WhatsApp](https://wa.me/27765346323).*
+*Visit our [AI Automation Demo](/index.html) on our website and experience the future of business automation firsthand. For more information about our AI solutions, contact us at [kevinkutoane@ymail.com](mailto:kevinkutoane@ymail.com) or connect with us on [WhatsApp](https://wa.me/27765346323).*
 
 **Keywords:** AI Automation, Business Intelligence, Customer Service Automation, African Technology, Digital Transformation, Machine Learning, Natural Language Processing, Business Efficiency
