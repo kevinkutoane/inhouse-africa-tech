@@ -216,9 +216,16 @@
 
             async function loadPost(postFile) {
                 try {
+                    console.log('Attempting to load post:', postFile);
                     const resp = await fetch(postFile);
-                    if (!resp.ok) throw new Error('Not found: ' + resp.status);
+                    console.log('Fetch response:', resp.status, resp.statusText);
+                    if (!resp.ok) {
+                        console.error('Failed to fetch:', resp.status, resp.statusText);
+                        throw new Error('Not found: ' + resp.status);
+                    }
                     const text = await resp.text();
+                    console.log('Fetched text length:', text.length);
+                    console.log('First 200 chars:', text.substring(0, 200));
                     const { frontMatter, content } = parseFrontMatter(text);
 
                     // title extraction
@@ -308,8 +315,14 @@
                     document.getElementById('shareEmail').onclick = () => window.location.href = `mailto:?subject=${encodeURIComponent(title)}&body=${shareUrl}`;
 
                 } catch (err) {
-                    console.error(err);
-                    document.getElementById('content').innerHTML = '<p class="text-slate-400">Unable to load post.</p>';
+                    console.error('Error loading post:', err);
+                    console.error('Post file requested:', postFile);
+                    document.getElementById('content').innerHTML = `
+                        <div class="text-slate-400">
+                            <p>Unable to load post: ${postFile}</p>
+                            <p>Error: ${err.message}</p>
+                            <p>Please check the browser console for more details.</p>
+                        </div>`;
                 }
             }
 
@@ -436,9 +449,13 @@
 
                             const params = new URLSearchParams(window.location.search);
                             const q = params.get('post');
+                            console.log('URL search params:', window.location.search);
+                            console.log('Post parameter:', q);
                             if (q) {
+                                console.log('Loading post:', q);
                                 loadPost(q);
                             } else {
+                                console.log('No post parameter found, showing available posts');
                                 // Show available posts when no post is specified
                                 document.getElementById('post-title').innerText = 'Blog Posts';
                                 showAvailablePosts();
