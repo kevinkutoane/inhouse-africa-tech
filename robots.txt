@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://inhouse-africa-technologies.com/sitemap.xml
+Sitemap: https://kevinkutoane.github.io/inhouse-africa-tech/sitemap.xml
 
 # Block access to sensitive directories
 Disallow: /scripts/

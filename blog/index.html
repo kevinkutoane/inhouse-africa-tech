@@ -71,14 +71,14 @@
         <div class="max-w-7xl mx-auto px-4 py-4">
             <nav class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <img src="/images/logo_iat.png" alt="Inhouse Africa Logo" class="w-12 h-12 rounded-full ring-2 ring-purple-400/60" onerror="this.style.display='none'">
+                    <img src="../images/logo_iat.png" alt="Inhouse Africa Logo" class="w-12 h-12 rounded-full ring-2 ring-purple-400/60" onerror="this.style.display='none'">
                     <div>
                         <h1 class="text-lg md:text-xl font-bold tracking-wide text-white">Inhouse Africa Technologies</h1>
                         <p class="text-xs text-purple-300 uppercase tracking-wide">Blog</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
-                    <a href="/" class="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-500 hover:shadow-glow hover:scale-105 text-white rounded-lg transition-all font-semibold">
+                    <a href="../index.html" class="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-500 hover:shadow-glow hover:scale-105 text-white rounded-lg transition-all font-semibold">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                         </svg>
@@ -162,7 +162,7 @@
         (async function renderPosts(){
             const postsGrid = document.getElementById('blog-posts-grid');
             try {
-                const resp = await fetch('/blog/posts.json');
+                const resp = await fetch('posts.json');
                 if (!resp.ok) throw new Error('No manifest');
                 const posts = await resp.json();
                 
@@ -179,7 +179,7 @@
                     <div class="group" data-aos="fade-up" data-aos-delay="${index * 100}">
                         <a href="post.html?post=${encodeURIComponent(post.file)}" class="block">
                             <div class="relative bg-gray-800/80 border border-purple-500/30 rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 h-full flex flex-col">
-                                <img src="${post.image || '/images/hero.png'}" alt="${post.title}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+                                <img src="${post.image || '../images/hero.png'}" alt="${post.title}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
                                 <div class="relative p-6 flex flex-col flex-grow">
                                     <h3 class="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors line-clamp-2">${post.title}</h3>

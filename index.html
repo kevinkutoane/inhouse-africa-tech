@@ -12,17 +12,17 @@
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://inhouse-africa-technologies.com/">
+  <meta property="og:url" content="https://kevinkutoane.github.io/inhouse-africa-tech/">
   <meta property="og:title" content="Inhouse Africa Technologies - AI Solutions & Web Development">
   <meta property="og:description" content="Transform your African business with cutting-edge AI solutions, web development, and digital automation.">
-  <meta property="og:image" content="https://inhouse-africa-technologies.com/images/hero.png">
+  <meta property="og:image" content="https://kevinkutoane.github.io/inhouse-africa-tech/images/hero.png">
   
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://inhouse-africa-technologies.com/">
+  <meta property="twitter:url" content="https://kevinkutoane.github.io/inhouse-africa-tech/">
   <meta property="twitter:title" content="Inhouse Africa Technologies - AI Solutions & Web Development">
   <meta property="twitter:description" content="Transform your African business with cutting-edge AI solutions, web development, and digital automation.">
-  <meta property="twitter:image" content="https://inhouse-africa-technologies.com/images/hero.png">
+  <meta property="twitter:image" content="https://kevinkutoane.github.io/inhouse-africa-tech/images/hero.png">
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="images/logo_iat.png">
@@ -389,7 +389,7 @@
     <div id="mobile-menu" class="md:hidden absolute top-full left-0 w-full bg-black/95 backdrop-blur-lg border-t border-purple-500/20 transform -translate-y-full opacity-0 transition-all duration-300 pointer-events-none">
       <div class="px-4 py-6 space-y-4">
         <a href="#about" class="block px-4 py-2 text-white hover:text-purple-400 hover:bg-white/5 rounded-lg transition-colors">About</a>
-        <a href="/blog/index.html" class="block px-4 py-2 text-white hover:text-purple-400 hover:bg-white/5 rounded-lg transition-colors">Blog</a>
+        <a href="blog/index.html" class="block px-4 py-2 text-white hover:text-purple-400 hover:bg-white/5 rounded-lg transition-colors">Blog</a>
         <a href="#services" class="block px-4 py-2 text-white hover:text-purple-400 hover:bg-white/5 rounded-lg transition-colors">Services</a>
         <a href="#pricing" class="block px-4 py-2 text-white hover:text-purple-400 hover:bg-white/5 rounded-lg transition-colors">Pricing</a>
         <a href="#portfolio" class="block px-4 py-2 text-white hover:text-purple-400 hover:bg-white/5 rounded-lg transition-colors">Portfolio</a>
@@ -792,7 +792,7 @@
     <!-- Call to action -->
     <div class="text-center mt-16" data-aos="fade-up" data-aos-delay="800">
       <p class="text-gray-400 mb-6 text-lg">Want to read more insights and tutorials?</p>
-      <a href="/blog/index.html" class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-600 via-pink-500 to-cyan-500 hover:from-purple-500 hover:via-pink-400 hover:to-cyan-400 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25">
+      <a href="blog/index.html" class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-600 via-pink-500 to-cyan-500 hover:from-purple-500 hover:via-pink-400 hover:to-cyan-400 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25">
         <span>Visit Our Blog</span>
         <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
@@ -2245,19 +2245,10 @@
       return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
-    // API path helper - ensures frontend always talks to the Node.js backend on port 3000
+    // API path helper - ensures frontend always talks to the live Render backend
     function apiPath(path) {
-      try {
-        // If we're on a different port (like 5500 Live Server), point to the backend
-        if (location.port && location.port !== '3000') {
-          return 'http://localhost:3000' + path;
-        }
-        // If opened via file://, also point to backend
-        if (location.protocol === 'file:') return 'http://localhost:3000' + path;
-      } catch (e) {
-        // ignore
-      }
-      return path;
+      // Always use the live Render backend for GitHub Pages deployment
+      return 'https://inhouse-africa-tech.onrender.com' + path;
     }
 
     // Helper function to send suggestion messages
@@ -2455,7 +2446,7 @@
               </svg>
               <span class="text-sm font-medium">Connection Error</span>
             </div>
-            <p class="text-gray-300">Unable to reach AI service. Please check your connection and try again.</p>
+            <p class="text-gray-300">${err.name === 'TypeError' && err.message.includes('fetch') ? 'Unable to connect to AI service. Please check your internet connection.' : err.message.includes('CORS') ? 'Access error occurred. Please refresh the page and try again.' : 'Unable to reach AI service. Please check your connection and try again.'}</p>
           </div>
         `;
         console.error('Chat error:', err);
@@ -2476,7 +2467,7 @@
     // Load posts from manifest and render up to 3 previews
     (async function loadPosts(){
       try {
-        const resp = await fetch('/blog/posts.json');
+        const resp = await fetch('blog/posts.json');
         if (!resp.ok) return;
         const posts = await resp.json();
         const previewEl = document.getElementById('blog-preview');

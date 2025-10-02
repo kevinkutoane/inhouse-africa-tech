@@ -77,24 +77,24 @@
                     <div class="flex items-center gap-3">
                         <img src="/images/logo_iat.png" alt="Inhouse Africa Logo" class="w-10 h-10 rounded-full ring-2 ring-purple-400/60" onerror="this.style.display='none'">
                         <div>
-                            <a href="/" class="text-lg font-bold text-white hover:text-purple-300 transition-colors">Inhouse Africa Technologies</a>
+                            <a href="../index.html" class="text-lg font-bold text-white hover:text-purple-300 transition-colors">Inhouse Africa Technologies</a>
                             <div class="flex items-center gap-1 text-xs text-slate-400">
-                                <a href="/" class="hover:text-purple-300 transition-colors">Home</a>
+                                <a href="../index.html" class="hover:text-purple-300 transition-colors">Home</a>
                                 <span>›</span>
-                                <a href="/blog/index.html" class="hover:text-purple-300 transition-colors">Blog</a>
+                                <a href="index.html" class="hover:text-purple-300 transition-colors">Blog</a>
                                 <span>›</span>
                                 <span class="text-slate-500">Article</span>
                             </div>
                         </div>
                     </div>
                     <div class="flex items-center gap-3">
-                        <a href="/blog/index.html" class="flex items-center gap-2 px-3 py-1.5 bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 rounded-lg transition-all text-sm font-medium border border-purple-600/30">
+                        <a href="index.html" class="flex items-center gap-2 px-3 py-1.5 bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 rounded-lg transition-all text-sm font-medium border border-purple-600/30">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                             </svg>
                             All Posts
                         </a>
-                        <a href="/" class="flex items-center gap-2 px-3 py-1.5 bg-slate-700/50 hover:bg-slate-700 text-slate-300 rounded-lg transition-all text-sm font-medium">
+                        <a href="../index.html" class="flex items-center gap-2 px-3 py-1.5 bg-slate-700/50 hover:bg-slate-700 text-slate-300 rounded-lg transition-all text-sm font-medium">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                             </svg>
@@ -342,7 +342,7 @@
             // Function to show available posts
             async function showAvailablePosts() {
                 try {
-                    const resp = await fetch('/blog/posts.json');
+                    const resp = await fetch('posts.json');
                     if (!resp.ok) throw new Error('Failed to load posts');
                     const posts = await resp.json();
                     
@@ -375,7 +375,7 @@
                             `).join('')}
                         </div>
                         <div class="text-center mt-8">
-                            <a href="/blog/index.html" class="inline-flex items-center gap-2 px-4 py-2 bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 rounded-lg transition-all font-medium">
+                            <a href="index.html" class="inline-flex items-center gap-2 px-4 py-2 bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 rounded-lg transition-all font-medium">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                                 </svg>
@@ -387,7 +387,7 @@
                     document.getElementById('content').innerHTML = `
                         <div class="text-center">
                             <p class="text-slate-400 mb-4">Unable to load available posts.</p>
-                            <a href="/blog/index.html" class="inline-flex items-center gap-2 px-4 py-2 bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 rounded-lg transition-all font-medium">
+                            <a href="index.html" class="inline-flex items-center gap-2 px-4 py-2 bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 rounded-lg transition-all font-medium">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                                 </svg>

@@ -1,45 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://inhouse-africa-technologies.com/</loc>
+    <loc>https://kevinkutoane.github.io/inhouse-africa-tech/</loc>
     <lastmod>2025-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://inhouse-africa-technologies.com/blog/index.html</loc>
+    <loc>https://kevinkutoane.github.io/inhouse-africa-tech/blog/index.html</loc>
     <lastmod>2025-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://inhouse-africa-technologies.com/blog/post.html?post=ai-automation-demo.md</loc>
+    <loc>https://kevinkutoane.github.io/inhouse-africa-tech/blog/post.html?post=ai-automation-demo.md</loc>
     <lastmod>2025-10-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://inhouse-africa-technologies.com/blog/post.html?post=rag-for-smes.md</loc>
+    <loc>https://kevinkutoane.github.io/inhouse-africa-tech/blog/post.html?post=rag-for-smes.md</loc>
     <lastmod>2025-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://inhouse-africa-technologies.com/blog/post.html?post=pwa-guide.md</loc>
+    <loc>https://kevinkutoane.github.io/inhouse-africa-tech/blog/post.html?post=pwa-guide.md</loc>
     <lastmod>2025-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://inhouse-africa-technologies.com/blog/post.html?post=ai-for-smes.md</loc>
+    <loc>https://kevinkutoane.github.io/inhouse-africa-tech/blog/post.html?post=ai-for-smes.md</loc>
     <lastmod>2025-09-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://inhouse-africa-technologies.com/blog/post.html?post=first-post.md</loc>
+    <loc>https://kevinkutoane.github.io/inhouse-africa-tech/blog/post.html?post=first-post.md</loc>
     <lastmod>2025-09-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kevinkutoane.github.io/inhouse-africa-tech/privacy.html</loc>
+    <lastmod>2025-10-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://kevinkutoane.github.io/inhouse-africa-tech/terms.html</loc>
+    <lastmod>2025-10-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>

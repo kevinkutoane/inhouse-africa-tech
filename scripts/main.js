@@ -75,7 +75,7 @@
 
       setLoading(true);
       try {
-        const res = await fetch('/api/lead', {
+        const res = await fetch('https://inhouse-africa-tech.onrender.com/api/lead', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -95,7 +95,13 @@
         statusEl.setAttribute('role', 'status');
       } catch(err) {
         console.error('Lead submission error', err);
-        statusEl.textContent = 'Network error. Please retry.';
+        if (err.name === 'TypeError' && err.message.includes('fetch')) {
+          statusEl.textContent = 'Connection error. Please check your internet connection and try again.';
+        } else if (err.message.includes('CORS')) {
+          statusEl.textContent = 'Access error. Please contact support if this persists.';
+        } else {
+          statusEl.textContent = 'Network error. Please retry in a moment.';
+        }
         statusEl.classList.add('text-red-400');
         statusEl.setAttribute('role', 'alert');
       } finally {
