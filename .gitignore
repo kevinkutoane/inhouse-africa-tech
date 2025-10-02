@@ -1,5 +1,6 @@
 node_modules
 .env
+.env.example
 Inhouse Africa Technologies.html
 scripts/quote-config.js
 scripts/quote-config.example.js

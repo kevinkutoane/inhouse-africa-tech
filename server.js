@@ -27,11 +27,16 @@ const REDIS_URL = process.env.REDIS_URL;
 if (REDIS_URL) {
   redisClient = createRedisClient({ url: REDIS_URL });
   redisClient.on('error', err => console.error('Redis error:', err));
-  redisClient.connect().then(() => console.log('Connected to Redis for demo limiter')).catch(err => console.error('Redis connect failed:', err));
+  redisClient.connect().then(() => {
+    console.log('Connected to Redis for demo limiter');
+    // Clear all demo limits for testing
+    redisClient.flushDb().then(() => console.log('Cleared Redis demo limits')).catch(err => console.error('Redis flush failed:', err));
+  }).catch(err => console.error('Redis connect failed:', err));
 }
 
-// In-memory fallback
+// In-memory fallback - cleared for testing
 const ipDemoMap = new Map();
+ipDemoMap.clear(); // Clear any existing limits
 
 function cleanupExpired() {
   const now = Date.now();
@@ -98,30 +103,64 @@ async function demoLimitMiddleware(req, res, next) {
   next();
 }
 
+// Provide a lightweight OPTIONS handler so the browser can probe demo headers without affecting usage
+app.options('/api/gemini', (req, res) => {
+  res.set('Access-Control-Allow-Methods', 'POST,OPTIONS');
+  res.set('Access-Control-Allow-Headers', 'Content-Type');
+  return res.sendStatus(200);
+});
+
 app.post('/api/gemini', demoLimitMiddleware, async (req, res) => {
   try {
-    const { prompt } = req.body;
+    const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.ip || req.connection?.remoteAddress || 'unknown';
+    const { prompt } = req.body || {};
+    console.log(`[gemini] incoming request from ${ip} - prompt (first 120 chars):`, String(prompt || '').slice(0, 120));
 
-    const geminiUrl = process.env.GEMINI_API_URL || 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+    // Validate API key
+    if (!process.env.GEMINI_API_KEY) {
+      console.error('[gemini] GEMINI_API_KEY not found in environment');
+      return res.status(500).json({ text: "API key not configured" });
+    }
+
+    // Validate prompt
+    if (!prompt || typeof prompt !== 'string' || prompt.trim().length === 0) {
+      console.error('[gemini] Invalid prompt:', prompt);
+      return res.status(400).json({ text: "Invalid prompt provided" });
+    }
+
+    const geminiUrl = process.env.GEMINI_API_URL || 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+    console.log('[gemini] Using URL:', geminiUrl);
+    console.log('[gemini] API Key present:', !!process.env.GEMINI_API_KEY);
+    
+    const requestBody = {
+      contents: [{
+        parts: [{ text: prompt.trim() }]
+      }]
+    };
+    console.log('[gemini] Request body:', JSON.stringify(requestBody, null, 2));
+
     const response = await fetch(`${geminiUrl}?key=${process.env.GEMINI_API_KEY}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        contents: [{
-          parts: [{ text: prompt }]
-        }]
-      })
+      body: JSON.stringify(requestBody)
     });
 
     const data = await response.json();
-    console.log('Gemini API raw response:', JSON.stringify(data, null, 2));
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response";
+    console.log('[gemini] external API raw response status:', response.status);
+    console.log('[gemini] external API raw response body:', JSON.stringify(data, null, 2));
+    
+    if (!response.ok) {
+      console.error('[gemini] API Error:', response.status, data);
+      return res.status(500).json({ text: `AI service error: ${data.error?.message || 'Unknown error'}` });
+    }
+
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response available";
     res.json({ text });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ text: "Error generating response" });
+    console.error('[gemini] handler error:', err);
+    res.status(500).json({ text: "Unable to reach AI service. Please try again." });
   }
 });
 
