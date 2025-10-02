@@ -2627,8 +2627,87 @@
 
 
 <!-- Load local config (gitignored) then main runtime script -->
-<script src="/scripts/quote-config.js"></script>
-<script src="/scripts/main.js"></script>
+<script src="scripts/quote-config.js"></script>
+<script src="scripts/main.js"></script>
+
+<!-- GitHub Pages URL handling -->
+<script>
+// Prevent unwanted hash redirects on GitHub Pages
+document.addEventListener('DOMContentLoaded', function() {
+  // If URL has #contact but user didn't intentionally navigate there, scroll to top
+  if (window.location.hash === '#contact' && !sessionStorage.getItem('intentionalNavigation')) {
+    // Check if this is a fresh page load (not from clicking a contact link)
+    const isDirectNavigation = !document.referrer || document.referrer.indexOf(window.location.origin) === -1;
+    if (isDirectNavigation) {
+      // Remove the hash without triggering a scroll
+      history.replaceState(null, null, window.location.pathname + window.location.search);
+      // Scroll to top smoothly
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+  
+  // Clear the flag after DOM loads
+  sessionStorage.removeItem('intentionalNavigation');
+  
+  // Set flag when user clicks contact links intentionally
+  document.querySelectorAll('a[href*="#contact"]').forEach(link => {
+    link.addEventListener('click', () => {
+      sessionStorage.setItem('intentionalNavigation', 'true');
+    });
+  });
+  
+  // Modal debugging and fallback for GitHub Pages
+  const quoteModal = document.getElementById('quoteModal');
+  const openBtn = document.getElementById('openQuoteModal');
+  const closeBtn = document.getElementById('closeQuoteModal');
+  
+  // Ensure modal functionality works even if main.js fails to load
+  if (openBtn && quoteModal) {
+    console.log('Setting up quote modal functionality...');
+    
+    // Remove any existing listeners and add new ones
+    openBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Opening quote modal...');
+      quoteModal.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    });
+    
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        console.log('Closing quote modal...');
+        quoteModal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      });
+    }
+    
+    // Close on backdrop click
+    quoteModal.addEventListener('click', function(e) {
+      if (e.target === quoteModal) {
+        console.log('Closing modal via backdrop...');
+        quoteModal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+    });
+    
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && !quoteModal.classList.contains('hidden')) {
+        console.log('Closing modal via Escape key...');
+        quoteModal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+    });
+  } else {
+    console.error('Quote modal elements not found:', {
+      modal: !!quoteModal,
+      openBtn: !!openBtn,
+      closeBtn: !!closeBtn
+    });
+  }
+});
+</script>
 
 <!-- Service Modal Functionality -->
 <script>
