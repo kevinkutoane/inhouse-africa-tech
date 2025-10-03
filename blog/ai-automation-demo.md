@@ -1,12 +1,3 @@
----
-layout: post
-title: "Interact with our AI automation on oor homepage"
-author: "Kevin Kutoane"
-date: 2025-09-16 09:00:00 +0200
-categories: [AI, Business]
-tags: [AI, SMEs, automation]
----
-
 # Experience the Future: Our Interactive AI Automation Demo
 
 *Published on October 2, 2025*
