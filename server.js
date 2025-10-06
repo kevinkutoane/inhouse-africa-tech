@@ -302,6 +302,15 @@ app.post('/api/lead', (req, res) => {
   res.json({ ok: true, leadId: lead.id });
 });
 
+// Get leads endpoint (for admin access)
+app.get('/api/leads', (req, res) => {
+  const leads = readLeads();
+  res.json({ 
+    count: leads.length,
+    leads: leads.sort((a, b) => new Date(b.ts) - new Date(a.ts)) // newest first
+  });
+});
+
 // Health check and browser root route
 app.get("/", (req, res) => {
   res.send("🚀 Backend is running! Use POST /api/gemini");
