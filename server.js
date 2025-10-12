@@ -302,6 +302,12 @@ app.post('/api/lead', (req, res) => {
   res.json({ ok: true, leadId: lead.id });
 });
 
+// Get admin password hash for login validation
+app.get('/api/admin/hash', (req, res) => {
+  const hash = process.env.ADMIN_PASSWORD_HASH || 'e99a18c428cb38d5f260853678922e03';
+  res.json({ hash });
+});
+
 // Get leads endpoint (for admin access)
 // Optional: Add basic auth by checking header or query param
 app.get('/api/leads', (req, res) => {

@@ -13,6 +13,7 @@
     }
     .glass {
       background: rgba(255, 255, 255, 0.1);
+      -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
@@ -208,11 +209,24 @@
 
   <script>
     // Configuration
-    const ADMIN_PASSWORD_HASH = 'e99a18c428cb38d5f260853678922e03'; // MD5 of "admin123" - Change this!
     const API_BASE = 'https://inhouse-africa-tech.onrender.com';
     
+    let ADMIN_PASSWORD_HASH = null; // Will be fetched from server
     let allLeads = [];
     let isAuthenticated = false;
+    
+    // Fetch admin password hash from server on load
+    async function fetchAdminHash() {
+      try {
+        const response = await fetch(`${API_BASE}/api/admin/hash`);
+        const data = await response.json();
+        ADMIN_PASSWORD_HASH = data.hash;
+      } catch (err) {
+        console.error('Failed to fetch admin hash:', err);
+        // Fallback to default (change this in production!)
+        ADMIN_PASSWORD_HASH = 'e99a18c428cb38d5f260853678922e03';
+      }
+    }
 
     // Simple MD5 hash function
     async function hashPassword(password) {
@@ -244,6 +258,11 @@
       loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Checking...';
       
       try {
+        // Ensure hash is fetched
+        if (!ADMIN_PASSWORD_HASH) {
+          await fetchAdminHash();
+        }
+        
         const hash = await hashPassword(password);
         
         if (hash === ADMIN_PASSWORD_HASH) {
@@ -505,8 +524,10 @@
     document.getElementById('sortFilter').addEventListener('change', filterLeads);
     document.getElementById('refreshBtn').addEventListener('click', loadLeads);
 
-    // Initialize
-    checkAuth();
+    // Initialize - fetch admin hash first, then check auth
+    fetchAdminHash().then(() => {
+      checkAuth();
+    });
   </script>
 </body>
 </html>
