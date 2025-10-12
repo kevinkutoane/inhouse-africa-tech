@@ -302,11 +302,18 @@
   
   /* Navbar scroll effects */
   .navbar-scrolled {
-    background: rgba(0, 0, 0, 0.95) !important;
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(167, 139, 250, 0.3);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.25) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid rgba(167, 139, 250, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.02);
+  }
+  
+  /* Enhanced navbar blur at all times */
+  #navbar {
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.02);
   }
   .nav-link {
     position: relative;
@@ -347,7 +354,7 @@
   </a>
 
   <!-- Enhanced Navbar -->
-  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 backdrop-blur bg-black/30 border-b border-white/10">
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 backdrop-blur-xl bg-black/15 border-b border-white/5 shadow-lg">
     <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
       <div class="flex items-center gap-3 group">
         <a href="#home" class="shrink-0 transition-transform hover:scale-105">
