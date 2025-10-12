@@ -303,7 +303,15 @@ app.post('/api/lead', (req, res) => {
 });
 
 // Get leads endpoint (for admin access)
+// Optional: Add basic auth by checking header or query param
 app.get('/api/leads', (req, res) => {
+  // Optional auth check - uncomment to enable
+  // const authHeader = req.headers.authorization;
+  // const adminKey = process.env.ADMIN_KEY || 'your-secret-key';
+  // if (!authHeader || authHeader !== `Bearer ${adminKey}`) {
+  //   return res.status(401).json({ error: 'Unauthorized' });
+  // }
+  
   const leads = readLeads();
   res.json({ 
     count: leads.length,

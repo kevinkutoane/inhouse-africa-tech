@@ -1,3 +1,12 @@
+---
+layout: post
+title: "Welcome to the Inhouse Africa Technologies Blog!"
+author: "Relebogile Motjale"
+date: 2025-09-15 10:00:00 +0200
+categories: [Announcements, Technology]
+tags: [welcome, blog, AI, web development]
+---
+
 # How AI Can Help Small Businesses Scale
 
 *Published on September 16, 2025*
