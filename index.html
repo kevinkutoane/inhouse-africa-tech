@@ -33,6 +33,10 @@
   <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
   <link rel="preload" href="images/hero.png" as="image">
   
+  <!-- Preconnect to emoji CDN for faster loading -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  
   <!-- DNS prefetch for external resources -->
   <link rel="dns-prefetch" href="//fonts.googleapis.com">
   <link rel="dns-prefetch" href="//cdn.tailwindcss.com">
@@ -97,6 +101,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
+    /* Critical emoji rendering optimization */
+    @font-face {
+      font-family: 'EmojiFont';
+      src: local('Apple Color Emoji'), local('Segoe UI Emoji'), local('Noto Color Emoji'), local('Android Emoji');
+      unicode-range: U+1F300-1F9FF, U+2600-26FF, U+2700-27BF, U+FE00-FE0F;
+      font-display: block;
+    }
+    
     html { scroll-behavior: smooth; }
     /* Offset for fixed navbar when using hash links */
     section, header { scroll-margin-top: 96px; }
@@ -214,29 +226,55 @@
   
   /* Enhanced Hero Animations */
   
-  /* Typing animation enhancements */
+  /* Modern typing cursor animation */
   .typed-cursor {
-    color: #a855f7 !important;
-    font-weight: bold !important;
-    animation: typingGlow 1.5s ease-in-out infinite alternate;
+    animation: blink 1s ease-in-out infinite;
   }
   
-  @keyframes typingGlow {
-    0% { 
+  @keyframes blink {
+    0%, 49% { 
       opacity: 1;
-      text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.8);
     }
-    100% { 
-      opacity: 0.3;
-      text-shadow: 0 0 20px rgba(168, 85, 247, 0.8);
+    50%, 100% { 
+      opacity: 0;
     }
   }
   
-  /* Enhanced typing text styling */
+  /* Enhanced typing text with scale and glow effect */
   #typed-text {
-    transition: all 0.3s ease;
-    position: relative;
-    font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', 'Twemoji Mozilla', sans-serif;
+    display: inline-block;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+    animation: textGlow 3s ease-in-out infinite;
+  }
+  
+  /* Gradient text class for typed content - text only, not emojis */
+  #typed-text .gradient-text {
+    background: linear-gradient(to right, rgb(192, 132, 252), rgb(251, 113, 133), rgb(103, 232, 249));
+    background-size: 200% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-x 8s ease infinite;
+  }
+  
+  /* Ensure emojis in typed text keep their original colors */
+  #typed-text span[style*="background:none"] {
+    background: none !important;
+    -webkit-text-fill-color: initial !important;
+    background-clip: initial !important;
+    -webkit-background-clip: initial !important;
+    font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+  }
+  
+  @keyframes textGlow {
+    0%, 100% {
+      filter: brightness(1) drop-shadow(0 0 10px rgba(168, 85, 247, 0.5));
+    }
+    50% {
+      filter: brightness(1.2) drop-shadow(0 0 20px rgba(236, 72, 153, 0.6));
+    }
   }
   
   #typed-hero {
@@ -245,13 +283,41 @@
     font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', 'Twemoji Mozilla', sans-serif;
   }
   
-  /* Enhanced emoji support */
-  .emoji-fallback {
-    font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', 'Twemoji Mozilla', 'Android Emoji', sans-serif;
-    font-style: normal;
-    font-variant: normal;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
+  /* Enhanced emoji support - optimized for fluid rendering */
+  .emoji-fallback,
+  #typed-text,
+  #typed-text span,
+  #typed-text * {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+    font-synthesis: none;
+    will-change: contents;
+  }
+  
+  /* Optimized emoji rendering - fluid and smooth */
+  #typed-text .typed-emoji,
+  #typed-text span[style*="background:none"] {
+    display: inline-block;
+    font-family: 'EmojiFont', 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif !important;
+    font-size: inherit;
+    line-height: 1;
+    vertical-align: -0.125em;
+    margin: 0 0.1em;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    will-change: transform;
+    text-rendering: optimizeSpeed;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+  
+  /* Prevent emoji from inheriting gradient */
+  #typed-text .typed-emoji * {
+    background: none !important;
+    -webkit-text-fill-color: inherit !important;
+    color: inherit !important;
   }
   
   /* Shimmer effect for typed text */
@@ -259,6 +325,19 @@
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
+  }
+  
+  /* Fade out animation for typed text */
+  .typed-fade-out {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  /* Hero heading enhancements */
+  h1, h2 {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
   @keyframes heroFloat {
@@ -421,12 +500,12 @@
     </div>
     <p class="font-bold text-lg md:text-xl leading-tight">
       <span class="inline-block animate-pulse bg-white/20 px-3 py-1 rounded-full text-sm uppercase tracking-wider mb-2">Limited Time</span><br>
-      First 5 customers get a premium site for <span class="text-2xl font-extrabold bg-white/30 px-3 py-1 rounded-lg shadow-lg">R750</span>
+      NEXT 5 customers get a premium site for <span class="text-2xl font-extrabold bg-white/30 px-3 py-1 rounded-lg shadow-lg">R1250</span>
       <br><span class="text-sm opacity-90">— Professional quality, delivered in 48 hours! ⚡</span>
     </p>
     <div class="mt-3 flex justify-center items-center gap-2 text-sm">
       <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-      <span class="font-medium">4 spots remaining</span>
+      <span class="font-medium">3 spots remaining</span>
     </div>
   </div>
   <button onclick="document.getElementById('promo-banner').style.transform='translateY(-100%)'; setTimeout(() => document.getElementById('promo-banner').style.display='none', 500)" 
@@ -463,7 +542,16 @@
       <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
         Tomorrow’s <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-300 animate-gradient-x bg-[length:200%_200%]">Solutions</span> Today
       </h1>
-      <h2 class="mt-4 text-lg sm:text-xl md:text-2xl">We build <span id="typed-text" class="bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent font-extrabold"></span></h2>
+      <h2 class="mt-6 text-xl sm:text-2xl md:text-3xl font-light text-gray-300">
+        We craft 
+        <span class="inline-block relative">
+          <span id="typed-text" class="relative inline-block font-black animate-gradient-x"></span>
+          <span class="typed-cursor absolute -right-1 top-0 inline-block w-0.5 h-full bg-gradient-to-b from-purple-400 to-cyan-400 animate-blink"></span>
+        </span>
+      </h2>
+      <p class="mt-4 text-base sm:text-lg text-gray-400 max-w-2xl mx-auto">
+        Empowering African businesses with cutting-edge technology solutions
+      </p>
       <button id="openQuoteModal" class="hero-cta group mt-8 px-10 py-4 rounded-full bg-gradient-to-r from-purple-600 via-pink-500 to-cyan-500 shadow-glow hover:shadow-2xl transition-all duration-300 hover:scale-105 font-semibold text-lg">
         <span class="flex items-center gap-3">
           <span class="text-2xl group-hover:animate-spin">💡</span>
@@ -2127,33 +2215,80 @@
         console.warn('Could not set marked options', e);
       }
     }
-    // Typed.js with fresh content
+    
+    // Preload and cache emojis for fluid rendering
+    (function() {
+      const emojis = ['🤖', '🌐', '📱', '🚀', '✨', '📊', '💡'];
+      const fragment = document.createDocumentFragment();
+      
+      // Create hidden container with all emojis
+      const container = document.createElement('div');
+      container.style.cssText = 'position:fixed;top:-9999px;left:-9999px;visibility:hidden;pointer-events:none;font-family:EmojiFont,Apple Color Emoji,Segoe UI Emoji,Noto Color Emoji;font-size:24px;';
+      
+      emojis.forEach(emoji => {
+        const span = document.createElement('span');
+        span.textContent = emoji;
+        span.className = 'typed-emoji';
+        container.appendChild(span);
+      });
+      
+      fragment.appendChild(container);
+      document.body.appendChild(fragment);
+      
+      // Force render and cache
+      requestAnimationFrame(() => {
+        container.offsetHeight; // Force reflow
+        setTimeout(() => document.body.removeChild(container), 100);
+      });
+    })();
+    
+    // Enhanced Typed.js with optimized emoji rendering
     new Typed('#typed-text', {
       strings: [
-        "🚀 AI-powered solutions",
-        "💻 Modern web experiences", 
-        "📱 Cross-platform apps",
-        "⚡ Lightning-fast websites",
-        "🤖 Intelligent automation",
-        "✨ Digital transformations",
-        "🔥 Next-gen platforms"
+        '<span class="gradient-text">intelligent AI solutions</span>&nbsp;<span class="typed-emoji" style="background:none;-webkit-text-fill-color:initial;">🤖</span>',
+        '<span class="gradient-text">stunning websites</span>&nbsp;<span class="typed-emoji" style="background:none;-webkit-text-fill-color:initial;">🌐</span>', 
+        '<span class="gradient-text">powerful mobile apps</span>&nbsp;<span class="typed-emoji" style="background:none;-webkit-text-fill-color:initial;">📱</span>',
+        '<span class="gradient-text">smart automation</span>&nbsp;<span class="typed-emoji" style="background:none;-webkit-text-fill-color:initial;">🚀</span>',
+        '<span class="gradient-text">digital experiences</span>&nbsp;<span class="typed-emoji" style="background:none;-webkit-text-fill-color:initial;">✨</span>',
+        '<span class="gradient-text">scalable platforms</span>&nbsp;<span class="typed-emoji" style="background:none;-webkit-text-fill-color:initial;">📊</span>',
+        '<span class="gradient-text">innovative products</span>&nbsp;<span class="typed-emoji" style="background:none;-webkit-text-fill-color:initial;">💡</span>'
       ],
       typeSpeed: 50,
       backSpeed: 30,
       loop: true,
-      backDelay: 1500,
+      backDelay: 2000,
       startDelay: 1000,
-      showCursor: true,
-      cursorChar: '|',
+      showCursor: false,
       smartBackspace: true,
+      shuffle: false,
       fadeOut: false,
+      contentType: 'html',
       onStringTyped: function(arrayPos, self) {
-        // Add a subtle glow effect when typing completes
+        // Smooth scale animation
         const element = document.querySelector('#typed-text');
-        element.style.textShadow = '0 0 20px rgba(168, 85, 247, 0.5)';
+        element.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        element.style.transform = 'scale(1.03)';
         setTimeout(() => {
-          element.style.textShadow = 'none';
-        }, 500);
+          element.style.transform = 'scale(1)';
+        }, 300);
+      },
+      preStringTyped: function(arrayPos, self) {
+        // Ensure emojis are ready to render
+        const element = document.querySelector('#typed-text');
+        element.style.opacity = '0.8';
+        requestAnimationFrame(() => {
+          element.style.transition = 'opacity 0.2s ease';
+          element.style.opacity = '1';
+        });
+      },
+      onBegin: function(arrayPos, self) {
+        // Optimize rendering performance
+        const element = document.querySelector('#typed-text');
+        element.style.willChange = 'contents';
+      },
+      onComplete: function(self) {
+        const element = document.querySelector('#typed-text');
+        element.style.willChange = 'auto';
       }
     });
     new Typed('#typed-hero', {
