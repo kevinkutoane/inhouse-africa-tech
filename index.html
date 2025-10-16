@@ -1693,10 +1693,58 @@
           </div>
         </div>
       </div>
+
+      <!-- Portfolio Website Project -->
+      <div class="group relative rounded-3xl overflow-hidden backdrop-blur-sm transition-all duration-500 hover:-translate-y-8 hover:shadow-2xl hover:shadow-indigo-500/30" data-aos="zoom-in" data-aos-delay="800">
+        <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-violet-500/5 border border-indigo-500/20 hover:border-indigo-400/40 rounded-3xl transition-all duration-500"></div>
+        
+        <!-- Image container with advanced effects -->
+        <div class="relative h-80 overflow-hidden rounded-t-3xl">
+          <img src="images/portfolio.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Portfolio Website" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-500"></div>
+          
+          <!-- Floating tech badges -->
+          <div class="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-x-4 group-hover:translate-x-0">
+            <span class="px-3 py-1 text-xs bg-indigo-500/80 backdrop-blur-sm text-white rounded-full border border-indigo-400/30">React</span>
+            <span class="px-3 py-1 text-xs bg-violet-500/80 backdrop-blur-sm text-white rounded-full border border-violet-400/30">Firebase</span>
+          </div>
+          
+          <!-- Live demo button -->
+          <div class="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform -translate-x-4 group-hover:translate-x-0">
+            <div class="flex items-center gap-2 px-3 py-2 bg-green-500/80 backdrop-blur-sm text-white rounded-full text-sm border border-green-400/30">
+              <div class="w-2 h-2 bg-green-300 rounded-full animate-pulse"></div>
+              <span>Live Site</span>
+            </div>
+          </div>
+          
+          <!-- Overlay content -->
+          <div class="absolute bottom-4 left-4 right-4">
+            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-indigo-300 transition-colors">Portfolio Website</h3>
+            <p class="text-gray-300 mb-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">Modern portfolio showcase featuring responsive design, smooth animations, and interactive elements to present work professionally.</p>
+          </div>
+        </div>
+        
+        <!-- Card footer -->
+        <div class="p-6 bg-gradient-to-br from-black/40 via-gray-900/60 to-black/40 backdrop-blur-sm border-t border-white/10">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-3 h-3 bg-indigo-400 rounded-full animate-pulse"></div>
+              <span class="text-sm text-indigo-300 font-medium">Portfolio & Showcase</span>
+            </div>
+            <button onclick="document.getElementById('modal-portfolio').classList.remove('hidden')" 
+              class="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/25">
+              <span>View Project</span>
+              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
     
     <!-- Call to action -->
-    <div class="mt-16 text-center" data-aos="fade-up" data-aos-delay="800">
+    <div class="mt-16 text-center" data-aos="fade-up" data-aos-delay="900">
       <p class="text-gray-400 mb-6 text-lg">Ready to see your vision come to life?</p>
       <a href="#contact" class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-pink-600 via-purple-500 to-cyan-500 hover:from-pink-500 hover:via-purple-400 hover:to-cyan-400 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25">
         <span>Start Your Project</span>
@@ -1707,130 +1755,225 @@
     </div>
   </div>
 </section>
-<!-- Enhanced Team Section -->
-<section id="team" class="py-20 relative overflow-hidden">
-  <!-- Parallax background elements -->
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute top-20 right-20 w-36 h-36 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 0s;"></div>
-    <div class="absolute bottom-20 left-20 w-32 h-32 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-full blur-2xl animate-pulse" style="animation-delay: 2.5s;"></div>
-    <div class="absolute top-1/3 left-1/2 w-28 h-28 bg-gradient-to-br from-pink-500/15 to-purple-500/15 rounded-full blur-xl animate-pulse" style="animation-delay: 1.5s;"></div>
+<!-- Revolutionary Team Section -->
+<section id="team" class="py-32 relative overflow-hidden bg-gradient-to-b from-transparent via-purple-950/20 to-transparent">
+  <!-- Dynamic background elements -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden">
+    <!-- Animated mesh gradient -->
+    <div class="absolute inset-0 opacity-30">
+      <div class="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-purple-600/30 via-pink-500/20 to-transparent rounded-full blur-3xl animate-float"></div>
+      <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-br from-cyan-600/30 via-blue-500/20 to-transparent rounded-full blur-3xl animate-float" style="animation-delay: 1.5s;"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-pink-600/20 via-purple-500/20 to-cyan-500/20 rounded-full blur-3xl animate-pulseSoft"></div>
+    </div>
+    
+    <!-- Grid pattern overlay -->
+    <div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(rgba(167, 139, 250, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(167, 139, 250, 0.1) 1px, transparent 1px); background-size: 50px 50px;"></div>
   </div>
   
-  <!-- Enhanced header with animated subtitle -->
-  <div class="text-center mb-16 relative z-10">
-    <div class="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/10 rounded-full border border-purple-500/20 mb-6" data-aos="fade-down" data-aos-delay="100">
-      <span class="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></span>
-      <span class="text-sm uppercase tracking-wider text-purple-300 font-medium">Our People</span>
+  <!-- Section header -->
+  <div class="text-center mb-20 relative z-10 max-w-5xl mx-auto px-6">
+    <!-- Badge -->
+    <div class="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-cyan-500/10 rounded-full border border-white/10 backdrop-blur-xl mb-8 group hover:border-white/20 transition-all duration-300" data-aos="zoom-in" data-aos-delay="100">
+      <div class="flex items-center gap-2">
+        <div class="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+        <div class="w-2 h-2 bg-pink-400 rounded-full animate-pulse" style="animation-delay: 0.2s;"></div>
+        <div class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" style="animation-delay: 0.4s;"></div>
+      </div>
+      <span class="text-sm uppercase tracking-[0.2em] font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-cyan-300 bg-clip-text text-transparent">The Minds Behind Innovation</span>
     </div>
-    <h2 class="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 text-white" data-aos="fade-up" data-aos-delay="200">
-      Meet the <span class="bg-gradient-to-r from-purple-400 via-pink-500 to-cyan-400 text-transparent bg-clip-text animate-gradient-x bg-[length:200%_200%]">Team</span>
+    
+    <!-- Title -->
+    <h2 class="text-4xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight" data-aos="fade-up" data-aos-delay="200">
+      <span class="inline-block bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent">Meet Our</span><br/>
+      <span class="inline-block bg-gradient-to-r from-purple-400 via-pink-500 to-cyan-400 bg-clip-text text-transparent animate-gradient-x bg-[length:200%_200%]">Dream Team</span>
     </h2>
-    <div class="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full" data-aos="fade-up" data-aos-delay="300"></div>
-    <p class="text-xl text-gray-300 mt-6 max-w-3xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="400">
-      A small, focused team of <span class="text-white font-medium">engineers</span>, <span class="text-white font-medium">designers</span>, and <span class="text-white font-medium">product leaders</span> committed to building meaningful digital experiences and reliable AI systems.
+    
+    <!-- Description -->
+    <p class="text-xl md:text-2xl text-gray-300 leading-relaxed max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="300">
+      Visionaries, innovators, and problem-solvers united by a passion for <span class="text-white font-semibold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">transforming ideas</span> into exceptional digital realities.
     </p>
   </div>
 
-  <!-- Enhanced team member cards grid -->
+  <!-- Revolutionary team grid -->
   <div class="max-w-7xl mx-auto px-6 relative z-10">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 lg:gap-10">
       
-      <!-- Kevin Kutoane -->
-      <div class="group relative rounded-3xl overflow-hidden backdrop-blur-sm transition-all duration-500 hover:-translate-y-6 hover:shadow-2xl hover:shadow-purple-500/30" data-aos="fade-up" data-aos-delay="500">
-        <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-purple-500/5 border border-purple-500/20 hover:border-purple-400/40 rounded-3xl transition-all duration-500"></div>
+      <!-- Kevin Kutoane - Redesigned -->
+      <div class="group relative" data-aos="fade-up" data-aos-delay="400">
+        <!-- Card background with gradient border -->
+        <div class="absolute inset-0 bg-gradient-to-br from-purple-600/20 via-pink-600/10 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
         
-        <div class="relative p-6 md:p-8">
-          <!-- Profile image with enhanced styling -->
-          <div class="relative mb-6 flex justify-center">
-            <div class="relative">
-              <img src="images/kevin.jpg" alt="Kevin Kutoane" class="w-24 h-24 rounded-2xl object-cover border-2 border-purple-400/40 shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-all duration-300">
-              <div class="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity"></div>
+        <div class="relative bg-gradient-to-br from-slate-900/90 via-purple-950/50 to-slate-900/90 backdrop-blur-xl rounded-3xl border border-white/10 group-hover:border-purple-400/50 overflow-hidden transition-all duration-500 hover:-translate-y-4">
+          <!-- Top accent -->
+          <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500"></div>
+          
+          <!-- Content -->
+          <div class="p-8">
+            <!-- Profile section -->
+            <div class="flex flex-col items-center mb-6">
+              <!-- Image with multiple layers -->
+              <div class="relative mb-4">
+                <!-- Outer glow ring -->
+                <div class="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
+                
+                <!-- Image container -->
+                <div class="relative w-32 h-32 rounded-2xl overflow-hidden ring-4 ring-purple-500/30 group-hover:ring-purple-400/60 transition-all duration-500">
+                  <img src="images/kevin.jpg" alt="Kevin Kutoane" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <!-- Gradient overlay on hover -->
+                  <div class="absolute inset-0 bg-gradient-to-t from-purple-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                
+                <!-- Floating badge -->
+                <div class="absolute -bottom-2 -right-2 w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center ring-4 ring-slate-900 group-hover:scale-110 transition-transform duration-300">
+                  <i class="fas fa-crown text-white text-sm"></i>
+                </div>
+              </div>
+              
+              <!-- Name and title -->
+              <h3 class="text-2xl font-black text-white mb-2 group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-pink-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+                Kevin Kutoane
+              </h3>
+              
+              <!-- Role badge -->
+              <div class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full border border-purple-500/30 backdrop-blur-sm">
+                <div class="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+                <span class="text-sm font-semibold text-purple-300">Founder & CTO</span>
+              </div>
             </div>
-          </div>
-          
-          <!-- Name and role -->
-          <div class="text-center mb-6">
-            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">Kevin Kutoane</h3>
-            <div class="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm border border-purple-500/30">
-              <span class="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></span>
-              <span>Founder & CTO</span>
+            
+            <!-- Bio -->
+            <p class="text-gray-400 text-center text-sm leading-relaxed mb-6 group-hover:text-gray-300 transition-colors duration-300">
+              Leads product vision and AI engineering. Builds robust backends and integration pipelines ensuring seamless data flow and system interoperability.
+            </p>
+            
+            <!-- Divider -->
+            <div class="w-full h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent mb-6"></div>
+            
+            <!-- Social links -->
+            <div class="flex items-center justify-center gap-3">
+              <a href="https://linkedin.com/in/kevin-mohlaoli-kutoane" target="_blank" rel="noopener noreferrer" 
+                class="group/btn relative w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 rounded-xl flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/50" 
+                aria-label="Kevin on LinkedIn">
+                <i class="fab fa-linkedin text-lg relative z-10"></i>
+                <div class="absolute inset-0 bg-white/20 opacity-0 group-hover/btn:opacity-100 rounded-xl transition-opacity duration-300"></div>
+              </a>
+              <a href="https://portfolio-website-c226f.web.app/" target="_blank" rel="noopener noreferrer"
+                class="group/btn relative w-12 h-12 bg-gradient-to-br from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 rounded-xl flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-pink-500/50" 
+                aria-label="Kevin's Portfolio">
+                <i class="fas fa-globe text-lg relative z-10"></i>
+                <div class="absolute inset-0 bg-white/20 opacity-0 group-hover/btn:opacity-100 rounded-xl transition-opacity duration-300"></div>
+              </a>
             </div>
-          </div>
-          
-          <!-- Bio -->
-          <p class="text-gray-400 group-hover:text-gray-300 text-center leading-relaxed mb-6 transition-colors">
-            Leads product vision and AI engineering. Kevin builds robust backends and integration pipelines ensuring seamless data flow and system interoperability.
-          </p>
-          
-          <!-- Social links -->
-          <div class="flex items-center justify-center gap-4">
-            <a href="https://linkedin.com/in/kevin-mohlaoli-kutoane" class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-400 hover:to-purple-500 rounded-xl text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/25" aria-label="Kevin Kutoane on LinkedIn">
-              <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="https://portfolio-website-c226f.web.app/" class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-400 hover:to-purple-500 rounded-xl text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-pink-500/25" aria-label="Kevin's portfolio website">
-              <i class="fa fa-globe"></i>
-            </a>
           </div>
         </div>
       </div>
 
-      <!-- Realeboha Lekhanya -->
-      <div class="group relative rounded-3xl overflow-hidden backdrop-blur-sm transition-all duration-500 hover:-translate-y-6 hover:shadow-2xl hover:shadow-pink-500/30" data-aos="fade-up" data-aos-delay="600">
-        <div class="absolute inset-0 bg-gradient-to-br from-pink-500/10 via-transparent to-red-500/5 border border-pink-500/20 hover:border-pink-400/40 rounded-3xl transition-all duration-500"></div>
+      <!-- Realeboha Lekhanya - Redesigned -->
+      <div class="group relative" data-aos="fade-up" data-aos-delay="500">
+        <!-- Card background with gradient border -->
+        <div class="absolute inset-0 bg-gradient-to-br from-pink-600/20 via-red-600/10 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
         
-        <div class="relative p-6 md:p-8">
-          <!-- Profile image with enhanced styling -->
-          <div class="relative mb-6 flex justify-center">
-            <div class="relative">
-              <img src="images/rea.jpg" alt="Realeboha Lekhanya" class="w-24 h-24 rounded-2xl object-cover border-2 border-pink-400/40 shadow-lg shadow-pink-500/20 group-hover:scale-110 transition-all duration-300">
-              <div class="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-pink-400 to-red-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity"></div>
+        <div class="relative bg-gradient-to-br from-slate-900/90 via-pink-950/50 to-slate-900/90 backdrop-blur-xl rounded-3xl border border-white/10 group-hover:border-pink-400/50 overflow-hidden transition-all duration-500 hover:-translate-y-4">
+          <!-- Top accent -->
+          <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-500 via-red-500 to-orange-500"></div>
+          
+          <!-- Content -->
+          <div class="p-8">
+            <!-- Profile section -->
+            <div class="flex flex-col items-center mb-6">
+              <!-- Image with multiple layers -->
+              <div class="relative mb-4">
+                <!-- Outer glow ring -->
+                <div class="absolute inset-0 bg-gradient-to-br from-pink-500 to-red-500 rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
+                
+                <!-- Image container -->
+                <div class="relative w-32 h-32 rounded-2xl overflow-hidden ring-4 ring-pink-500/30 group-hover:ring-pink-400/60 transition-all duration-500">
+                  <img src="images/rea.jpg" alt="Realeboha Lekhanya" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <!-- Gradient overlay on hover -->
+                  <div class="absolute inset-0 bg-gradient-to-t from-pink-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                
+                <!-- Floating badge -->
+                <div class="absolute -bottom-2 -right-2 w-10 h-10 bg-gradient-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center ring-4 ring-slate-900 group-hover:scale-110 transition-transform duration-300">
+                  <i class="fas fa-palette text-white text-sm"></i>
+                </div>
+              </div>
+              
+              <!-- Name and title -->
+              <h3 class="text-2xl font-black text-white mb-2 group-hover:bg-gradient-to-r group-hover:from-pink-400 group-hover:to-red-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+                Realeboha Lekhanya
+              </h3>
+              
+              <!-- Role badge -->
+              <div class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500/20 to-red-500/20 rounded-full border border-pink-500/30 backdrop-blur-sm">
+                <div class="w-2 h-2 bg-pink-400 rounded-full animate-pulse"></div>
+                <span class="text-sm font-semibold text-pink-300">Co-Founder & Design Lead</span>
+              </div>
             </div>
-          </div>
-          
-          <!-- Name and role -->
-          <div class="text-center mb-6">
-            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-pink-300 transition-colors">Realeboha Lekhanya</h3>
-            <div class="inline-flex items-center gap-2 px-3 py-1 bg-pink-500/20 text-pink-300 rounded-full text-sm border border-pink-500/30">
-              <span class="w-2 h-2 bg-pink-400 rounded-full animate-pulse"></span>
-              <span>Co-Founder & Design Lead</span>
+            
+            <!-- Bio -->
+            <p class="text-gray-400 text-center text-sm leading-relaxed mb-6 group-hover:text-gray-300 transition-colors duration-300">
+              Designs intuitive user experiences and ensures product-market fit across offerings.
+            </p>
+            
+            <!-- Divider -->
+            <div class="w-full h-px bg-gradient-to-r from-transparent via-pink-500/30 to-transparent mb-6"></div>
+            
+            <!-- Social links -->
+            <div class="flex items-center justify-center gap-3">
+              <a href="https://www.linkedin.com/in/realeboha-lekhanya-a2297778/" target="_blank" rel="noopener noreferrer" 
+                class="group/btn relative w-12 h-12 bg-gradient-to-br from-pink-600 to-red-600 hover:from-pink-500 hover:to-red-500 rounded-xl flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-pink-500/50" 
+                aria-label="Realeboha on LinkedIn">
+                <i class="fab fa-linkedin text-lg relative z-10"></i>
+                <div class="absolute inset-0 bg-white/20 opacity-0 group-hover/btn:opacity-100 rounded-xl transition-opacity duration-300"></div>
+              </a>
             </div>
-          </div>
-          
-          <!-- Bio -->
-          <p class="text-gray-400 group-hover:text-gray-300 text-center leading-relaxed mb-6 transition-colors">
-            Designs intuitive user experiences and ensures product-market fit across offerings. He spearheads design initiatives and aligns closely with product management goals.
-          </p>
-          
-          <!-- Social links -->
-          <div class="flex items-center justify-center gap-4">
-            <a href="https://www.linkedin.com/in/realeboha-lekhanya-a2297778/" class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-pink-500 to-red-600 hover:from-pink-400 hover:to-red-500 rounded-xl text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-pink-500/25" aria-label="Realeboha Lekhanya on LinkedIn">
-              <i class="fab fa-linkedin"></i>
-            </a>
           </div>
         </div>
       </div>
 
-      <!-- Kutoane Kutoane -->
-      <div class="group relative rounded-3xl overflow-hidden backdrop-blur-sm transition-all duration-500 hover:-translate-y-6 hover:shadow-2xl hover:shadow-cyan-500/30" data-aos="fade-up" data-aos-delay="700">
-        <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-blue-500/5 border border-cyan-500/20 hover:border-cyan-400/40 rounded-3xl transition-all duration-500"></div>
+      <!-- Kutoane Kutoane - Redesigned -->
+      <div class="group relative" data-aos="fade-up" data-aos-delay="600">
+        <!-- Card background with gradient border -->
+        <div class="absolute inset-0 bg-gradient-to-br from-cyan-600/20 via-blue-600/10 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
         
-        <div class="relative p-6 md:p-8">
-          <!-- Profile image with enhanced styling -->
-          <div class="relative mb-6 flex justify-center">
-            <div class="relative">
-              <img src="images/KK.jpeg" alt="Kutoane Kutoane" class="w-24 h-24 rounded-2xl object-cover border-2 border-cyan-400/40 shadow-lg shadow-cyan-500/20 group-hover:scale-110 transition-all duration-300">
-              <div class="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity"></div>
-            </div>
-          </div>
+        <div class="relative bg-gradient-to-br from-slate-900/90 via-cyan-950/50 to-slate-900/90 backdrop-blur-xl rounded-3xl border border-white/10 group-hover:border-cyan-400/50 overflow-hidden transition-all duration-500 hover:-translate-y-4">
+          <!-- Top accent -->
+          <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500"></div>
           
-          <!-- Name and role -->
-          <div class="text-center mb-6">
-            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">Kutoane Kutoane</h3>
-            <div class="inline-flex items-center gap-2 px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full text-sm border border-cyan-500/30">
-              <span class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></span>
-              <span>CFO</span>
+          <!-- Content -->
+          <div class="p-8">
+            <!-- Profile section -->
+            <div class="flex flex-col items-center mb-6">
+              <!-- Image with multiple layers -->
+              <div class="relative mb-4">
+                <!-- Outer glow ring -->
+                <div class="absolute inset-0 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
+                
+                <!-- Image container -->
+                <div class="relative w-32 h-32 rounded-2xl overflow-hidden ring-4 ring-cyan-500/30 group-hover:ring-cyan-400/60 transition-all duration-500">
+                  <img src="images/KK.jpeg" alt="Kutoane Kutoane" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <!-- Gradient overlay on hover -->
+                  <div class="absolute inset-0 bg-gradient-to-t from-cyan-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                
+                <!-- Floating badge -->
+                <div class="absolute -bottom-2 -right-2 w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full flex items-center justify-center ring-4 ring-slate-900 group-hover:scale-110 transition-transform duration-300">
+                  <i class="fas fa-chart-line text-white text-sm"></i>
+                </div>
+              </div>
+              
+              <!-- Name and title -->
+              <h3 class="text-2xl font-black text-white mb-2 group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:to-blue-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+                Kutoane Kutoane
+              </h3>
+              
+              <!-- Role badge -->
+              <div class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full border border-cyan-500/30 backdrop-blur-sm">
+                <div class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                <span class="text-sm font-semibold text-cyan-300">CFO</span>
+              </div>
             </div>
-          </div>
 
             <!-- Bio -->
           <p class="text-gray-400 group-hover:text-gray-300 text-center leading-relaxed mb-6 transition-colors">
@@ -1839,46 +1982,78 @@
 
            <!-- Social links -->
           <div class="flex items-center justify-center gap-4">
-            <a href="https://www.linkedin.com/in/kutoane/" class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-cyan-500 to-white-600 hover:from-cyan-400 hover:to-white-500 rounded-xl text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-pink-500/25" aria-label="Realeboha Lekhanya on LinkedIn">
-              <i class="fab fa-linkedin"></i>
-            </a>
+            <a href="https://www.linkedin.com/in/kutoane/" target="_blank" rel="noopener noreferrer" 
+                class="group/btn relative w-12 h-12 bg-gradient-to-br from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 rounded-xl flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-cyan-500/50" 
+                aria-label="Kutoane on LinkedIn">
+                <i class="fab fa-linkedin text-lg relative z-10"></i>
+                <div class="absolute inset-0 bg-white/20 opacity-0 group-hover/btn:opacity-100 rounded-xl transition-opacity duration-300"></div>
+              </a>
           </div>
         </div>
       </div>
+    </div>
 
 
-      <!-- Relebogile Motjale -->
-      <div class="group relative rounded-3xl overflow-hidden backdrop-blur-sm transition-all duration-500 hover:-translate-y-6 hover:shadow-2xl hover:shadow-green-500/30" data-aos="fade-up" data-aos-delay="800">
-        <div class="absolute inset-0 bg-gradient-to-br from-green-500/10 via-transparent to-emerald-500/5 border border-green-500/20 hover:border-green-400/40 rounded-3xl transition-all duration-500"></div>
+      <!-- Relebogile Motjale - Redesigned -->
+      <div class="group relative" data-aos="fade-up" data-aos-delay="700">
+        <!-- Card background with gradient border -->
+        <div class="absolute inset-0 bg-gradient-to-br from-green-600/20 via-emerald-600/10 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
         
-        <div class="relative p-6 md:p-8">
-          <!-- Profile image with enhanced styling -->
-          <div class="relative mb-6 flex justify-center">
-            <div class="relative">
-              <img src="images/lebo.jpg" alt="Relebogile Motjale" class="w-24 h-24 rounded-2xl object-cover border-2 border-green-400/40 shadow-lg shadow-green-500/20 group-hover:scale-110 transition-all duration-300">
-              <div class="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity"></div>
+        <div class="relative bg-gradient-to-br from-slate-900/90 via-green-950/50 to-slate-900/90 backdrop-blur-xl rounded-3xl border border-white/10 group-hover:border-green-400/50 overflow-hidden transition-all duration-500 hover:-translate-y-4">
+          <!-- Top accent -->
+          <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500"></div>
+          
+          <!-- Content -->
+          <div class="p-8">
+            <!-- Profile section -->
+            <div class="flex flex-col items-center mb-6">
+              <!-- Image with multiple layers -->
+              <div class="relative mb-4">
+                <!-- Outer glow ring -->
+                <div class="absolute inset-0 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
+                
+                <!-- Image container -->
+                <div class="relative w-32 h-32 rounded-2xl overflow-hidden ring-4 ring-green-500/30 group-hover:ring-green-400/60 transition-all duration-500">
+                  <img src="images/lebo.jpg" alt="Relebogile Motjale" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <!-- Gradient overlay on hover -->
+                  <div class="absolute inset-0 bg-gradient-to-t from-green-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                
+                <!-- Floating badge -->
+                <div class="absolute -bottom-2 -right-2 w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center ring-4 ring-slate-900 group-hover:scale-110 transition-transform duration-300">
+                  <i class="fas fa-pen-fancy text-white text-sm"></i>
+                </div>
+              </div>
+              
+              <!-- Name and title -->
+              <h3 class="text-2xl font-black text-white mb-2 group-hover:bg-gradient-to-r group-hover:from-green-400 group-hover:to-emerald-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+                Relebogile Motjale
+              </h3>
+              
+              <!-- Role badge -->
+              <div class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-full border border-green-500/30 backdrop-blur-sm">
+                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span class="text-sm font-semibold text-green-300">Content Manager</span>
+              </div>
             </div>
-          </div>
-          
-          <!-- Name and role -->
-          <div class="text-center mb-6">
-            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-green-300 transition-colors">Relebogile Motjale</h3>
-            <div class="inline-flex items-center gap-2 px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm border border-green-500/30">
-              <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-              <span>Content Manager</span>
+            
+            <!-- Bio -->
+            <p class="text-gray-400 text-center text-sm leading-relaxed mb-6 group-hover:text-gray-300 transition-colors duration-300">
+              Heads operations and ensures seamless execution of projects while curating high-quality content strategies.
+            </p>
+            
+            <!-- Divider -->
+            <div class="w-full h-px bg-gradient-to-r from-transparent via-green-500/30 to-transparent mb-6"></div>
+            
+            <!-- Social links -->
+            <div class="flex items-center justify-center gap-3">
+              <a href="https://www.linkedin.com/in/relebogile-motjale-she-her-hers-48a88922a/" target="_blank" rel="noopener noreferrer" 
+                class="group/btn relative w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 rounded-xl flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-green-500/50" 
+                aria-label="Relebogile on LinkedIn">
+                <i class="fab fa-linkedin text-lg relative z-10"></i>
+                <div class="absolute inset-0 bg-white/20 opacity-0 group-hover/btn:opacity-100 rounded-xl transition-opacity duration-300"></div>
+              </a>
             </div>
-          </div>
-          
-          <!-- Bio -->
-          <p class="text-gray-400 group-hover:text-gray-300 text-center leading-relaxed mb-6 transition-colors">
-            Heads operations and ensures seamless execution of our projects while curating high-quality content strategies.
-          </p>
-          
-          <!-- Social links -->
-          <div class="flex items-center justify-center gap-4">
-            <a href="https://www.linkedin.com/in/relebogile-motjale-she-her-hers-48a88922a/" class="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 rounded-xl text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-green-500/25" aria-label="Relebogile Motjale on LinkedIn">
-              <i class="fab fa-linkedin"></i>
-            </a>
           </div>
         </div>
       </div>
@@ -2127,6 +2302,16 @@
       <p class="text-gray-300 mb-6">Cosmetics brand specializing in nail care products.</p>
       <a href="https://kevinkutoane.github.io/nailuxe/" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-500 hover:shadow-2xl hover:-translate-y-[2px] transition">Visit Demo Site</a>
       <button onclick="document.getElementById('modal-nailuxe').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
+    </div>
+  </div>
+
+  <!-- Portfolio Website Modal -->
+  <div id="modal-portfolio" class="fixed inset-0 bg-black/70 hidden z-50 flex items-center justify-center" onclick="if(event.target === this) this.classList.add('hidden')">
+    <div class="bg-gray-900 rounded-2xl shadow-lg p-8 max-w-lg text-left relative">
+      <h3 class="text-2xl font-bold mb-4 text-indigo-400">Portfolio Website</h3>
+      <p class="text-gray-300 mb-6">Modern portfolio showcase featuring responsive design, smooth animations, and interactive elements to present professional work and projects beautifully.</p>
+      <a href="https://portfolio-website-c226f.web.app/" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 bg-gradient-to-r from-indigo-600 to-violet-600 hover:shadow-2xl hover:-translate-y-[2px] transition">Visit Demo Site</a>
+      <button onclick="document.getElementById('modal-portfolio').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
     </div>
   </div>
 
