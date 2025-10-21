@@ -86,7 +86,43 @@
         height: 3.5rem;
     }
     
+    #chatbot-toggle svg {
+        width: 1.75rem;
+        height: 1.75rem;
+    }
+    
     #chatbot-messages {
-        height: 20rem;
+        height: 18rem;
+        max-height: 60vh;
+    }
+    
+    #chatbot-input {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    .chatbot-quick-action {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #chatbot-window {
+        bottom: 5rem;
+        right: 0.75rem;
+        left: 0.75rem;
+    }
+    
+    #chatbot-messages {
+        height: 16rem;
+        max-height: 50vh;
+    }
+}
+
+/* Landscape mobile optimization */
+@media (max-height: 600px) and (orientation: landscape) {
+    #chatbot-messages {
+        height: 12rem;
+        max-height: 40vh;
     }
 }

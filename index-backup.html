@@ -2513,9 +2513,8 @@
 
 
 
-<!-- Load local config (gitignored) then main runtime script -->
-<script src="/scripts/quote-config.js"></script>
-<script src="/scripts/main.js"></script>
+<!-- Load main runtime script (deferred to avoid blocking parse) -->
+<script src="scripts/main.js" defer></script>
 
 <!-- Service Modal Functionality -->
 <script>
@@ -2887,6 +2886,6 @@ document.addEventListener('keydown', function(e) {
 </script>
 
 <!-- Chatbot -->
-<script src="scripts/chatbot.js"></script>
+<script src="scripts/chatbot.js" defer></script>
 </body>
 </html>

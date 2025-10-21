@@ -107,7 +107,10 @@ class GeminiChatbot {
 
     attachEventListeners() {
         // Toggle button
-        document.getElementById('chatbot-toggle').addEventListener('click', () => this.toggle());
+        document.getElementById('chatbot-toggle').addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.toggle();
+        });
         
         // Close button
         document.getElementById('chatbot-close').addEventListener('click', () => this.close());
@@ -131,6 +134,22 @@ class GeminiChatbot {
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && this.isOpen) {
                 this.close();
+            }
+        });
+
+        // Prevent clicks inside chatbot window from closing it
+        document.getElementById('chatbot-window').addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        // Close when clicking outside the chatbot
+        document.addEventListener('click', (e) => {
+            if (this.isOpen) {
+                const chatbotWindow = document.getElementById('chatbot-window');
+                const chatbotToggle = document.getElementById('chatbot-toggle');
+                if (!chatbotWindow.contains(e.target) && !chatbotToggle.contains(e.target)) {
+                    this.close();
+                }
             }
         });
     }
