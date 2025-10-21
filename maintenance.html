@@ -3,108 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inhouse Africa Technologies - Under Maintenance</title>
+    <title>Inhouse Africa Technologies - Maintenance Mode</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/logo_iat.png">
     <link rel="apple-touch-icon" href="images/logo_iat.png">
-    <!-- Tailwind CSS CDN for basic styling -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'gradient-x': 'gradient-x 3s ease infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        'gradient-x': {
+                            '0%, 100%': { 'background-position': '0% 50%' },
+                            '50%': { 'background-position': '100% 50%' },
+                        },
+                        glow: {
+                            '0%': { 'box-shadow': '0 0 5px #a78bfa, 0 0 10px #a78bfa, 0 0 15px #a78bfa' },
+                            '100%': { 'box-shadow': '0 0 10px #ec4899, 0 0 20px #ec4899, 0 0 30px #ec4899' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-black text-white min-h-screen font-sans overflow-x-hidden overflow-y-auto">
-    <!-- Animated gradient background -->
-    <canvas id="bgCanvas" class="absolute inset-0 -z-10 w-full h-full"></canvas>
+<body class="bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 text-white min-h-screen font-sans overflow-x-hidden antialiased">
+    <!-- Animated background with particles -->
+    <canvas id="bgCanvas" class="fixed inset-0 w-full h-full -z-10"></canvas>
+    
+    <!-- Floating orbs -->
+    <div class="fixed inset-0 -z-5 overflow-hidden pointer-events-none">
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-float"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl animate-float" style="animation-delay: -2s;"></div>
+        <div class="absolute top-1/2 left-1/2 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-float" style="animation-delay: -4s;"></div>
+    </div>
 
-    <div class="relative z-10 flex items-center justify-center px-2 sm:px-4 min-h-screen" style="min-height:100vh;">
-        <div class="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center justify-center mx-auto">
-            <!-- Left: hero / glitch title -->
-            <div class="p-6 sm:p-8 md:p-10 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 text-center">
-                <div class="flex items-center justify-between mb-6">
-                    <div class="flex items-center gap-4">
-                        <img src="images/logo_iat.png" alt="Inhouse Africa Technologies" class="w-16 h-16 rounded-lg bg-white/10 p-2 backdrop-blur-sm border border-white/20">
-                        <div class="space-y-1 text-left">
-                            <div class="text-sm text-indigo-300 uppercase tracking-widest font-semibold">Inhouse Africa Tech ZA</div>
-                            <div class="text-xs text-gray-400 font-medium">Maintenance Mode</div>
-                        </div>
+    <div class="relative z-10 flex items-center justify-center px-4 sm:px-6 lg:px-8 min-h-screen py-12">
+        <div class="max-w-7xl w-full mx-auto">
+            <!-- Header with logo and actions -->
+            <div class="flex items-center justify-between mb-12">
+                <div class="flex items-center gap-4">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl blur-lg opacity-50 animate-pulse-slow"></div>
+                        <img src="images/logo_iat.png" alt="Inhouse Africa Technologies" class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-slate-900/80 backdrop-blur-xl p-3 border border-white/20 shadow-2xl">
                     </div>
-                    <div class="flex gap-3">
-                        <button id="notifyBtnTop" class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-500 hover:to-pink-400 text-sm font-bold shadow-lg hover:shadow-purple-500/30 transition-all duration-300 hover:scale-105">Notify me</button>
-                        <button id="toggleDev" class="px-4 py-2 rounded-xl border border-white/20 hover:border-white/40 text-sm font-semibold hover:bg-white/10 transition-all duration-300">Dev</button>
-                    </div>
-                </div>
-
-                <h1 class="glitch text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight break-words text-center" data-text="We're Getting Better">
-                    We're Getting Better
-                </h1>
-
-                <p class="text-gray-300 mb-8 text-lg text-center leading-relaxed">Refactoring, deploying new features, and tuning performance. We'll be back soon — brighter, faster, and smarter.</p>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 max-w-md mx-auto">
-                    <div class="p-5 rounded-xl bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300 text-center">
-                        <div class="text-sm text-gray-300 font-medium">Estimated</div>
-                        <div class="text-xl font-bold text-white">2–4 days</div>
-                    </div>
-                    <div class="p-5 rounded-xl bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300 text-center">
-                        <div class="text-sm text-gray-300 font-medium">Support</div>
-                        <div class="text-lg font-bold text-white break-all">kevinkutoane@ymail.com</div>
-                    </div>
-                </div>
-
-                <div class="mb-8">
-                    <div id="countdown" class="flex flex-wrap gap-3 sm:gap-4 text-center text-sm justify-center max-w-lg mx-auto">
-                        <div class="flex-1 min-w-[80px] px-3 py-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300">
-                            <div id="days" class="text-2xl sm:text-3xl font-bold text-white">-</div>
-                            <div class="text-xs text-gray-300 font-medium uppercase tracking-wider">Days</div>
-                        </div>
-                        <div class="flex-1 min-w-[80px] px-3 py-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300">
-                            <div id="hours" class="text-2xl sm:text-3xl font-bold text-white">-</div>
-                            <div class="text-xs text-gray-300 font-medium uppercase tracking-wider">Hours</div>
-                        </div>
-                        <div class="flex-1 min-w-[80px] px-3 py-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300">
-                            <div id="mins" class="text-2xl sm:text-3xl font-bold text-white">-</div>
-                            <div class="text-xs text-gray-300 font-medium uppercase tracking-wider">Minutes</div>
-                        </div>
-                        <div class="flex-1 min-w-[80px] px-3 py-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300">
-                            <div id="secs" class="text-2xl sm:text-3xl font-bold text-white">-</div>
-                            <div class="text-xs text-gray-300 font-medium uppercase tracking-wider">Seconds</div>
+                    <div class="space-y-1">
+                        <div class="text-sm sm:text-base text-purple-300 uppercase tracking-widest font-bold">Inhouse Africa Tech</div>
+                        <div class="flex items-center gap-2 text-xs sm:text-sm text-gray-400 font-medium">
+                            <div class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                            <span>Maintenance Mode</span>
                         </div>
                     </div>
                 </div>
-
-                <form id="notifyForm" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                    <input id="notifyEmail" type="email" placeholder="Enter your email to get notified" class="flex-1 px-5 py-4 rounded-xl bg-black/50 placeholder-gray-400 border border-white/20 hover:border-white/30 focus:border-purple-400 focus:outline-none text-white transition-all duration-300" />
-                    <button type="submit" id="notifyBtn" class="px-6 py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-500 hover:from-indigo-500 hover:to-purple-400 font-bold text-white transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-purple-500/30">Notify me</button>
-                </form>
+                <button id="toggleDev" class="px-4 py-2 rounded-xl border border-white/20 hover:border-white/40 text-sm font-semibold hover:bg-white/10 transition-all duration-300">
+                    <i class="fas fa-code mr-2"></i>Dev
+                </button>
             </div>
 
-            <!-- Right: artwork / interactive area -->
-        <div class="p-6 sm:p-8 md:p-10 rounded-3xl bg-gradient-to-br from-black/70 to-black/50 border border-white/20 shadow-2xl flex flex-col gap-6 hover:shadow-cyan-500/20 transition-all duration-500">
-                <div class="flex items-center justify-between">
-                    <div class="text-sm text-gray-300 font-medium">Status</div>
-                    <div id="statusDot" class="w-4 h-4 rounded-full bg-yellow-400 ring-4 ring-yellow-400/30 animate-pulse"></div>
+            <!-- Main content container -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                <!-- Left: Main message -->
+                <div class="space-y-8">
+                    <!-- Glitch title -->
+                    <div class="space-y-6">
+                        <h1 class="glitch text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight" data-text="We're Leveling Up">
+                            <span class="bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent">We're</span><br/>
+                            <span class="bg-gradient-to-r from-purple-400 via-pink-500 to-cyan-400 bg-clip-text text-transparent animate-gradient-x bg-[length:200%_200%]">Leveling Up</span>
+                        </h1>
+
+                        <p class="text-gray-300 text-lg sm:text-xl leading-relaxed">
+                            <i class="fas fa-robot text-purple-400 mr-2"></i>
+                            Integrating cutting-edge AI, deploying new features, and turbocharging performance. We'll be back soon — <span class="text-white font-semibold">smarter</span>, <span class="text-white font-semibold">faster</span>, and more <span class="text-white font-semibold">innovative</span>.
+                        </p>
+                    </div>
+
+                    <!-- Info cards -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="relative group">
+                            <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition-opacity duration-300"></div>
+                            <div class="relative p-6 rounded-2xl bg-slate-900/80 backdrop-blur-xl border border-white/10 hover:border-purple-400/50 transition-all duration-300">
+                                <div class="text-sm text-gray-400 font-medium mb-2">
+                                    <i class="fas fa-clock mr-2 text-purple-400"></i>Estimated Time
+                                </div>
+                                <div class="text-2xl font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">2–4 Days</div>
+                            </div>
+                        </div>
+                        <div class="relative group">
+                            <div class="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition-opacity duration-300"></div>
+                            <div class="relative p-6 rounded-2xl bg-slate-900/80 backdrop-blur-xl border border-white/10 hover:border-cyan-400/50 transition-all duration-300">
+                                <div class="text-sm text-gray-400 font-medium mb-2">
+                                    <i class="fas fa-rocket mr-2 text-cyan-400"></i>Progress
+                                </div>
+                                <div class="text-2xl font-black bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">65%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Countdown timer -->
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-600 rounded-3xl blur-xl opacity-20"></div>
+                        <div class="relative p-8 rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-white/10">
+                            <div class="text-center mb-4">
+                                <h3 class="text-xl font-bold text-white mb-2">
+                                    <i class="fas fa-hourglass-half text-purple-400 mr-2 animate-pulse"></i>
+                                    Back Online In
+                                </h3>
+                            </div>
+                            <div id="countdown" class="grid grid-cols-4 gap-3">
+                                <div class="p-4 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl border border-purple-400/30 backdrop-blur-sm">
+                                    <div id="days" class="text-3xl font-black text-white mb-1">-</div>
+                                    <div class="text-xs text-gray-300 font-semibold uppercase tracking-wider">Days</div>
+                                </div>
+                                <div class="p-4 bg-gradient-to-br from-pink-500/20 to-cyan-500/20 rounded-2xl border border-pink-400/30 backdrop-blur-sm">
+                                    <div id="hours" class="text-3xl font-black text-white mb-1">-</div>
+                                    <div class="text-xs text-gray-300 font-semibold uppercase tracking-wider">Hours</div>
+                                </div>
+                                <div class="p-4 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-2xl border border-cyan-400/30 backdrop-blur-sm">
+                                    <div id="mins" class="text-3xl font-black text-white mb-1">-</div>
+                                    <div class="text-xs text-gray-300 font-semibold uppercase tracking-wider">Mins</div>
+                                </div>
+                                <div class="p-4 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-2xl border border-blue-400/30 backdrop-blur-sm">
+                                    <div id="secs" class="text-3xl font-black text-white mb-1">-</div>
+                                    <div class="text-xs text-gray-300 font-semibold uppercase tracking-wider">Secs</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notification form -->
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-3xl blur-xl opacity-20"></div>
+                        <form id="notifyForm" class="relative p-8 rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-white/10 space-y-4">
+                            <div class="text-center mb-4">
+                                <h3 class="text-lg font-bold text-white mb-2">
+                                    <i class="fas fa-bell text-purple-400 mr-2"></i>
+                                    Get Notified When We're Back
+                                </h3>
+                                <p class="text-sm text-gray-400">We'll send you an email as soon as we're live!</p>
+                            </div>
+                            <div class="flex flex-col sm:flex-row gap-3">
+                                <input id="notifyEmail" type="email" placeholder="your@email.com" class="flex-1 px-5 py-4 rounded-xl bg-black/50 placeholder-gray-500 border border-white/20 hover:border-purple-400/50 focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 focus:outline-none text-white transition-all duration-300" required/>
+                                <button type="submit" id="notifyBtn" class="px-8 py-4 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 font-bold text-white transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-purple-500/50 flex items-center justify-center gap-2">
+                                    <i class="fas fa-paper-plane"></i>
+                                    <span>Notify Me</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
 
-                        <div class="flex-1 flex items-center justify-center">
-                            <div id="art" class="w-full h-48 sm:h-64 md:h-80 rounded-2xl bg-gradient-to-tr from-purple-800 via-pink-700 to-cyan-500/30 flex items-center justify-center text-xl sm:text-2xl md:text-3xl font-bold text-white/90 relative overflow-hidden cursor-pointer transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/30 border border-white/10">
-                                <div id="artText" class="space-y-3 text-center pointer-events-none select-none">
-                                    <div class="text-lg sm:text-xl opacity-95 font-bold">Interactive Preview</div>
-                                    <div class="text-sm sm:text-base opacity-85">Hover and click for easter eggs</div>
+                <!-- Right: Interactive preview & features -->
+                <div class="space-y-6">
+                    <!-- Status card -->
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-yellow-600 to-orange-600 rounded-3xl blur-xl opacity-20"></div>
+                        <div class="relative p-6 rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-white/10">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="text-sm text-gray-400 font-medium mb-1">System Status</div>
+                                    <div class="text-xl font-bold text-white">Under Maintenance</div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div id="statusDot" class="w-4 h-4 rounded-full bg-yellow-400 ring-4 ring-yellow-400/30 animate-pulse"></div>
+                                    <div class="px-4 py-2 rounded-xl bg-yellow-400/20 border border-yellow-400/40 text-yellow-400 text-sm font-bold">
+                                        <i class="fas fa-wrench mr-2"></i>Working
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive preview -->
+                    <div class="relative group">
+                        <div class="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-600 rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-500"></div>
+                        <div class="relative p-6 rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300">
+                            <div class="mb-4">
+                                <h3 class="text-lg font-bold text-white mb-2">
+                                    <i class="fas fa-sparkles text-purple-400 mr-2"></i>
+                                    Interactive Preview
+                                </h3>
+                                <p class="text-sm text-gray-400">Hover & click for surprises!</p>
+                            </div>
+                            <div id="art" class="relative h-64 rounded-2xl bg-gradient-to-br from-purple-600 via-pink-600 to-cyan-600 flex items-center justify-center overflow-hidden cursor-pointer transition-all duration-500 hover:scale-[1.02] shadow-2xl group-hover:shadow-purple-500/50">
+                                <div id="artText" class="relative z-10 text-center pointer-events-none select-none">
+                                    <div class="text-6xl mb-2 animate-float">🚀</div>
+                                    <div class="text-xl font-bold text-white">Click Me!</div>
                                 </div>
                                 <div id="sparkleBox" class="absolute inset-0 pointer-events-none"></div>
                             </div>
                         </div>
+                    </div>
 
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <button id="ghostBtn" class="flex-1 px-5 py-4 bg-white/10 hover:bg-white/15 rounded-xl font-semibold transition-all duration-300 hover:scale-105 border border-white/10 hover:border-white/20">View Changelog</button>
-                    <button id="contactBtn" class="flex-1 px-5 py-4 bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 rounded-xl font-bold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-emerald-500/30">Contact Team</button>
+                    <!-- Action buttons -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <button id="ghostBtn" class="relative group p-6 rounded-2xl bg-slate-900/80 backdrop-blur-xl border border-white/10 hover:border-white/20 font-semibold transition-all duration-300 hover:scale-105 text-center">
+                            <i class="fas fa-list text-purple-400 text-2xl mb-2 block"></i>
+                            <span class="text-white">Changelog</span>
+                        </button>
+                        <button id="contactBtn" class="relative group p-6 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 font-bold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-emerald-500/50 text-center">
+                            <i class="fas fa-envelope text-white text-2xl mb-2 block"></i>
+                            <span class="text-white">Contact Us</span>
+                        </button>
+                    </div>
+
+                    <!-- Dev console -->
+                    <div id="devConsole" class="hidden p-4 rounded-2xl bg-black/80 backdrop-blur-xl border border-green-500/30 text-xs font-mono text-green-300 max-h-48 overflow-auto shadow-lg shadow-green-500/20">
+                        <div class="text-green-400 font-bold mb-2">// DEV CONSOLE //</div>
+                        <div id="devContent">Initializing...</div>
+                    </div>
                 </div>
-
-                <div id="devConsole" class="hidden mt-4 p-4 bg-black/70 rounded-lg text-xs font-mono text-green-300 max-h-36 overflow-auto">/* Dev console hidden - press Dev */</div>
             </div>
         </div>
     </div>
 
     <!-- Changelog Modal -->
-    <div id="changelogModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div id="changelogModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-4" style="display: none;">
         <div class="bg-gray-900 border border-white/10 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden">
             <div class="flex items-center justify-between p-6 border-b border-white/10">
                 <h3 class="text-xl font-bold text-white">📋 Development Changelog</h3>
@@ -298,8 +424,8 @@
             if (stored) {
                 endTime = parseInt(stored, 10);
             } else {
-                // First visit - set countdown to 2 days from now
-                endTime = Date.now() + (2 * 24 * 60 * 60 * 1000); // 2 days in milliseconds
+                // First visit - set countdown to 4 days from now
+                endTime = Date.now() + (4 * 24 * 60 * 60 * 1000); // 4 days in milliseconds
                 localStorage.setItem(MAINTENANCE_KEY, endTime.toString());
             }
             
@@ -410,22 +536,32 @@
                 location.reload(); // Reload to apply new countdown
             };
 
-            // Ghost button animation
-            document.getElementById('ghostBtn').addEventListener('click', ()=>{
-                document.getElementById('changelogModal').classList.remove('hidden');
-            });
+            // Changelog button - show modal
+            const ghostBtn = document.getElementById('ghostBtn');
+            const changelogModal = document.getElementById('changelogModal');
+            const closeChangelog = document.getElementById('closeChangelog');
+            
+            if(ghostBtn && changelogModal) {
+                ghostBtn.addEventListener('click', ()=>{
+                    changelogModal.style.display = 'flex';
+                });
+            }
             
             // Close changelog modal
-            document.getElementById('closeChangelog').addEventListener('click', ()=>{
-                document.getElementById('changelogModal').classList.add('hidden');
-            });
+            if(closeChangelog && changelogModal) {
+                closeChangelog.addEventListener('click', ()=>{
+                    changelogModal.style.display = 'none';
+                });
+            }
             
             // Close modal when clicking outside
-            document.getElementById('changelogModal').addEventListener('click', (e)=>{
-                if(e.target.id === 'changelogModal') {
-                    document.getElementById('changelogModal').classList.add('hidden');
-                }
-            });
+            if(changelogModal) {
+                changelogModal.addEventListener('click', (e)=>{
+                    if(e.target.id === 'changelogModal') {
+                        changelogModal.style.display = 'none';
+                    }
+                });
+            }
             document.getElementById('contactBtn').addEventListener('click', ()=>{
                 window.location.href = 'mailto:kevinkutoane@ymail.com';
             });
