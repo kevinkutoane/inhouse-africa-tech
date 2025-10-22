@@ -276,7 +276,7 @@ User question: ${message}
 
 Provide a helpful, concise response. Be friendly and professional. If asked about pricing, explain what's included in each package. If they want to start a project, encourage them to contact us via the quote form or WhatsApp.`;
             
-            const response = await fetch('/api/gemini', {
+            const response = await fetch('https://inhouse-africa-tech.onrender.com/api/gemini', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
